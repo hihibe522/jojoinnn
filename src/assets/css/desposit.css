@@ -1,0 +1,198 @@
+#depositBody {
+    margin-left: 10rem;
+    margin-right: 10rem;
+
+}
+
+#depositBody input, #depositBody select {
+    cursor: url("../img/jo_images/cursorPoint.png"), auto;
+}
+
+#depositCard {
+    background-color: var(--jo_lGrey2);
+    border-radius: 25px;
+    padding: 0 5rem;
+}
+
+#depositTitle {
+    color: var(--jo_dark_water);
+    text-align: center;
+    padding: 5rem 0 3rem 0;
+}
+
+#depositBody div:first-child {
+    text-align: right;
+    padding-bottom: .5rem;
+}
+
+#depositStep1 select, #depositStep2 select {
+    border: 1.5px solid var(--jo_lGrey1);
+}
+
+#depositStep1 {
+    margin: 5rem 0;
+}
+
+#depositStep1 li span, #depositStep2 li span {
+    color: var(--jo_water);
+    font-weight: bold;
+}
+
+#depositStep1 li:first-child {
+    margin-bottom: 3rem;
+}
+
+#depositStep1 li:first-child img {
+    height: 100px;
+    margin-bottom: .5rem;
+}
+
+.joCoinChange {
+    margin-top: .5rem;
+    color: var(--jo_orange);
+}
+
+#depositStep1 li {
+    text-align: center;
+}
+
+#depositStep1 li select {
+    width: 250px;
+}
+
+#depositStep2 {
+    padding: 0 1rem;
+}
+
+#depositStep2 input {
+    background-color: var(--jo_white);
+    padding: 5px 1rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    border: 1.5px solid var(--jo_lGrey1);
+}
+
+#depositStep2 h5 {
+    text-align: start;
+}
+
+#writeCredit {
+    margin-top: 2rem;
+}
+
+.creditForm {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+
+
+#depositCredit h5{
+    display: flex;
+    align-items: center;
+}
+
+#depositCredit{
+    margin: 0;
+}
+
+#depositCredit input {
+    width: 80px;
+    margin: 0;
+}
+
+#depositCredit div {
+    display: flex;
+    /* background-color: blue; */
+    margin-bottom: .5rem;
+    
+}
+
+.creditForm h5 {
+    margin: 0;
+}
+
+.creditForm:first-child input {
+    width: 200px;
+}
+
+#depositExpired select {
+    width: 100px;
+    margin: 0 1.1rem;
+}
+
+#depositThree input {
+    width: 100px;
+}
+
+#creditCheck {
+    display: flex;
+    margin-top: 5rem;
+    justify-content: center;
+}
+
+#creditBtnDiv {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+#creditTerm {
+    color: var(--jo_orange);
+}
+
+#creditTerm:hover {
+    border-bottom: 1px solid var(--jo_orange);
+}
+
+#depositDown {
+    padding-top: 3rem;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+#creditImgDiv {
+    /* flex: .5; */
+    display: flex;
+    transform: translateY(1rem);
+}
+
+/* 左右區塊調整 */
+
+#creditUlDiv {
+    /* flex: .5; */
+}
+
+#creditImgDiv>div {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#creditImgDiv img {
+    width: 300px;
+    margin: auto;
+}
+
+#creditShadow {
+    height: 1rem;
+    animation: creditShadowAni 1s infinite linear;
+    background-color: black;
+    filter: blur(10px);
+    border-radius: 999px;
+    width: 95%;
+    margin: auto;
+}
+
+@keyframes creditShadowAni {
+    0% {
+        animation-timing-function: cubic-bezier(0.1348, 0.3256, 0.2495, 0.8687);
+        opacity: .5;
+    }
+    100% {
+        opacity: .05;
+    }
+}

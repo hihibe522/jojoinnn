@@ -1,0 +1,188 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+img {
+    object-fit: cover;
+}
+
+div {
+    padding: 5px;
+    object-fit: contain;
+}
+
+#uploadBtnR {
+    border-radius: 12px;
+    margin: auto;
+    width: 180px;
+}
+
+
+#myRegisterForm form {
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: 1.25rem;
+    border-radius: 25px;
+    padding: 0 5rem ;
+}
+
+/* 字體開始 */
+
+#myApplicationForm h1{
+    font-weight: bold;
+    color: #616E7D;
+}
+
+#myApplicationForm h5{
+    color: #646464;
+    text-align: center;
+}
+
+#myFormHeader span{
+    color: #F8B064;
+    font-weight: bold;
+}
+
+#myFormHeader a{
+    text-decoration: none;   
+}
+
+#m_city, optgroup { 
+    font-size:1.2rem; 
+}
+
+/* 字體結束 */
+
+/* 表單小標題區開始 */
+
+.myFormMargin h5{
+    margin-top: 2rem;
+
+}
+/* 表單小標題區結束 */
+
+
+
+/* 建立帳號跟填寫人資料 */
+
+.qTitle .jo_formSmallTitle{
+    margin-bottom: 5rem;
+}
+
+/* input框裡面的字 */
+
+
+.m_intro textarea::placeholder {
+    font-size: 1.2rem;
+  }
+
+  /* input輸入之後的字體大小 */
+  .m_intro textarea{
+      font-size: 1.2rem;
+  }
+
+  #myApplicationForm input{
+    font-size: 1.2rem;
+  }
+
+  #myApplicationForm input::placeholder{
+    font-size: 1.2rem;
+  }
+
+
+
+
+
+.myForm-control{
+border-left: 4px solid #FFCB05;
+}
+
+.myLiving, .myIntro {
+    border-radius: 10px;
+}
+
+
+#myFormHeader {
+    /* background-image: url("../img/活動註冊/jo_activItyTop.png"); */
+    filter: brightness(1.15) opacity(0.9);
+    height: 140px;
+    padding-top: 5rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 25px 25px 0px 0px;
+    background-position: 10%;
+}
+
+.form-group label {
+    text-align: right;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#applicationForm {
+    position: relative;
+    /* width: 70%;
+    left: 15%; */
+}
+
+#uploadBtn {
+    width: 130px;
+}
+
+.pnlEventCalendar {
+    border: 1px black solid;
+    display: none;
+}
+
+
+
+tr td {
+    font-size: 12px;
+    text-align: center;
+    margin: 5px
+}
+
+tr th {
+    font-size: 12px;
+    text-align: center
+}
+
+/*CSSSSSS */
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
+
+/* 服務條款區塊 */
+
+.myRules a{
+    /* text-decoration: none; */
+    color: #F8B064;
+}
+
+
+/* 表格右下方太空鳥 */
+
+#registerBird{
+    position:absolute;
+    z-index: 2;
+    height: 90px;
+    bottom:-20px; 
+    right:-50px;
+
+    /* 不要亂下magin，會影響整個版面 */
+    /* margin: -80px 1000px; */
+} 
+
+
+

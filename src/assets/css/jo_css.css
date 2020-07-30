@@ -1,0 +1,877 @@
+@import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+:root {
+    --jo_white: #FFFFFF;
+    --jo_text: #454C53;
+    --jo_dGrey1: #646464;
+    --jo_dGrey2: #919497;
+    --jo_dGrey3: #AFB6BC;
+    --jo_lGrey1: #DFDFDF;
+    --jo_lGrey2: #F3F3F3;
+    --jo_water: #81C7D4;
+    --jo_dark_water: #616E7D;
+    --jo_yellow: #FFCB05;
+    --jo_orange: #F9A74F;
+    --jo_dark_orange: #bb6a13;
+    --jo_red: #E35050;
+    --jo_dark_red: #801111;
+}
+
+html {
+    font-size: 16px;
+}
+
+* {
+    cursor: url("../img/jo_images/cursorArrow.png"), auto;
+    user-select: none;
+}
+a,a:hover{
+  text-decoration: none;
+}
+
+.jo_hover:hover {
+    cursor: url("../img/jo_images/cursorPoint.png"), auto;
+}
+
+body {
+    font-size: 16px;
+    font-family: 'cwTeXYen', sans-serif;
+    margin: 0px;
+    color: var(--jo_text);
+    background-image: url(../img/jo_images/jo_mainBG.png);
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: #29383d;
+    overflow-x: hidden;
+}
+
+/* 格線 */
+
+.jo_col_pc {
+    box-sizing: border-box;
+    margin: 11rem 8%;
+    padding: 1.5rem;
+}
+
+/* 卷軸 */
+
+.jo_scrollbar::-webkit-scrollbar {
+    width: 20px;
+    border-radius: 10px;
+}
+
+.jo_scrollbar::-webkit-scrollbar-thumb {
+    border: 6px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    border-radius: 20px;
+    background-color: rgba(122, 122, 122, 0.8);
+    box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.05), inset 1px 1px 0px rgba(0, 0, 0, 0.05);
+}
+
+/* 標題字 */
+
+h1, h2, h3, h4 {
+    margin: .5rem 0;
+    font-weight: normal;
+}
+
+h1, h2 {
+    color: var(--jo_dark_water);
+}
+
+h3, h4 {
+    color: var(--jo_text);
+}
+
+.jo_title_l {
+    font-size: 2.5rem;
+    color: var(--jo_water);
+}
+
+/* 下拉選單 */
+
+select {
+    font-size: 1.2rem;
+    width: 150px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1.5px var(--jo_dGrey3) solid;
+    padding: 5px;
+    outline: none;
+}
+
+/* 搜尋框 */
+
+.searchBox input {
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    height: 40px;
+    font-size: 1.2rem;
+    padding: 5px 1rem;
+}
+
+.searchBox button {
+    width: 50px;
+    border-radius: 10px;
+    position: relative;
+    bottom: 3px;
+    outline: none;
+}
+
+/* 大按鈕 */
+
+.jo_btn {
+    font-family: 'cwTeXYen', sans-serif;
+    font-size: 1.25rem;
+    color: var(--jo_white);
+    height: 50px;
+    width: 200px;
+    border: 0;
+    border-radius: 100px;
+    outline: none;
+    text-align: center;
+}
+
+button {
+    outline: none;
+}
+
+.jo_btnGrey {
+    font-family: 'cwTeXYen', sans-serif;
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: var(--jo_white);
+    height: 50px;
+    width: 200px;
+    border: 0;
+    border-radius: 100px;
+    outline: none;
+    background-color: var(--jo_lGrey1);
+    box-shadow: 0 3px 0px var(--jo_dGrey2), 0px 2px 0px 0px rgba(255, 255, 255, 0.5) inset;
+    color: var(--jo_dGrey2);
+}
+
+.jo_btn_m {
+    height: 45px;
+    width: 150px;
+    font-size: 1.125rem;
+}
+
+.jo_btn_s {
+    height: 40px;
+    width: 110px;
+    font-size: 1rem;
+}
+
+.jo_btnWater {
+    background-color: var(--jo_water);
+    box-shadow: 0 3px 0px var(--jo_dark_water), 0px 2px 0px 0px rgba(255, 255, 255, 0.5) inset;
+}
+
+.jo_btnOrange {
+    background-color: var(--jo_orange);
+    box-shadow: 0 3px 0px var(--jo_dark_orange), 0px 2px 0px 0px rgba(255, 255, 255, 0.5) inset;
+}
+
+.jo_btnRed {
+    background-color: var(--jo_red);
+    box-shadow: 0 3px 0px var(--jo_dark_red), 0px 2px 0px 0px rgba(255, 255, 255, 0.5) inset;
+}
+
+.jo_btnBlue {
+    background-color: var(--jo_dark_water);
+    box-shadow: 0 3px 0px var(--jo_text), 0px 2px 0px 0px rgba(255, 255, 255, 0.5) inset;
+}
+
+/* 大按鈕Hover */
+
+.jo_btn:hover {
+    filter: brightness(1.1) saturate(1.1);
+    transform-origin: bottom;
+    transform: translateY(-3px);
+    transition-duration: 0.25s;
+    transition-timing-function: cubic-bezier(0, 1.16, .65, 1.71);
+    /* cursor: pointer; */
+}
+
+.jo_btnWater:hover {
+    cursor: url("../img/jo_images/cursorPoint.png"), auto;
+    box-shadow: 0 6px 0px var(--jo_dark_water), 0px 2px 0px 0px rgba(255, 255, 255, 0.5) inset;
+}
+
+.jo_btnOrange:hover {
+    cursor: url("../img/jo_images/cursorPoint.png"), auto;
+    box-shadow: 0 6px 0px var(--jo_dark_orange), 0px 2px 0px 0px rgba(255, 255, 255, 0.5) inset;
+}
+
+.jo_btnRed:hover {
+    cursor: url("../img/jo_images/cursorPoint.png"), auto;
+    box-shadow: 0 6px 0px var(--jo_dark_red), 0px 2px 0px 0px rgba(255, 255, 255, 0.5) inset;
+}
+
+.jo_btnBlue:hover {
+    cursor: url("../img/jo_images/cursorPoint.png"), auto;
+    box-shadow: 0 6px 0px var(--jo_text), 0px 2px 0px 0px rgba(255, 255, 255, 0.5) inset;
+}
+
+.jo_btnGrey:hover {
+    cursor: url("../img/jo_images/cursorArrow.png"), auto;
+}
+
+/* 大按鈕點選 */
+
+.jo_btn:active {
+    transform: translateY(3px);
+    transform-origin: bottom;
+    transition-timing-function: ease-out;
+    transition-duration: 0.01s;
+    box-shadow: 0 0px 0px #616E7D, 0px 2px 0px 0px rgb(255, 255, 255, 0.5) inset;
+}
+
+/* navBar文字 */
+
+.jo_navTitleYellow, .jo_navTitleGreen {
+    color: var(--jo_white);
+    text-align: center;
+    /* width: 80px; */
+    padding: 10px 20px;
+    font-size: 1.25rem;
+    /* font-weight: bold; */
+}
+
+.jo_navTitleYellow:hover, .jo_navTitleGreen:hover {
+    color: var(--jo_dark_water);
+}
+
+.jo_navTitleYellow hr, .jo_navTitleGreen hr {
+    border-radius: 10px;
+    transform: scaleX(0);
+    transition-duration: 0.3s;
+    transition-timing-function: cubic-bezier(0, 1.16, .65, 1.71);
+    margin: -0.5px 0px;
+}
+
+.jo_navTitleYellow hr {
+    background-color: var(--jo_yellow);
+    border: var(--jo_yellow) 2px solid;
+}
+
+.jo_navTitleGreen hr {
+    background-color: var(--jo_water);
+    border: var(--jo_water) 2px solid;
+}
+
+.jo_navTitleYellow:hover hr, .jo_navTitleGreen:hover hr {
+    transform: scaleX(1);
+}
+
+/* 愛心 */
+
+.jo_heartDiv {
+    width: 100px;
+    height: 85px;
+    position: relative;
+}
+
+.jo_heart {
+    position: absolute;
+    width: 100px;
+}
+
+.jo_heart:hover {
+    filter: brightness(0.8);
+}
+
+.jo_heartPink {
+    transition-delay: 0.3s;
+    transition-timing-function: ease-out;
+    position: absolute;
+    filter: brightness(2.5) hue-rotate(135deg) saturate(5);
+    animation-name: jo_heartPinkAni;
+    animation-duration: 0.2s;
+    animation-delay: 0.2s;
+}
+
+@keyframes jo_heartPinkAni {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.jo_heartPinkAni {
+    position: absolute;
+    filter: brightness(2.5) hue-rotate(135deg) saturate(5);
+    animation-name: jo_heartAni;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes jo_heartAni {
+    0% {
+        transform: scale(0.5);
+        opacity: .5;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    99% {
+        transform: scale(3);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+/* 表單小標題 */
+
+.jo_formSmallTitle {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    border-bottom: 1.5px solid var(--jo_lGrey1);
+    margin-bottom: 2rem;
+}
+
+.jo_formSmallTitle h5 {
+    border-radius: 10px 10px 0 0;
+    padding: 0.5rem 2.5rem;
+    background-color: var(--jo_lGrey1);
+    margin: 0;
+}
+
+/* NavBar */
+
+#jo_logo {
+    height: 90px;
+    margin: 10px 15px;
+}
+
+.jo_navBar {
+    z-index: 100;
+    width: 100%;
+    height: 100px;
+    background-image: url(../img/jo_images/jo_navBG.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: fixed;
+    top: -.5px;
+    display: flex;
+    color: var(--jo_white);
+    filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.3));
+}
+
+#jo_navBar_L {
+    /* margin-top: 0.5rem; */
+    display: flex;
+    align-items: center;
+    height: 70px;
+}
+
+#jo_navBar_R {
+    /* margin-top: 0.5rem; */
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 2rem;
+    height: 70px;
+}
+
+#jo_notLogged, #jo_login {
+    display: flex;
+}
+
+/* #jo_login {
+    margin-top: -0.5rem;
+} */
+
+.jo_profile {
+    width: 3.5rem;
+    height: 3.5rem;
+    overflow: hidden;
+    border-radius: 999px;
+    margin: auto;
+}
+
+.jo_money, .jo_bell {
+    display: flex;
+    align-items: center;
+    margin-right: 5rem;
+}
+
+.jo_bell {
+    position: relative;
+    margin-right: 3.5rem;
+}
+
+/* 紅色圓圈圈 */
+
+.jo_bell div {
+    z-index: 100;
+    top: 5px;
+    right: -5px;
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    border-radius: 999px;
+    background-color: var(--jo_red);
+    display: flex;
+}
+
+.jo_bell img:hover {
+    filter: brightness(1.2);
+}
+
+.jo_bell img:active {
+    transform: scale(1.1);
+    transition-timing-function: ease-out;
+}
+
+.jo_bell div h6 {
+    margin: auto;
+}
+
+.jo_money h5 {
+    margin: 0px;
+    padding: .5rem;
+    font-weight: bold;
+    /* color: var(--jo_text); */
+}
+
+.jo_profile img {
+    object-fit: cover;
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+.jo_money img {
+    object-fit: contain;
+    width: 3rem;
+    height: 3rem;
+}
+
+.jo_bell img {
+    object-fit: contain;
+    width: 2.5rem;
+    height: 2.5rem;
+    position: absolute;
+    right: 0;
+}
+
+textarea {
+    resize: none;
+}
+
+.joTitle_hover:hover {
+    color: var(--jo_water);
+    transition-timing-function: cubic-bezier(0, 1.16, .65, 1.71);
+    transition-duration: 0.2s;
+}
+
+/* 圖片hover */
+
+.joPic_hover:hover {
+    filter: brightness(1.1);
+    transform: scale(1.1);
+    transition-timing-function: cubic-bezier(0, 1.16, .65, 1.71);
+    transition-duration: 0.2s;
+}
+
+/* modal */
+
+.jo_modal {
+    width: 500px;
+    padding-bottom: 3rem;
+    /* height: 520px; */
+    background-color: var(--jo_lGrey2);
+    color: var(--jo_dark_water);
+    text-align: center;
+    border-radius: 25px;
+    /* margin: auto; */
+    pointer-events: all;
+}
+
+.jomodal_title {
+    background-color: var(--jo_lGrey1);
+    height: 70px;
+    border-radius: 25px 25px 0px 0px;
+    margin-bottom: 10%;
+}
+
+.jomodal_content, .jomodal_content h1 {
+    margin-bottom: 20px;
+}
+
+.jomodal_content h5 {
+    padding: 0 45px;
+    word-wrap: break-word;
+}
+
+.jomodal_content textarea {
+    font-size: 1rem;
+    width: 80%;
+    border: var(--jo_dGrey3) 1.5px solid;
+    border-radius: 10px;
+    margin-top: 5%;
+    outline: none;
+    padding: 10px;
+}
+
+.jomodal_footer {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 8px;
+}
+
+button.modal_close {
+    background: var(--jo_red);
+    border: none;
+    border-radius: 50%;
+    color: #FFFFFF;
+    cursor: pointer;
+    outline: none;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    transition: transform 600ms;
+    position: relative;
+    float: right;
+}
+
+button.modal_close:hover {
+    transform: rotate(360deg) scale(1.10);
+    transition: transform 600ms;
+}
+
+button.modal_close span, .modal_close span:before, .modal_close span:after {
+    background: #FFFFFF;
+    content: '';
+    cursor: pointer;
+    display: block;
+    height: 3px;
+    position: absolute;
+    width: 25px;
+}
+
+button.modal_close span:first-child {
+    background: none;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+button.modal_close span:before {
+    transform: rotate(45deg);
+}
+
+button.modal_close span:after {
+    transform: rotate(-45deg);
+}
+
+.madalClose {
+    border: none;
+}
+
+/* 通知欄 */
+
+.jo_notice {
+    color: var(--jo_text);
+    top: 70px;
+    right: 6rem;
+    background-color: var(--jo_white);
+    width: 450px;
+    position: fixed;
+    max-height: 500px;
+    min-height: 100px;
+    border-radius: 15px;
+    display: flex;
+    overflow: auto;
+    padding: 2rem 0;
+    animation-name: jo_noticeAni;
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(.99, .02, .99, .54);
+}
+
+.jo_noticeRead {
+    background-color: #e2e2e2;
+}
+
+.jo_notice ul {
+    width: 100%;
+    margin: 0;
+}
+
+.jo_notice li {
+    display: flex;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--jo_lGrey1);
+}
+
+.jo_notice li:hover {
+    background-color: #f0efef;
+}
+
+.jo_notice li h5 {
+    margin: 0px;
+}
+
+.jo_notice li span {
+    color: var(--jo_orange);
+}
+
+#isRead {
+    padding-right: 20px;
+    padding-bottom: 10px;
+    text-align: right;
+    margin-left: auto;
+    width: 100%;
+}
+
+@keyframes jo_noticeAni {
+    0% {
+        height: 100px;
+        /* overflow: hidden; */
+        opacity: 0.8;
+    }
+    100% {
+        height: 500px;
+        /* overflow: hidden; */
+        opacity: 1;
+    }
+}
+
+.jo_noticeTri {
+    right: 9.6rem;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    width: 25px;
+    height: 25px;
+    top: 55px;
+    position: fixed;
+    background-color: var(--jo_white);
+}
+
+/* jojo小屋 */
+
+.jo_house {
+    color: var(--jo_text);
+    top: 70px;
+    right: 0rem;
+    background-color: var(--jo_lGrey1);
+    width: 400px;
+    position: fixed;
+    height: 90vh;
+    border-radius: 15px;
+    display: flex;
+    overflow: auto;
+    animation-name: jo_noticeAni;
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(.99, .02, .99, .54);
+    overflow: hidden;
+}
+
+.jo_houseIcon {
+    display: flex;
+    margin-top: -.5rem;
+}
+
+.jo_houseIcon img {
+    height: 40px;
+    margin: 0 .2rem;
+}
+
+.jo_houseTri {
+    right: 3rem;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    width: 25px;
+    height: 25px;
+    top: 50px;
+    position: fixed;
+    background-color: var(--jo_lGrey1);
+}
+
+.jo_house_bottom {
+    background-color: var(--jo_white);
+    position: absolute;
+    width: 100%;
+    height: 80%;
+    border-radius: 15px;
+    top: 180px;
+    overflow: scroll;
+}
+
+.jo_house_top {
+    padding: 2rem;
+    display: flex;
+    width: 100%;
+    height: 180px;
+    box-sizing: border-box;
+}
+
+.jo_house_bottom {
+    padding: 2rem;
+}
+
+.jo_houseHeader img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin: auto;
+}
+
+.jo_houseInfo h4 {
+    color: var(--jo_dark_water);
+    font-weight: bold;
+    margin: 0px;
+}
+
+.jo_houseHeader, .jo_houseInfo {
+    height: 100%;
+    flex: .5;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+}
+
+.jo_house input {
+    height: 30px;
+    width: 80px;
+    font-size: 1rem;
+}
+
+/* 正在主jo/正在參jo標題 */
+
+.jo_house_bottom h4 {
+    margin: 0px;
+    color: var(--jo_dark_water);
+    display: inline;
+}
+
+.jo_house_bottom span {
+    font-size: 1rem;
+    margin-left: .5rem;
+    color: var(--jo_water)
+}
+
+.jo_houseUl img {
+    width: 65px;
+    height: 65px;
+    border-radius: 999px;
+    object-fit: cover;
+}
+
+.jo_houseUl li {
+    display: flex;
+    align-items: center;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--jo_lGrey2);
+}
+
+.jo_house_joingBtn {
+    display: flex;
+    margin-left: auto;
+}
+
+.jo_house_joingBtn div {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.jo_house_joingBtn input {
+    margin-left: auto;
+    margin: 5px 0;
+}
+
+.jo_house_joingTitle {
+    padding-left: 1rem;
+    width: 165px;
+    /* background-color: aquamarine; */
+}
+
+.jo_house_joingTitle h5, .jo_house_joingTitle h6 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 5px;
+}
+
+.jo_house_joingTitle h6 {
+    color: var(--jo_dGrey3);
+}
+
+/* 正在參加 */
+
+.jo_house_bottom h4:nth-child(2) {
+    background-color: aquamarine;
+    margin-top: 2rem;
+}
+
+.jo_houseJoing {
+    margin-top: 5rem;
+}
+
+/* 在最下面 */
+
+.jo_show {
+    display: none;
+}
+
+/* 評價 */
+
+.jo_rating img {
+    height: 35px;
+    margin: 0px 0.25rem;
+    transition-timing-function: ease-out;
+    transition-duration: 0.2s;
+}
+
+.jo_rating img:hover {
+    cursor: url("../img/jo_images/cursorPoint.png"), auto;
+}
+
+.jo_rating img:active {
+    transform: scale(1.5);
+}
+
+.jo_starGrey {
+    filter: grayscale();
+}
+
+/* Footer */
+
+#jo_footer {
+    position: relative;
+    min-width: 1000px;
+}
+
+#jo_Info {
+    padding: 0 30%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: absolute;
+}
+
+#jo_footerBG {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}

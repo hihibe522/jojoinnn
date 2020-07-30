@@ -1,0 +1,197 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+img {
+    object-fit: cover;
+}
+
+div {
+    padding: 5px;
+    object-fit: contain;
+}
+
+#myLoginFormRow{
+    overflow: hidden;
+    border-radius: 25px;
+    padding: 0;
+    margin: 0;
+}
+
+#uploadBtn {
+    border-radius: 12px
+}
+
+
+/* 左半邊開始 */
+
+.leftSide{
+    background-image: url(/img/jo_images/註冊背景.svg);
+    background-repeat: no-repeat;
+    background-size:cover;
+    overflow: hidden;
+    /* background-size: 100% 100%; */
+    position: relative;
+}
+
+/* 火箭鳥圖 */
+.rocket{
+/* margin: 160px 0 100px 10px; */
+height: 200px;
+position: absolute;
+top:5rem;
+right: 2rem;
+
+}
+
+.rocket2{
+    /* margin: 160px 0 100px 10px; */
+    height: 300px;
+    position: absolute;
+    top:5rem;
+    right: 2rem;
+    
+    }
+
+.rocket3{
+    /* 正版是這隻 */
+    /* margin: 160px 0 100px 10px; */
+    height: 450px;
+    position: absolute;
+    top:5rem;
+    right: 2rem;
+    
+    }
+
+    .rocket4{
+        /* margin: 160px 0 100px 10px; */
+        height: 600px;
+        position: absolute;
+        top:5rem;
+        right: 2rem;
+        
+        }
+
+/* 左半邊結束 */
+
+#myLoginForm form {
+    /* position: relative; */
+    /* box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2); */
+    background-color: white;
+    /* margin-bottom: 0.5rem; */
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: 1.25rem;
+    border-radius: 0 25px 25px 0;
+    padding: 0 5rem ;
+}
+
+/* 字體開始 */
+
+#myLoginForm h1{
+    font-weight: bold;
+    color: #616E7D;
+}
+
+#myLoginForm h5{
+    color: #646464;
+    text-align: center;
+}
+
+#myLoginHeader span{
+    color: #F8B064;
+    font-weight: bold;
+}
+
+#myLoginHeader a{
+    text-decoration: none;
+    
+}
+
+/* 字體結束 */
+
+
+
+
+/* input框裡面的字 */
+
+
+.m_intro textarea::placeholder {
+    font-size: 1.2rem;
+  }
+
+  /* input輸入之後的字體大小 */
+
+  #myLoginForm input{
+    font-size: 1.2rem;
+  }
+
+  #myLoginForm input::placeholder{
+    font-size: 1.2rem;
+  }
+
+
+
+
+
+.myForm-control{
+border-left: 4px solid #FFCB05;
+}
+
+
+
+
+#myLoginHeader {
+    /* background-image: url("../img/活動註冊/jo_activItyTop.png"); */
+    /* filter: brightness(1.15) opacity(0.9); */
+    /* height: 140px; */
+    padding-top: 5rem;
+    padding-bottom: 3rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 25px 25px 0px 0px;
+    background-position: 10%;
+}
+
+.form-group label {
+    text-align: right;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#applicationForm {
+    position: relative;
+    /* width: 70%;
+    left: 15%; */
+}
+
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
+
+/* 詢問加入會員區塊 */
+
+.myRules a{
+    text-decoration: none;
+    color: #F8B064;
+    font-weight: bold;
+}
+
+
+
+/* rocket animation */
+
+
+
+
+
+
+

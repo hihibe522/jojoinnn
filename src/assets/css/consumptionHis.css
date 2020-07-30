@@ -1,0 +1,124 @@
+#consumptionBody {
+    padding: 0rem;
+    margin-left: 15%;
+    margin-right: 15%;
+    position: relative;
+    /* overflow: hidden; */
+}
+
+#consumptionTitle h1 {
+    color: var(--jo_water);
+    margin: auto;
+}
+
+#consumptionBody input{
+    position: absolute;
+    top: 1rem;
+    right: 0px;
+}
+
+#consumptionTitle {
+    display: flex;
+    padding: 1rem 0;
+
+}
+
+#consumptionBody table {
+    width: 100%;
+    table-layout: fixed;
+    background-image: linear-gradient(to bottom, rgb(212, 212, 212,0) 15%, rgb(235, 235, 235) 16%);
+    /* background-color: var(--jo_lGrey2); */
+    border-radius: 25px;
+}
+
+#consumptionBody table tr {
+    height: 4rem;
+}
+
+#consumptionBody tr th {
+    padding: 10px;
+}
+
+#consumptionBody th h4 {
+    border-radius: 10px;
+    /* width: 75%; */
+    height: 3.6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-origin: center;
+    margin: auto;
+    /* box-shadow: 0px 3px 3px -3px rgba(0, 0, 0, 0.4) inset,0px 8px 10px -2px rgba(0, 0, 0, 0.3) inset,0 0 5px 2px rgba(255, 255, 255, 1); */
+    /* font-weight: bold; */
+    color: var(--jo_white);
+}
+
+#consumptionBody td h5 {
+    text-align: center;
+    margin: 0;
+}
+
+#consumptionBody td {
+    vertical-align: middle;
+}
+
+#consumptionBody th{
+    border-radius: 25px 25px 0 0 ;
+    /* background-color: royalblue; */
+}
+
+#consumptionBody tr th:first-child{
+   
+    background-image: linear-gradient(to top, #798899 , #90a0b3) ;
+}
+
+#consumptionBody tr th:nth-child(2){
+    background-image: linear-gradient(to top, #fea284 , #f8cc79) ;
+}
+
+#consumptionBody tr th:nth-child(3){
+    background-image: linear-gradient(to top, #E35050 , #fd9090) ;
+}
+
+#consumptionBody tr th:last-child{
+    background-image: linear-gradient(to top, #81C7D4 , #95ece5) ;
+}
+
+
+
+
+#consumptionBody tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 999px;
+    mix-blend-mode: multiply;
+}
+
+ #consumptionBody tr td:first-child {
+    background-image:linear-gradient(to right, rgb(226, 226, 226), rgb(255, 255, 255));
+}
+
+ #consumptionBody tr td:nth-child(2) {
+    background-image: linear-gradient(to right, rgb(226, 226, 226), rgb(255, 255, 255));
+}
+
+#consumptionBody tr td:nth-child(3) {
+    background-image: linear-gradient(to right, rgb(226, 226, 226), rgb(255, 255, 255));
+}
+
+#consumptionBody tr td:last-child {
+    background-image: linear-gradient(to right, rgb(226, 226, 226), rgb(255, 255, 255));
+}
+
+
+
+/* 左下角td */
+
+#consumptionBody tr:nth-last-child(1) td:nth-child(1) {
+    border-radius: 0 0 0 25px;
+}
+
+/* 右下角td */
+
+#consumptionBody tr:nth-last-child(1) td:nth-child(4) {
+    border-radius: 0 0 25px 0;
+}

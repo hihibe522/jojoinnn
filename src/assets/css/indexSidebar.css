@@ -1,0 +1,219 @@
+/* 下背景色才知道區塊位置 */
+
+body {
+    background-color: var(--jo_lGrey2);
+}
+
+/* hr */
+
+/* sidebar icon_size setting */
+
+.sidebarImg {
+    width: 30.31px;
+    height: 30.75px;
+}
+
+/* sidebar外層設container調位置 */
+
+.container1 {
+    display: flex;
+    height: 1000px;
+    width: 100%;
+    padding: 0%;
+    margin: 0%;
+}
+
+/* sidebar menu */
+
+/* height: 100%是看父層的大小 */
+
+/* sidebar的白色區塊 */
+
+.jo_sidebar {
+    position: fixed;
+    /* width: 100%; */
+    /* width: 15rem; */
+    /* flex: 0.2; */
+    height: 100%;
+    /* 水平垂直置中 畫面到哪都會置中*/
+    /* align-content: center;
+    justify-content: center; */
+    /* Nav的寬是80px，所以讓sidebar從80px開始就不會擋到*/
+    /* top: 80px; */
+    /* Stay in place */
+    z-index: 99;
+    background-color: white;
+    /* white*/
+    overflow-y: auto;
+    /* Disable horizontal scroll */
+    /* transition: 0.5s;
+    transition-timing-function: ease-out; */
+    /* 0.5 second transition effect to slide in the sidebar */
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+    /* display: none; */
+}
+
+/* sidebar的內容區塊 */
+
+#sideBarFilter {
+    /* background-color: yellow; */
+    align-content: center;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    padding: 3rem 0;
+}
+
+ul {
+    /* background-color: #81C7D4; */
+    width: 100%;
+    display: flex;
+}
+
+/* sidebar links */
+
+/* .jo_sidebar ul>li {
+    display: block;
+    transition: 0.3s;
+} */
+
+/* icon跟文字同一排 */
+
+#my_sidebar li {
+    margin: auto;
+    /* width: 70%; */
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+#my_sidebar li select {
+    width: 100%;
+}
+
+#my_sidebar li div {
+    display: flex;
+    margin-bottom: 6px;
+}
+
+/* rotate the icon */
+
+.rotate {
+    -moz-transition: all 2s linear;
+    -webkit-transition: all 2s linear;
+    transition: all 0.1s linear;
+}
+
+.down {
+    -moz-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+/* 文字距離上層位置 */
+
+#my_sidebar {
+    padding: 9rem 0;
+}
+
+/* 控制sidebar滑出 */
+
+#outsideBox {
+    position: relative;
+}
+
+.slideBox {
+    display: flex;
+    position: absolute;
+    top: -2rem;
+    background-color: #81C7D4;
+    height: 42px;
+    width: 2rem;
+    border-radius: 5px 0 0 5px;
+    right: 0;
+    cursor: pointer;
+    /* transition effect */
+    transition: margin-left .5s;
+}
+
+#slideicon {
+    margin: auto;
+}
+
+.slideBox:hover {
+    background-color: #AFB6BC;
+}
+
+/* icon on slidebox */
+
+/* 左邊radio的class */
+
+.jo_sidebarEvent {
+    width: 3rem
+}
+
+#sideRadio {
+    display: flex;
+    justify-content: center;
+}
+
+#sideRadio div {
+    display: flex;
+    align-items: center;
+    margin: 0 0.5rem;
+}
+
+#sideRadio label {
+    margin: auto;
+    font-size: 1.2rem;
+}
+
+/* 右邊畫面 */
+
+.indexCarousel {
+    display: flex;
+    margin: auto;
+    background-color: salmon;
+    width: 600px;
+    height: 400px;
+}
+
+/* #fakeSidebar {
+    width: 15rem;
+} */
+
+.indexCarousel img {
+    margin: auto;
+}
+
+/* test */
+
+.grid-container {
+    width: 100vw;
+    display: flex;
+    transition: 1s ease ;
+}
+
+.sidebar {
+    width: 200px;
+    /* height: 100%; */
+    background-color: var(--jo_lGrey2);
+    transition: 1s ease;
+    position: relative;
+}
+
+.main-content {
+    display: flex;
+    width: 80%;
+    height: 100%;
+    background-color: var(--jo_lGrey2);
+    transition: 1s ease;
+}
+
+.main-content_large {
+    width: 90%;
+}
+
+.sidebar_small {
+    width: 50px;
+}

@@ -1,0 +1,149 @@
+/* 外面 */
+
+.gridAct {
+	display: grid;
+	/* grid-template-columns: 1fr 1fr 1fr 1fr; */
+	grid-gap: 1rem;
+	/* background-color: seagreen; */
+	/* width: 200px; */
+	/* height: 520px;
+	margin: 5rem auto;
+	border-radius: 25px;
+	box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2)  */
+}
+
+
+.container div::before {
+	content: "";
+	padding-bottom: 100%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+
+
+/* 裡面 */
+.grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-gap: 0rem;
+	padding: 10px 10px 10px 10px;
+	max-width:100%;
+	/* margin: 0 0 0 80px; */
+	list-style: none;
+	text-align: center;
+}
+
+.grid li {
+	display: inline-block;
+	width: 300px;
+	height: 300px;
+	margin: 0;
+	padding: 10px;
+	text-align: left;
+	position: relative;
+}
+
+.grid figure {
+	margin: 0;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background-color: #f5b2b2;
+}
+
+.grid figure img {
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	display: block;
+	position: absolute;
+	object-fit: cover;
+}
+
+.grid figcaption {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	padding: 20px;
+	background: var(--jo_dark_water);
+	color: white;
+}
+
+.grid figcaption h3 {
+	margin: 0;
+	padding: 0;
+	color: #fff;
+}
+
+/* .grid figcaption span:before {
+	content: '2020/07/30 ';
+} */
+
+.grid figcaption p:before {
+	content: '地點:  台中市姍姍區姍姍路28號 \A 主辦人: 姍姍';  
+	white-space: pre;                     
+	
+}
+
+
+
+/* .grid figcaption a {
+	text-align: center;
+	padding: 5px 10px;
+	display: inline-block;
+	text-decoration: none;
+} */
+
+/* Individual Caption Styles */
+
+/* Caption Style 3 */
+
+
+.cs-style-3 figure {
+	overflow: hidden; 
+}
+
+.cs-style-3 figure img {
+	
+	-webkit-transition: -webkit-transform 0.4s;
+	-moz-transition: -moz-transform 0.4s;
+	transition: transform 0.4s;
+}
+
+.no-touch .cs-style-3 figure:hover img,
+.cs-style-3 figure .cs-hover img {
+	-webkit-transform: translateY(-50px);
+	-moz-transform: translateY(-50px);
+	-ms-transform: translateY(-50px);
+	transform: translateY(-50px);
+}
+
+
+/* 活動資訊 */
+.cs-style-3 figcaption {
+	
+	/* 活動資訊移動 */
+	transform: translateY(70%);
+	-webkit-transition: -webkit-transform 0.4s, opacity 0.1s 0.3s;
+	-moz-transition: -moz-transform 0.4s, opacity 0.1s 0.3s;
+	transition: transform 0.4s, opacity 0.1s 0.3s;
+}
+
+.no-touch .cs-style-3 figure:hover figcaption,
+.cs-style-3 figure.cs-hover figcaption {
+	opacity: 1;
+	-webkit-transform: translateY(0px);
+	-moz-transform: translateY(0px);
+	-ms-transform: translateY(0px);
+	transform: translateY(0px);
+	-webkit-transition: -webkit-transform 0.4s, opacity 0.1s;
+	-moz-transition: -moz-transform 0.4s, opacity 0.1s;
+	transition: transform 0.4s, opacity 0.1s;
+}
+
+.cs-style-3 figcaption a {
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+}

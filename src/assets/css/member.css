@@ -1,0 +1,874 @@
+body {
+    /* background-color: var(--jo_dark_water); */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.jo_col_pc {
+    display: flex;
+    justify-content: space-between;
+}
+
+.memberMain {
+    word-wrap: break-word;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0;
+    margin: 0 1rem;
+}
+
+#memberMain_L {
+    background-color: var(--jo_white);
+    padding: 3rem 0;
+    flex: 0.25;
+    filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.2));
+  justify-content: flex-start;
+}
+
+#mamemberMain_R {
+    flex: 0.75;
+    filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.2));
+}
+
+.memberInfo div {
+    margin-bottom: 1rem;
+}
+
+.memberInfo {
+    width: 100%;
+    text-align: center;
+    padding: 0 3rem;
+}
+
+.memberInfo>img {
+    width: 200px;
+    margin: auto;
+    border-radius: 100px;
+    margin-bottom: 1rem;
+    /* margin-top: 3rem; */
+}
+
+.memberName {
+    font-weight: bold;
+}
+
+.memberIcon img {
+    width: 2rem;
+}
+
+.hrDIv {
+    border: var(--jo_lGrey1) .5px solid;
+    margin: 1rem 0;
+}
+
+.memberRating ul {
+    display: flex;
+    justify-content: space-around;
+}
+
+.memberRating ul li {
+    display: flex;
+}
+
+.memberRating ul img {
+    width: 20px;
+    height: 20px;
+    margin: auto;
+    color: var(--jo_yellow);
+}
+
+.memberRating ul li:nth-child(5) i {
+    color: var(--jo_lGrey1);
+}
+
+.memberRating ul h5 {
+    margin: auto;
+}
+
+.memberRating, .memberIntro {
+    margin: 1rem 0;
+}
+
+#mamberBookmark {
+    height: 3rem;
+}
+
+#mamemberContent {
+    height: 100%;
+}
+
+#bookMark_ul {
+    display: flex;
+    height: 100%;
+    padding: 0 1rem;
+}
+
+/* 書籤原始 */
+
+.bookMarkOriginal {
+    background-color: var(--jo_dGrey3);
+    color: var(--jo_lGrey2);
+    flex: 1;
+    text-align: center;
+    display: flex;
+    margin: 0 .3rem;
+    border-radius: 10px 10px 0px 0px;
+    box-shadow: 0px 8px 0px var(--jo_yellow);
+}
+
+/* 按下書籤 */
+
+.bookMarkClick {
+    background-color: var(--jo_white);
+    color: var(--jo_text);
+    transform: translateY(-3px);
+    box-shadow: 0px 3px 0px var(--jo_white);
+    transition: ease-out .2s;
+}
+
+.bookMarkClick h5 {
+    font-weight: bold;
+}
+
+/* 書籤hover */
+
+.bookMarkHover {
+    background-color: var(--jo_lGrey1);
+    transform: translateY(-8px);
+    box-shadow: 0px 10px 0px var(--yellow);
+    transition-timing-function: cubic-bezier(0, 1.16, .65, 1.71);
+    transition-duration: .2s;
+    color: var(--jo_text);
+    cursor: url("../img/jo_images/cursorPoint.png"), auto;
+}
+
+.bookMarkHover:active {
+    background-color: var(--jo_white);
+    transform: translateY(-15px);
+    box-shadow: 0px 20px 0px var(--jo_white);
+}
+
+.bookMarkHover h5 {
+    font-weight: bold;
+}
+
+#bookMark_ul li h5 {
+    margin: auto;
+}
+
+/* 右方內容 */
+
+#mamemberContent {
+    background-color: var(--jo_white);
+    padding: 3.5rem 4rem;
+    z-index: 1;
+}
+
+.title {
+    display: flex;
+}
+
+.title h2 {
+    font-weight: bold;
+}
+
+/* 搜尋框 */
+
+.searchBox {
+    margin: auto;
+}
+
+.searchBox input {
+    border: var(--jo_lGrey1) 1.5px solid;
+    width: 10rem;
+}
+
+select {
+    border: var(--jo_lGrey1) 1.5px solid;
+    margin: auto;
+    width: 10rem;
+    margin-right: 1rem;
+}
+
+/* 內容 */
+
+.title {
+    display: flex;
+    justify-content: space-between;
+}
+
+.memberFilter {
+    display: flex;
+}
+
+#memberChart {
+    padding: 1rem;
+}
+
+.content {
+    margin: 2rem 0;
+}
+
+/* 正在參加卡片 */
+
+.joiningCard {
+    background-color: var(--jo_lGrey2);
+    display: flex;
+    margin-top: 2rem;
+}
+
+.joiningPic {
+    overflow: hidden;
+}
+
+.joiningPic img {
+    width: 9.25rem;
+    height: 9.25rem;
+    object-fit: cover;
+}
+
+.joiningInfo {
+    /* flex: .55; */
+    display: flex;
+}
+
+.joiningBtn {
+    /* width: 17.5rem; */
+    display: flex;
+    padding-right: 1rem;
+    margin-left: auto;
+}
+
+.joiningBtn div {
+    padding: 0px;
+    margin-left: auto;
+}
+
+.joiningInfo ul {
+    margin: auto;
+}
+
+.joiningInfo ul h4 {
+    color: var(--jo_dark_water);
+}
+
+.joiningInfo ul h4, .joiningInfo ul h6 {
+    padding-left: 1rem;
+}
+
+/* 標題hover */
+
+.title_hover:hover {
+    color: var(--jo_water);
+    transition-timing-function: cubic-bezier(0, 1.16, .65, 1.71);
+    transition-duration: 0.2s;
+}
+
+/* 圖片hover */
+
+.pic_hover:hover {
+    filter: brightness(1.1);
+    transform: scale(1.1);
+    transition-timing-function: cubic-bezier(0, 1.16, .65, 1.71);
+    transition-duration: 0.2s;
+}
+
+.joiningBtn div {
+    padding: 0.5rem;
+    flex: 0.5;
+    display: flex;
+}
+
+.joiningBtn div .jo_btn_s {
+    margin: auto;
+}
+
+/* 我的收藏卡片 */
+
+.collectCard {
+    margin-bottom: 2rem;
+    /* width: 13rem; */
+    transition-duration: 2s;
+}
+
+/* 等比例 */
+
+.collectPic, .followPic {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: 100%;
+}
+
+.collectPic img, .followPic img {
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.collectTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.collectTitle div:nth-child(1) {
+    width: 10rem;
+}
+
+.collectTitle h5 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.joiningInfo h4, .joiningInfo h6 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 20rem;
+}
+
+/* #joiningCardSection {
+    display: none;
+} */
+
+.collectTitle h5, .collectTitle h6 {
+    margin: 2px 0;
+}
+
+.collectTitle h5 {
+    margin-top: 0.5rem;
+}
+
+.collectTitle h6 {
+    color: var(--jo_dGrey3);
+}
+
+.jo_heartDiv {
+    zoom: 0.3;
+}
+
+/* 歷史 */
+
+.hisSelect, .followSelect {
+    color: var(--jo_dGrey2);
+    padding: 0;
+    margin-right: 2rem;
+}
+
+.hisSelected {
+    color: var(--jo_text);
+    font-weight: bold;
+    animation-name: selectAni;
+    animation-duration: 0.5s;
+}
+
+@keyframes selectAni {
+    0% {
+        transform: scale(1.1);
+        transform-origin: bottom;
+    }
+    100% {
+        transform: scale(1);
+        transform-origin: bottom;
+    }
+}
+
+.hisSelectDiv, .followSelectDiv {
+    display: flex;
+}
+
+/* 跟隨 */
+
+.followSection {
+    padding-top: 1rem;
+}
+
+.followPic {
+    border-radius: 300px;
+}
+
+.followTitle div {
+    display: flex;
+    justify-content: center;
+}
+
+.followTitle h4 {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    color: var(--jo_dark_water);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.followCard {
+    padding: 0px 1rem;
+    margin-bottom: 5rem;
+}
+
+.followTitle input {
+    margin-bottom: 5px;
+}
+
+/* 啾轉幸運盤 */
+
+.luckyCard {
+    margin-top: 0rem;
+}
+
+.luckyCard h4 {
+    margin-top: 2rem;
+}
+
+.luckyTitle {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    border-bottom: 1.5px solid var(--jo_lGrey1);
+    margin-bottom: 2rem;
+}
+
+.luckyTitle h5 {
+    border-radius: 10px 10px 0 0;
+    padding: 0.5rem 2.5rem;
+    background-color: var(--jo_lGrey1);
+    margin: 0;
+}
+
+#needExp span, #lotteryCount span {
+    font-weight: bold;
+    color: var(--jo_orange);
+}
+
+#totalExp span {
+    font-weight: bold;
+    color: var(--jo_water);
+}
+
+#expBar {
+    border-radius: 20px;
+    height: 2rem;
+    background-color: var(--jo_lGrey2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) inset;
+}
+
+#expBarInner {
+    background-color: var(--jo_yellow);
+    border-right: 7px solid var(--jo_orange);
+}
+
+#bobbleDiv {
+    /* background-color: rosybrown; */
+    /* width: 100%; */
+    margin: 1rem 0rem;
+    display: inline-flex;
+    flex-direction: column;
+    filter: drop-shadow(0px 0px 3px var(--jo_dGrey3));
+    justify-items: end;
+    position: relative;
+}
+
+#expBobble {
+    width: 100px;
+    background-color: var(--jo_white);
+    border-radius: 50px;
+    display: flex;
+    margin-left: auto;
+    position: absolute;
+    padding: 0.5rem 1rem;
+    justify-content: center;
+    font-size: 1.2rem;
+    top: 15px;
+    right: -50px;
+}
+
+#triangle {
+    background-color: var(--jo_white);
+    width: 20px;
+    height: 20px;
+    margin-left: auto;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    margin-bottom: -1px;
+    position: absolute;
+    right: -10px;
+}
+
+#barSection {
+    margin-bottom: 4rem;
+}
+
+#ChangeGift h4, #ChangeGift input {
+    margin: auto;
+    margin-right: 1rem;
+}
+
+#ChangeGift {
+    display: inline-flex;
+    justify-content: start;
+    margin-bottom: 3rem;
+}
+
+.giftInfo ul {
+    display: flex;
+    flex-direction: column;
+    padding-left: 1rem;
+}
+
+.giftInfo li {
+    display: flex;
+}
+
+.giftInfo li h4, .giftInfo li h6 {
+    margin: auto;
+    margin: .5rem 0;
+}
+
+/* ------------------------------------ */
+
+/* 轉盤 */
+
+.jomodal_title {
+    margin-bottom: 3rem;
+}
+
+.jomodal_content, .jomodal_content h1 {
+    margin-bottom: 0px;
+}
+
+#wheelAll {
+    width: 100vw;
+    height: 700px;
+    overflow: hidden;
+    /* background-color: violet; */
+}
+
+#wheel {
+    height: 450px;
+    width: 400px;
+    position: relative;
+    margin: auto;
+    margin-top: 3rem;
+    margin-bottom: 0rem;
+}
+
+.wheelFrame {
+    position: absolute;
+    height: 400px;
+    width: 400px;
+}
+
+.wheelBody div {
+    position: absolute;
+    z-index: 5;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+}
+
+.wheelBody h4 {
+    color: rgb(128, 15, 15);
+    font-weight: bold;
+    text-shadow: 1px -1px 0px rgb(255, 255, 255, .3);
+    writing-mode: vertical-lr;
+    margin: auto;
+}
+
+.wheelBody {
+    position: absolute;
+    transform-origin: bottom;
+}
+
+.wheelBody img {
+    filter: hue-rotate(10deg);
+}
+
+.wheelBody2 img {
+    filter: hue-rotate(40deg) brightness(3) saturate(.5);
+}
+
+.wheelBody2 h4 {
+    color: rgb(245, 147, 0);
+    font-weight: bold;
+}
+
+.wheelOuter {
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 20px solid rgb(163, 5, 5);
+    border-radius: 999px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, .5) inset, 0 0 0 3px rgba(255, 178, 178, .3), 0 0 0 3px rgba(255, 178, 178, .8)inset;
+}
+
+.circle {
+    height: 50%;
+    width: 20px;
+    position: absolute;
+    z-index: 100;
+    transform-origin: bottom;
+}
+
+.ball {
+    width: 100%;
+    height: 20px;
+    background-color: rgb(182, 142, 69);
+    border-radius: 999px;
+    filter: blur(3px);
+}
+
+/* 中間圈圈 */
+
+.wheelCenter {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 999px;
+    background: linear-gradient(rgb(255, 190, 69), rgb(245, 214, 157));
+    z-index: 101;
+    transform: scale(0.15);
+    border: 10px solid rgba(255, 255, 255, 0.3);
+}
+
+.wheelCenterOuter {
+    z-index: 100;
+    background: linear-gradient(rgb(255, 219, 151), rgb(255, 168, 5));
+    transform: scale(0.20);
+    box-shadow: 0 0 80px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+.wheelStar {
+    z-index: 102;
+    background: var(--jo_white);
+    transform: scale(0.10);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+#luckyClick {
+    text-align: center;
+    margin: auto;
+    display: block;
+}
+
+.wheelAni {
+    /* transform: rotate(10deg); */
+    transition-duration: 4s;
+    transition-timing-function: cubic-bezier(0, .62, .39, .98);
+}
+
+.wheelLightAni {
+    animation-name: lightAni;
+    animation-duration: 2s;
+}
+
+@keyframes lightAni {
+    0% {
+        filter: brightness(3);
+    }
+    100% {
+        filter: brightness(1);
+    }
+}
+
+.wheelFinish {
+    animation-name: wheelFinishAni;
+    animation-duration: 1.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes wheelFinishAni {
+    0% {
+        filter: brightness(1);
+    }
+    100% {
+        filter: brightness(2) saturate(1.2) drop-shadow(0 0 20px rgb(255, 255, 255));
+    }
+}
+
+.giftGetInfo {
+    margin: auto;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* 棒子 */
+
+.wheelPoleCircle {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(rgb(235, 162, 28), rgb(245, 214, 157));
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    border-radius: 999px;
+    transform: translateY(-10px);
+    z-index: 201;
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+}
+
+.wheelPoleCircleOut {
+    transform: translateY(-10px) scale(1.4);
+    background: linear-gradient(rgb(255, 219, 151), rgb(235, 162, 28));
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.wheelPole {
+    height: 120px;
+    width: 20px;
+    background: linear-gradient(rgb(255, 190, 69), rgb(245, 214, 157));
+    border: 3px solid rgb(255, 224, 168);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    right: 0;
+    transform-origin: top;
+    z-index: 200;
+    border-radius: 999px;
+    transform: rotateZ(45deg);
+}
+
+.wheelPoleAni {
+    animation-name: wheelAni;
+    animation-duration: .1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+    animation-timing-function: linear;
+}
+
+@keyframes wheelAni {
+    0% {
+        transform: rotateZ(45deg);
+    }
+    100% {
+        transform: rotateZ(25deg);
+    }
+}
+
+.ld.ld-jingle {
+    animation: ld-jingle 1s linear;
+    transform-origin: 50% 0%
+}
+
+#giftImage {
+    margin: auto;
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    display: block;
+    color: var(--jo_text);
+}
+
+/* Modal */
+
+@media (min-width: 576px) {
+    .wheelModal-dialog {
+        max-width: 650px;
+    }
+    .cancelHoding_modal-dialog {
+        max-width: 500px;
+    }
+    .cancelJoing_modal-dialog {
+        max-width: 500px;
+    }
+}
+
+.wheelModal_width {
+    width: 650px;
+}
+
+.cancelInfo {
+    margin: 1rem 0;
+}
+
+.cancelInfo~textarea {
+    margin: 1rem 0;
+}
+
+.cancelInfo span {
+    color: var(--jo_water);
+    font-weight: bold;
+}
+
+.cancelCheck {
+    margin-bottom: 2rem;
+}
+
+/* 留下評價 */
+
+.giveStarAvatar {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 999px;
+    margin-right: 0.5rem;
+}
+
+.jo_rating img {
+    height: 30px;
+    width: 30px;
+    object-fit: contain;
+}
+
+.giveStar_modal_content hr {
+    margin: 20px 0;
+}
+
+/* 查看評價 */
+
+.seeRankMember {
+    text-align: left;
+    width: 400px;
+    margin: auto;
+    padding: 1rem;
+}
+
+.seeRankMember h5 {
+    margin: 0;
+    padding: 0;
+}
+
+.jo_getRate img {
+    height: 25px;
+    width: 25px;
+}
+
+.jo_getRate {
+    margin: .5em 0;
+}
+
+.commentContent {
+    width: 100%;
+    background-color: var(--jo_lGrey1);
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.commentContent div {
+    margin: 1rem;
+    font-size: 1.2rem;
+}
+
+
+/* 兌換獎品 */
+#changeGift_QR{
+    width: 250px;
+    height: 250px;
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}

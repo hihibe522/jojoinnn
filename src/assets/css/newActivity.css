@@ -1,0 +1,124 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+img {
+    object-fit: cover;
+}
+
+div {
+    padding: 5px;
+    object-fit: contain;
+}
+
+#uploadBtn {
+    border-radius: 12px
+}
+
+form {
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: 1.25rem;
+    border-radius: 25px;
+}
+
+.form-control, .custom-select {
+    border-radius: 10px;
+}
+
+#formHeader {
+    background-image: url("../img/活動註冊/jo_activItyTop.png");
+    filter: brightness(1.15) opacity(0.9);
+    height: 250px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 25px 25px 0px 0px;
+    background-position: 10%;
+
+}
+#birdPostion{
+    position: absolute;
+    bottom: 42px;
+    right: 90px;
+}
+#birdPostion img{
+height: 50px;}
+
+#birdTalk{
+background-color: #F3F3F3;
+border-radius: 9px;
+border: 1px #454C53 solid
+}
+
+.form-group label {
+    text-align: right;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#applicationForm {
+    position: relative;
+    width: 70%;
+    left: 15%;
+}
+
+#uploadBtn {
+    width: 160px;
+}
+
+.pnlEventCalendar {
+    border: 1px black solide;
+    display: none;
+}
+
+/* label{
+    font-weight: 500;} */
+
+tr td {
+    font-size: 12px;
+    text-align: center;
+    margin: 5px
+}
+
+tr th {
+    font-size: 12px;
+    text-align: center
+}
+
+/*CSSSSSS */
+
+body {
+    margin: 0;
+    height: 100%;
+}
+#appForm input,
+#appForm select {
+    font-size: 1.2rem;
+}
+
+
+
+/* canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(bottom, rgb(105, 173, 212) 0%, rgb(23, 82, 145) 84%);
+    background-image: -o-linear-gradient(bottom, rgb(105, 173, 212) 0%, rgb(23, 82, 145) 84%);
+    background-image: -moz-linear-gradient(bottom, rgb(105, 173, 212) 0%, rgb(23, 82, 145) 84%);
+    background-image: -webkit-linear-gradient(bottom, rgb(105, 173, 212) 0%, rgb(23, 82, 145) 84%);
+    background-image: -ms-linear-gradient(bottom, rgb(105, 173, 212) 0%, rgb(23, 82, 145) 84%);
+    /* background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(105, 173, 212)), color-stop(0.84, rgb(23, 82, 145))); */
+    /* background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(254,209,167)), color-stop(0.84, rgb(140,203,215))); */
+    background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(254, 255, 255)), color-stop(0.84, rgb(140, 203, 215)));
+    /* Origin below */
+    /* background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(254, 255, 255)), color-stop(0.84, rgb(105, 173, 212))); */
+    margin: 0;
+} */

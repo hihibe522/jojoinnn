@@ -1,0 +1,71 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+img {
+    object-fit: cover;
+}
+
+div {
+    padding: 5px;
+    object-fit: contain;
+}
+
+
+
+/* 太空鳥 */
+
+#myBirdSpace{
+    background-image: url(/img/jo_images/jo_birdSPace.svg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 150px;
+    width: 150px;
+}
+
+/* 打勾 */
+
+#checkedBox{
+    background-image: url(/img/jo_images/Jo_checked\ _icon.svg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    width: 100px;
+    height: 70px;
+}
+
+
+
+.welcomeName{
+    color: #81C7D4;
+}
+
+/* 字體 */
+
+#registerWelcomeAppForm h1{
+    font-weight: bold;
+    color:#81C7D4
+}
+
+#registerWelcomeAppForm h4{
+    color: white;
+}
+
+#registerWelcomeAppForm a{
+    color: var(--jo_orange);
+   
+}
+
+.registerWelcomeSmallWord{
+    text-align: center;
+}
+
+
+
+
+
+

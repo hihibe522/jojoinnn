@@ -1,0 +1,91 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+img {
+  object-fit: contain;
+}
+
+#activityImg {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+}
+
+.activityExIcon {
+  object-fit: cover;
+  width: 30px;
+  height: 30px;
+}
+
+#activityExplain {
+  background-color: #f3f3f3;
+  margin-top: 140px;
+  margin-bottom: 160px;
+}
+
+textarea {
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+  height: 300px;
+  border: 1px solid #e1e100;
+  background: #f5fffa;
+  overflow: auto;
+
+}
+
+.msgContent {
+  margin-left: 10rem 8%;
+  margin-right: 10rem 8%;
+  padding: 1.5rem;
+}
+
+.msgContent img {
+  width: 50px;
+  height: 50px;
+}
+
+#textContent {
+  margin-left: 8.33%;
+  margin-right: 8.33%;
+}
+
+#activityImgSection:hover {
+  filter: brightness(0.8);
+}
+
+#activityImgSection:hover #collectBtnArea {
+  visibility: visible;
+}
+
+#collectBtnArea {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  visibility: hidden;
+  transform: translate(-50%, -50%) scale(0.8);
+  /* color: white; */
+  font-weight: 600;
+}
+
+.textRed {
+  color: rgb(255, 152, 170);
+}
+
+#activityDes {
+  margin-top: 25px;
+}
+
+#activityDes h5 {
+  border-left: grey 2px solid;
+  margin-left: 30px;
+  margin-top: 10px;
+  padding-left: 10px;
+}
+
+#colectText {
+  padding-left: 10px;
+}
