@@ -148,7 +148,6 @@ export default{
 
   #loginInput{
    margin-top: 100px;
-
   }
 
 </style>
