@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="498.23" height="498.23" viewBox="0 0 498.23 498.23">
+  <g id="spacecraft" transform="translate(234.836 -98.645) rotate(45)">
+    <circle id="Ellipse_1" data-name="Ellipse 1" cx="55.351" cy="55.351" r="55.351" transform="translate(200.649 373.622)" fill="#ffda44"/>
+    <path id="Path_1" data-name="Path 1" d="M290.6,401.3c0,16.812-8.271,33.84-24.583,50.612-3.363,3.458-6.765,6.58-10.012,9.335-3.246-2.755-6.649-5.877-10.012-9.335-16.312-16.771-24.583-33.8-24.583-50.612H290.6M256,359.784,179.892,401.3C179.892,470.487,256,512,256,512s76.108-41.513,76.108-110.7Z" fill="#ff9811"/>
+    <path id="Path_2" data-name="Path 2" d="M256,359.784V401.3h34.6c0,16.812-8.271,33.84-24.583,50.612-3.363,3.458-6.765,6.58-10.012,9.335V512s76.108-41.513,76.108-110.7Z" fill="#ff5023"/>
+    <path id="Path_3" data-name="Path 3" d="M84.522,252.827,65.075,359.784H262.919V74.43Z" fill="#3c5d76"/>
+    <path id="Path_4" data-name="Path 4" d="M427.479,252.827l-178.4-178.4V359.784H446.925Z" fill="#1e2e3b"/>
+    <path id="Path_5" data-name="Path 5" d="M332.108,401.3V110.7C332.108,41.514,256,0,256,0s-76.108,41.514-76.108,110.7V401.3H332.108Z" fill="#cce9f9"/>
+    <path id="Path_6" data-name="Path 6" d="M332.108,401.3V110.7C332.108,41.514,256,0,256,0V401.3Z" fill="#93c7ef"/>
+    <g id="Group_1" data-name="Group 1">
+      <path id="Path_7" data-name="Path 7" d="M283.676,110.7A27.677,27.677,0,0,0,256,83.027h0A27.676,27.676,0,0,0,228.324,110.7Z" fill="#1e2e3b"/>
+      <rect id="Rectangle_1" data-name="Rectangle 1" width="41.514" height="96.865" transform="translate(235.243 262.919)" fill="#1e2e3b"/>
+    </g>
+    <rect id="Rectangle_2" data-name="Rectangle 2" width="152.216" height="41.514" transform="translate(179.892 359.784)" fill="#78b9eb"/>
+    <rect id="Rectangle_3" data-name="Rectangle 3" width="76.108" height="41.514" transform="translate(256 359.784)" fill="#5a8bb0"/>
+  </g>
+</svg>
