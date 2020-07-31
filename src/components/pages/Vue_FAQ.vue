@@ -185,6 +185,10 @@ export default {
     },
     mounted() {
         this.accordion();
+        
+    },
+    created() {
+        console.log(this.$route.params);
     },
 }
 </script>

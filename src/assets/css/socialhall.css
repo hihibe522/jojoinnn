@@ -22,9 +22,6 @@ img{
     object-fit: cover;
 }
 .section1{
-    /* background-image: url("../img/socialhall/bg.jpg");
-    background-size: cover;
-    background-attachment: fixed; */
     padding: 10% 0 0 0;
 
 }
@@ -284,6 +281,7 @@ img{
      width: 40px;
      position: absolute;
      top: -30px;
+     left: 20px;
  }
  .head{
     width: 150px;
@@ -292,7 +290,7 @@ img{
     margin-top: 30px;
  }
  .number1 div{
-     margin: 30px 0;
+     margin: 20px 0;
  }
  .num1Name{
      font-size: 2rem;
@@ -305,7 +303,6 @@ img{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-     /* padding-left: 10px; */
  }
  .numberelse img{
      width: 80px;
@@ -344,7 +341,7 @@ img{
     margin-top: 0;
 }
 
- .number1 div:nth-of-type(1){
+ .num1{
     align-self: flex-start;
     font-size: 3rem;
     margin-left: 30px;
