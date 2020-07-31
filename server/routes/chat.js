@@ -1,10 +1,14 @@
 var express = require('express');
 var router = express.Router();
-
 var conn = require('../db');
 
+
+
+// ----------------------socket.io-------------------------------
+
+
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/chat', function(req, res, next) {
   // req.session.userName = "be";
     console.log(req.session.userName);
     if(req.session.userName){
@@ -22,12 +26,5 @@ router.get('/', function(req, res, next) {
     // res.sendFile('/jo_chat/public/chatRoom.html');
 });
 
-// router.get('/',function(req,res,next){
-//     res.sendFile('/jo_chat/public/chatRoom.html');
-// })
-
-
-
-
-
 module.exports = router;
+

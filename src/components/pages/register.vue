@@ -1,85 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../assets/css/reset.css">
-    <link rel="stylesheet" href="../assets/css/bootstrap/bootstrap.css">
-
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="./js/jquery.calendar.js"></script>
-
-    <link rel="stylesheet" href="../assets/css/jo_css.css">
-    <link rel="stylesheet" href="../assets/css/jo_animation.css">
-    <link rel="stylesheet" href="../assets/css/jquery.calendar.css" />
-    <link rel="stylesheet" href="../assets/css/register.css">
-    <link rel="stylesheet" href="../assets/css/clause.css">
-    <style>
-        div {
-
-            box-sizing: border-box;
-        }
-
-        img {
-            object-fit: contain;
-        }
-    </style>
-</head>
-
-<body>
-
-
-    <!-- navBar開始 -->
-    <div class="jo_navBar" id="jo_navBar">
-        <a><img id="jo_logo" class="jo_hover" src="../assets/img/jo_images/jo_logo.svg" alt=""></a>
-        <div id="jo_navBar_L">
-            <div class="jo_navTitleYellow">
-                <span class="jo_hover">首頁</span>
-                <hr>
-            </div>
-
-            <div class="jo_navTitleYellow">
-                <span class="jo_hover">Jo誼廳</span>
-                <hr>
-            </div>
-
-            <div class="jo_navTitleYellow">
-                <span class="jo_hover">Jo幣儲值</span>
-                <hr>
-            </div>
-
-            <div class="jo_navTitleYellow">
-                <span class="jo_hover">我要Jo團</span>
-                <hr>
-            </div>
-        </div>
-
-
-        <div id="jo_navBar_R">
-
-            <div class="jo_navTitleGreen">
-                <span class="jo_hover">註冊</span>
-                <hr>
-            </div>
-
-            <div class="jo_navTitleGreen">
-                <span class="jo_hover">登入</span>
-                <hr>
-            </div>
-        </div>
-    </div>
-    <!-- navBar結束 -->
-
-
-    <!-- 註冊表格開始 -->
+<template>
+    <div>
+         <!-- 註冊表格開始 -->
     <div class="jo_col_pc" id="myRegisterForm">
         <div class="position-relative" id="myApplicationForm">
-
-
             <form>
                 <!-- 標題文字開始 -->
                 <div id="myFormHeader" class="col-12 d-flex my-5">
@@ -185,7 +108,7 @@
                         <!-- 設定生日開始 -->
                         <div class="form-group row">
                             <label for="memberBirth" class="align-items-center col-4 col-form-label">生日</label>
-                            <div class="pnlEventCalendar" class="fix-top"
+                            <div class="pnlEventCalendar fix-top"
                                 style="width:40%; position: absolute;left: 50%;z-index: 100;"></div>
                             <div class="col-4">
                                 <input placeholder="請輸入您的生日" id="memberBirthday" name="memberBirthday" type="text"
@@ -233,7 +156,7 @@
                             <label class="align-items-center col-4">喜歡的類別 (可複選) </label>
                             <div class="col-8">
                                 <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input onClick="toggle(this)" id="favCat_0" type="checkbox"
+                                    <input @click="toggle()" id="favCat_0" type="checkbox"
                                         class="custom-control-input">
                                     <label for="favCat_0" class="custom-control-label">全部都想選</label>
                                 </div>
@@ -364,7 +287,7 @@
                     </div>
                 </div>
 
-                <a><img id="registerBird" class="jo_hover" src="../assets/img/jo_images/jo_bird_astronant.svg" alt=""></a>
+                <a><img id="registerBird" class="jo_hover" src="@/assets/img/jo_images/jo_bird_astronant.svg" alt=""></a>
 
             </form>
 
@@ -376,11 +299,7 @@
         </div>
 
     </div>
-
     <!-- 註冊表格結束 -->
-
-
-
     <!-- modal條款開始 -->
     <div class="jo_col_pc mb-1 modal fade" id="myClauseForm" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -403,7 +322,7 @@
                     <!-- 標題文字開始 -->
                     <div id="myClauseHeader" class="col-7 d-flex m-auto ">
                         <div class="m-auto clauseTitle d-flex ">
-                            <img src="../assets/img/jo_images/jo_logo.svg" alt="">
+                            <img src="@/assets/img/jo_images/jo_logo.svg" alt="">
                             <h1>使用者服務條款</h1>
                         </div>
                     </div>
@@ -467,78 +386,112 @@
     </div>
 
     <!-- modal條款結束 -->
-
-
-    <div id='jo_footer'>
-        <div id="jo_Info"> footer內容放這</div>
-        <img id="jo_footerBG" src="../assets/img/jo_images/jo_footer.svg" alt="">
     </div>
+</template>
 
+ 
+<script>
+import $ from "jquery";
+import axios from "axios";
 
-    <script>
-        // 類別全選鈕開始
-        function toggle(e) {
-            checkboxes = document.getElementsByName('favCat');
-            for (var i = 0, n = checkboxes.length; i < n; i++) {
-                checkboxes[i].checked = e.checked;
-            }
+export default{
+    name:"register",
+    data() {
+        return {
+            
         }
+    },
+    methods: {
+        toggle(e){
+            console.log("1324");
+            // let checkboxes = document.getElementsByName('favCat');
+            // for (var i = 0, n = checkboxes.length; i < n; i++) {
+            //     checkboxes[i].checked = e.checked;
+            // }
+        }
+        
+
+
+    },
+
+
+
+}   
+        // 類別全選鈕開始
+        // function toggle(e) {
+        //     checkboxes = document.getElementsByName('favCat');
+        //     for (var i = 0, n = checkboxes.length; i < n; i++) {
+        //         checkboxes[i].checked = e.checked;
+        //     }
+        // }
         //類別全選鈕結束
 
-        $("#jo_footer").css({ "width": $(document).width() });
-        console.log($(document).width())
-        $(function () {
+        // $("#jo_footer").css({ "width": $(document).width() });
+        // console.log($(document).width())
+        // $(function () {
 
-            $("#myApplicationForm div").css("margin", "0");
-            $("input,select,textArea").addClass("jo_hover")
-
-
-            var whichInput;
-
-            $('.pnlEventCalendar').calendar({
-                months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-                days: ['一', '二', '三', '四', '五', '六', '日'], onSelect: function (event) {
-                    $('#lblEventCalendar').text(event.label);
-
-                    // console.log(event.label)
-                    // var myDateAry = ('#lblEventCalendar').text(event.label).split(".");
-                    var myDateAry = event.label.split(".");
-                    console.log($("#memberBirthday"));
-                    console.log(whichInput)
-                    if (whichInput == "memberBirthday") {
-                        $("#memberBirthday").val(`${myDateAry[2]}-${myDateAry[1]}-${myDateAry[0]}`)
-                    } else if (whichInput == "a_endDate") {
-                        $("#a_endDate").val(`${myDateAry[2]}-${myDateAry[1]}-${myDateAry[0]}`)
-                    } else {
-                        console.log("NOK")
-                    }
+        //     $("#myApplicationForm div").css("margin", "0");
+        //     $("input,select,textArea").addClass("jo_hover")
 
 
-                }
-            });
+        //     var whichInput;
+
+        //     $('.pnlEventCalendar').calendar({
+        //         months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+        //         days: ['一', '二', '三', '四', '五', '六', '日'], onSelect: function (event) {
+        //             $('#lblEventCalendar').text(event.label);
+
+        //             // console.log(event.label)
+        //             // var myDateAry = ('#lblEventCalendar').text(event.label).split(".");
+        //             var myDateAry = event.label.split(".");
+        //             console.log($("#memberBirthday"));
+        //             console.log(whichInput)
+        //             if (whichInput == "memberBirthday") {
+        //                 $("#memberBirthday").val(`${myDateAry[2]}-${myDateAry[1]}-${myDateAry[0]}`)
+        //             } else if (whichInput == "a_endDate") {
+        //                 $("#a_endDate").val(`${myDateAry[2]}-${myDateAry[1]}-${myDateAry[0]}`)
+        //             } else {
+        //                 console.log("NOK")
+        //             }
 
 
-            $(".myDate").click(function () {
-                whichInput = $(this).prop("id");
-                console.log(whichInput);
-                $(".pnlEventCalendar").show();
-                $("td").removeClass("selected")
+        //         }
+        //     });
 
-            })
 
-            $(".pnlEventCalendar").on("click", "tr", function () {
-                $(".pnlEventCalendar").hide()
-            })
+        //     $(".myDate").click(function () {
+        //         whichInput = $(this).prop("id");
+        //         console.log(whichInput);
+        //         $(".pnlEventCalendar").show();
+        //         $("td").removeClass("selected")
 
-            $(".button right").removeClass("right")
-            $(".button left").removeClass("left")
+        //     })
 
-        });
+        //     $(".pnlEventCalendar").on("click", "tr", function () {
+        //         $(".pnlEventCalendar").hide()
+        //     })
 
-    </script>
+        //     $(".button right").removeClass("right")
+        //     $(".button left").removeClass("left")
 
-    <script src="../assets/js/jo_js.js"></script>
+        // });
 
-</body>
+</script>
+<!-- <script src="./js/jquery.calendar.js"></script> -->
 
-</html>
+<style>
+/* @import '../../assets/css/jquery.calendar.css'; */
+@import '../../assets/css/register.css';
+@import '../../assets/css/clause.css';
+
+div {
+    box-sizing: border-box;
+}
+
+img {
+    object-fit: contain;
+}
+        
+        
+</style>
+ 

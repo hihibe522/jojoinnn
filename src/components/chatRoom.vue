@@ -32,7 +32,7 @@
           <div class="chatRightbox">
                 <ul>
                     <li @click="selFriendToChat(item.friendId)" v-for="item in friendList" :key="item.friendId">
-                        <img src="../assets/img/socialhall/2.png" alt="">
+                        <img src="@/assets/img/socialhall/2.png" alt="">
                         <h5 :id="item.friendId">{{item.friendName}}</h5>
                     </li>
                 </ul>
@@ -54,8 +54,9 @@ export default{
     return {
       loginOK:false,
       myInfo:{
-              myId:"",
-            },
+                myId:"",
+                myName:"嗶波"
+             },
       chatMsg:{
                 fromId:"",
                 toId:"",
@@ -67,6 +68,13 @@ export default{
       showChatBox:false
     }
   },
+  sockets:{
+       connect:function(){
+            console.log("connect to chat");
+        },
+    
+  },
+
   methods: {
             login(){
                 var vm = this;
