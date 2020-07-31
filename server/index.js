@@ -3,23 +3,25 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const app = express();
 const http = require('http');
-const records = require('./chat_records.js');
+// const records = require('./socket/chat_records.js');
 const cors = require('cors');
 
 const sessionMiddleware = require('./sessionMiddleware')
+const addSocket = require("./socket");
+//--------------router路徑-----------------------------------
 
-
-// router
 var chatRouter = require('./routes/chat');
 var socialhallRouter = require('./routes/socialhallRouter');
 var login = require('./routes/login');
 var modules = require('./routes/modules');
 
+//--------------router路徑_end-----------------------------------
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(cookieParser());
-// app.use(cors());
 app.use(cors({
   origin:['http://localhost:8080'],
   methods:['GET','POST'],
@@ -28,99 +30,116 @@ app.use(cors({
 app.use(sessionMiddleware);
 
 
-
+//----------------------router----------------------------
 app.use('/modules', modules);
-app.use('/chat', chatRouter);
+app.use('/', chatRouter);
 app.use('/login',login);
 app.use('/socialhall', socialhallRouter);
+
+var server = http.createServer(app);
+// ------------------------router_end---------------------------
 
 var port = normalizePort(process.env.PORT || '5000');
 app.set('port', port);
 
-// -----------------------------------------------------
+
+// ----------------------socket.io-------------------------------
+
+
+  // app.use(cookieParser());
+  // // app.use(cors());
+  // app.use(cors({
+  //   origin:['http://localhost:8080'],
+  //   methods:['GET','POST'],
+  //   alloweHeaders:['Conten-Type', 'Authorization']
+  // }));
+  // app.use(sessionMiddleware);
+
+
+
+
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 
+addSocket(io);
 
+// console.log(req);
 // let chatinfo = {
 //   name:Math.floor(Math.random()*100),
 //   sid:socket.id,
 //   userList:[],
 //   sendfrend:'',
 // };
+// var socket_Map=[]
 
-let onlineCount = 0;
-let onlinePeople = [];
+// let onlineCount = 0;
+// let onlinePeople = [];
 
 
-io.on('connection', (socket) => {
-  console.log(socket.id)
-  let name = Math.floor(Math.random()*100);
-  // 接收由socialhall 發出的請求
-  socket.on("group",(room)=>{
-    //加入前檢查是否已有所在房間
-    const nowRoom = Object.keys(socket.rooms).find(room =>{
-      return room !== socket.id
-    })
-    if(nowRoom){
-      socket.leave(nowRoom);
-    }
-    //再加入新的
-    socket.join(room);
-    console.log(socket.rooms);
-    onlineCount++;
-    onlinePeople.push(name);
+// io.on('connection', (socket) => {
+//   console.log(socket.id)
+  
+//   let name = Math.floor(Math.random()*100);
+//   // 接收由socialhall 發出的請求
+//   socket.on("group",(room)=>{
+//     //加入前檢查是否已有所在房間
+//     const nowRoom = Object.keys(socket.rooms).find(room =>{
+//       return room !== socket.id
+//     })
+//     if(nowRoom){
+//       socket.leave(nowRoom);
+//     }
+//     //再加入新的
+//     socket.join(room);
+//     console.log(socket.rooms);
+//     onlineCount++;
+//     onlinePeople.push(name);
 
-    // 發送人數給網頁
-    io.sockets.in(room).emit('online', onlineCount);
-    io.sockets.in(room).emit('onlinePeople', onlinePeople);
+//     // 發送人數給網頁
+//     io.sockets.in(room).emit('online', onlineCount);
+//     io.sockets.in(room).emit('onlinePeople', onlinePeople);
 
-    // 發送紀錄
-    socket.emit("chatRecord", records.get());
+//     // 發送紀錄
+//     socket.emit("chatRecord", records.get());
 
-    socket.on("send", (a) => {
-      a["name"] = name;
-      let d = new Date();
-      let time = d.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-      a["time"] = time;
-      if (Object.keys(a).length < 3) return;
-      records.push(a);
-    });
+//     socket.on("send", (a) => {
+//       a["name"] = name;
+//       let d = new Date();
+//       let time = d.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+//       a["time"] = time;
+//       if (Object.keys(a).length < 3) return;
+//       records.push(a);
+//     });
 
-    socket.on('leaveGroup',()=>{
-      const room = Object.keys(socket.rooms).find(room => {
-        return room !== socket.id
-      })
+//     socket.on('leaveGroup',()=>{
+//       const room = Object.keys(socket.rooms).find(room => {
+//         return room !== socket.id
+//       })
 
-      // 有人離開群聊了，扣人
-      onlineCount = (onlineCount < 0) ? 0 : onlineCount -= 1;
-      onlinePeople = onlinePeople.filter( item=> item != name);
-      io.sockets.in(room).emit('online', onlineCount);
-      io.sockets.in(room).emit('onlinePeople', onlinePeople);
-      socket.leave(room)
+//       // 有人離開群聊了，扣人
+//       onlineCount = (onlineCount < 0) ? 0 : onlineCount -= 1;
+//       onlinePeople = onlinePeople.filter( item=> item != name);
+//       io.sockets.in(room).emit('online', onlineCount);
+//       io.sockets.in(room).emit('onlinePeople', onlinePeople);
+//       socket.leave(room)
 
-    })
+//     })
 
-      // 當發生離線事件
-      socket.on('disconnect', () => {
+//       // 當發生離線事件
+//       socket.on('disconnect', () => {
 
-      // // 有人離線了，扣人
-      // onlineCount = (onlineCount < 0) ? 0 : onlineCount-=1;
-      // onlinePeople = onlinePeople.filter( item=> item != name);
-      // io.emit("online", onlineCount);
-      // io.emit("onlinePeople", onlinePeople);
-    });
-  })
+//     });
+//   })
 
-});
+// });
 
-records.on("new_message", (re) => {
-  // 廣播訊息到聊天室
-  console.log(re);
-  io.emit("msg", re);
-});
+// records.on("new_message", (re) => {
+//   // 廣播訊息到聊天室
+//   console.log(re);
+//   io.emit("msg", re);
+// });
 
-// ---------------------------------------------------------------
+// ------------------------------socket.io_end----------------------------
 
 server.listen(port, () => {
   // console.log(port);

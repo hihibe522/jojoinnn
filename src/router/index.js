@@ -4,6 +4,7 @@ import Router from 'vue-router'
 // import chatRoom from '@/components/chatRoom'
 import consumptionHis from '@/components/Vue_consumptionHis'
 import FAQ from '@/components/pages/Vue_FAQ'
+import register from '@/components/pages/register'
 import deposit from '@/components/Vue_deposit'
 
 import mainboard from '@/components/mainBoard'
@@ -20,6 +21,11 @@ export default new Router({
       name: 'mainBoard',
       component: mainboard,
       children:[
+        {
+          path:'register',
+          name:'register',
+          component: register,
+        },
         {
           path:'FAQ',
           name:'FAQ',
