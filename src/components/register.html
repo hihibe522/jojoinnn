@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap/bootstrap.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="./js/jquery.calendar.js"></script>
+
+    <link rel="stylesheet" href="../assets/css/jo_css.css">
+    <link rel="stylesheet" href="../assets/css/jo_animation.css">
+    <link rel="stylesheet" href="../assets/css/jquery.calendar.css" />
+    <link rel="stylesheet" href="../assets/css/register.css">
+    <link rel="stylesheet" href="../assets/css/clause.css">
+    <style>
+        div {
+
+            box-sizing: border-box;
+        }
+
+        img {
+            object-fit: contain;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- navBar開始 -->
+    <div class="jo_navBar" id="jo_navBar">
+        <a><img id="jo_logo" class="jo_hover" src="../assets/img/jo_images/jo_logo.svg" alt=""></a>
+        <div id="jo_navBar_L">
+            <div class="jo_navTitleYellow">
+                <span class="jo_hover">首頁</span>
+                <hr>
+            </div>
+
+            <div class="jo_navTitleYellow">
+                <span class="jo_hover">Jo誼廳</span>
+                <hr>
+            </div>
+
+            <div class="jo_navTitleYellow">
+                <span class="jo_hover">Jo幣儲值</span>
+                <hr>
+            </div>
+
+            <div class="jo_navTitleYellow">
+                <span class="jo_hover">我要Jo團</span>
+                <hr>
+            </div>
+        </div>
+
+
+        <div id="jo_navBar_R">
+
+            <div class="jo_navTitleGreen">
+                <span class="jo_hover">註冊</span>
+                <hr>
+            </div>
+
+            <div class="jo_navTitleGreen">
+                <span class="jo_hover">登入</span>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <!-- navBar結束 -->
+
+
+    <!-- 註冊表格開始 -->
+    <div class="jo_col_pc" id="myRegisterForm">
+        <div class="position-relative" id="myApplicationForm">
+
+
+            <form>
+                <!-- 標題文字開始 -->
+                <div id="myFormHeader" class="col-12 d-flex my-5">
+                    <div class="m-auto">
+                        <h1>註冊成為Jo星人</h1>
+                        <h5>已經有帳號嗎? <a href="/login.html"><span class="jo_hover">來這登入</span></a></h5>
+                    </div>
+                </div>
+                <!-- 標題文字結尾 -->
+
+
+                <!-- 表格內容開始 -->
+                <div class="row m-auto">
+                    <div class="m-auto w-100">
+
+                        <!-- 設定帳號開始 -->
+                        <div class="form-group row qTitle">
+                            <span class="jo_formSmallTitle">
+                                <h5>建立帳號</h5>
+                            </span>
+
+                            <label for="accountName" class="align-items-center col-4 col-form-label ">設定帳號</label>
+                            <div class="col-4">
+                                <input placeholder="請輸入6-12位小寫英文+數字" id="accountName" name="accountName" type="text"
+                                    class="form-control myForm-control" required>
+                            </div>
+                        </div>
+                        <!-- 設定帳號結束 -->
+
+                        <!-- 設定密碼開始 -->
+                        <div class="form-group row ">
+                            <label for="passwordName"
+                                class="align-items-center col-4 col-form-label my-auto">設定密碼</label>
+                            <div class="col-4">
+                                <input placeholder="請輸入6-12位小寫英文+數字" id="passwordName" name="passwordName" type="text"
+                                    class="form-control myForm-control" required>
+                            </div>
+                        </div>
+                        <!-- 設定密碼結束 -->
+
+                        <!-- 設定再次輸入密碼開始 -->
+                        <div class="form-group row ">
+                            <label for="rePasswordName"
+                                class="align-items-center col-4 col-form-label my-auto">再次輸入密碼</label>
+                            <div class="col-4">
+                                <input placeholder="請再次輸入設定的密碼" id="rePasswordName" name="rePasswordName" type="text"
+                                    class="form-control myForm-control" required>
+                            </div>
+                        </div>
+                        <!-- 設定再次輸入密碼結束 -->
+
+
+
+
+                        <!-- 填寫個人資料開始 -->
+                        <div class="form-group row myFormMargin qTitle">
+                            <span class="jo_formSmallTitle">
+                                <h5>填寫個人資料</h5>
+                            </span>
+
+                            <!-- 上傳頭像開始 -->
+                            <label for="accountName"
+                                class="align-items-center col-4 col-form-label my-auto">上傳圖像</label>
+                            <div class="col-4">
+                                <input type="button" name="" id="uploadBtnR" value="請上傳個人圖像"
+                                    class="jo_btn jo_btnOrange">
+                            </div>
+                            <!-- 上傳頭像結束 -->
+
+                        </div>
+                        <!-- 填寫個人資料結束 -->
+
+                        <!-- 設定姓名開始 -->
+                        <div class="form-group row ">
+                            <label for="memberName" class="align-items-center col-4 col-form-label my-auto">姓名</label>
+                            <div class="col-4">
+                                <input placeholder="請輸入您的姓名" id="memberName" name="memberName" type="text"
+                                    class="form-control myForm-control" required>
+                            </div>
+                        </div>
+                        <!-- 設定姓名結束 -->
+
+                        <!-- 設定信箱開始 -->
+                        <div class="form-group row ">
+                            <label for="memberMail" class="align-items-center col-4 col-form-label my-auto">信箱</label>
+                            <div class="col-4">
+                                <input placeholder="請輸入常用信箱" id="memberMail" name="memberMail" type="text"
+                                    class="form-control myForm-control" required>
+                            </div>
+                        </div>
+                        <!-- 設定信箱結束 -->
+
+                        <!-- 設定電話開始 -->
+                        <div class="form-group row ">
+                            <label for="memberPhone" class="align-items-center col-4 col-form-label my-auto">電話</label>
+                            <div class="col-4">
+                                <input placeholder="請輸入連絡電話" id="memberPhone" name="memberPhone" type="text"
+                                    class="form-control myForm-control" required>
+                            </div>
+                        </div>
+                        <!-- 設定電話結束 -->
+
+                        <!-- 設定生日開始 -->
+                        <div class="form-group row">
+                            <label for="memberBirth" class="align-items-center col-4 col-form-label">生日</label>
+                            <div class="pnlEventCalendar" class="fix-top"
+                                style="width:40%; position: absolute;left: 50%;z-index: 100;"></div>
+                            <div class="col-4">
+                                <input placeholder="請輸入您的生日" id="memberBirthday" name="memberBirthday" type="text"
+                                    class="form-control myForm-control myDate" required>
+                            </div>
+                        </div>
+
+                        <!-- 設定生日結束 -->
+
+                        <!-- 設定居住地開始 -->
+                        <div class="form-group row">
+                            <label for="m_city" class="align-items-center col-4 col-form-label ">居住地區</label>
+                            <div class="col-4">
+                                <select id="m_city" name="m_city" class="custom-select myLiving">
+                                    <optgroup>
+                                        <option selected="selected" value="Taipei">臺北市</option>
+                                        <option value="NewTaipei">新北市</option>
+                                        <option value="Taoyuan">桃園市</option>
+                                        <option value="Taichung">臺中市</option>
+                                        <option value="Tainan">臺南市</option>
+                                        <option value="Kaohsiung">高雄市</option>
+                                        <option value="Keelung">基隆市</option>
+                                        <option value="Hsinchuh">新竹縣</option>
+                                        <option value="HsinchuCity">新竹市</option>
+                                        <option value="Chiayi">嘉義縣</option>
+                                        <option value="ChiayiCity">嘉義市</option>
+                                        <option value="Miaoli">苗栗縣</option>
+                                        <option value="Changhua">彰化縣</option>
+                                        <option value="Nantou">南投縣</option>
+                                        <option value="Yunlin">雲林縣</option>
+                                        <option value="Pingtung">屏東縣</option>
+                                        <option value="Yilan">宜蘭縣</option>
+                                        <option value="Hualien">花蓮縣</option>
+                                        <option value="Taitung">臺東縣</option>
+                                        <option value="Penghu">澎湖縣</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- 設定居住地結束 -->
+
+                        <!-- 喜歡的類別開始 -->
+
+                        <div class="form-group row">
+                            <label class="align-items-center col-4">喜歡的類別 (可複選) </label>
+                            <div class="col-8">
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                    <input onClick="toggle(this)" id="favCat_0" type="checkbox"
+                                        class="custom-control-input">
+                                    <label for="favCat_0" class="custom-control-label">全部都想選</label>
+                                </div>
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                    <input name="favCat" id="favCat_1" type="checkbox" class="custom-control-input"
+                                        value="bar1">
+                                    <label for="favCat_1" class="custom-control-label">運動類</label>
+                                </div>
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                    <input name="favCat" id="favCat_2" type="checkbox" class="custom-control-input"
+                                        value="bar2">
+                                    <label for="favCat_2" class="custom-control-label">音樂類</label>
+                                </div>
+                            </div>
+
+
+                            <label class="align-items-center col-4"></label>
+                            <div class="col-8">
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                    <input name="favCat" id="favCat_3" type="checkbox" class="custom-control-input"
+                                        value="bar3">
+                                    <label for="favCat_3" class="custom-control-label">社交聯誼類</label>
+                                </div>
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                    <input name="favCat" id="favCat_4" type="checkbox" class="custom-control-input"
+                                        value="bar4">
+                                    <label for="favCat_4" class="custom-control-label">藝文類</label>
+                                </div>
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                    <input name="favCat" id="favCat_5" type="checkbox" class="custom-control-input"
+                                        value="bar5">
+                                    <label for="favCat_5" class="custom-control-label">益智類</label>
+                                </div>
+                            </div>
+
+
+                            <label class="align-items-center col-4"></label>
+                            <div class="col-8">
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                    <input name="favCat" id="favCat_6" type="checkbox" class="custom-control-input"
+                                        value="bar6">
+                                    <label for="favCat_6" class="custom-control-label">社會服務類</label>
+                                </div>
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                    <input name="favCat" id="favCat_7" type="checkbox" class="custom-control-input"
+                                        value="bar7">
+                                    <label for="favCat_7" class="custom-control-label">視聽類</label>
+                                </div>
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                    <input name="favCat" id="favCat_8" type="checkbox" class="custom-control-input"
+                                        value="bar8">
+                                    <label for="favCat_8" class="custom-control-label">飲食類</label>
+                                </div>
+                            </div>
+
+                            <label class="align-items-center col-4"></label>
+                            <div class="col-8">
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                    <input name="favCat" id="favCat_9" type="checkbox" class="custom-control-input"
+                                        value="bar9">
+                                    <label for="favCat_9" class="custom-control-label">學術研究類</label>
+                                </div>
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                    <input name="favCat" id="favCat_10" type="checkbox" class="custom-control-input"
+                                        value="bar10">
+                                    <label for="favCat_10" class="custom-control-label">旅遊類</label>
+                                </div>
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                    <input name="favCat" id="favCat_11" type="checkbox" class="custom-control-input"
+                                        value="bar11">
+                                    <label for="favCat_11" class="custom-control-label">宅文化</label>
+                                </div>
+                            </div>
+
+
+                            <label class="align-items-center col-4"></label>
+                            <div class="col-8">
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                    <input name="favCat" id="favCat_12" type="checkbox" class="custom-control-input"
+                                        value="bar12">
+                                    <label for="favCat_12" class="custom-control-label">戶外休閒類</label>
+                                </div>
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                    <input name="favCat" id="favCat_13" type="checkbox" class="custom-control-input"
+                                        value="bar13">
+                                    <label for="favCat_13" class="custom-control-label">科技類</label>
+                                </div>
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                    <input name="favCat" id="favCat_14" type="checkbox" class="custom-control-input"
+                                        value="bar14">
+                                    <label for="favCat_14" class="custom-control-label">手作類</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 喜歡的類別結束 -->
+
+                        <!-- 簡短自介開始 -->
+                        <div class="form-group row ">
+                            <label for="m_intro" class="align-items-center col-4 col-form-label ">簡短自介</label>
+                            <div class="col-6 m_intro">
+                                <textarea placeholder="請輸入100字內的簡單自我介紹" id="m_intro" name="m_intro" cols="40" rows="5"
+                                    class="form-control jo_scrollbar myIntro"></textarea>
+                            </div>
+                        </div>
+                        <!-- 簡短自介結束 -->
+
+
+                        <!-- 服務條款開始 -->
+                        <div class="form-group row">
+                            <label class="align-items-center col-4"></label>
+                            <div class="col-8">
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                    <input name="myRules" id="myRules_0" type="checkbox" class="custom-control-input"
+                                        value="">
+                                    <label for="myRules_0" class="custom-control-label myRules">我已詳細閱讀<a href="#"
+                                            class="jo_hover" data-toggle="modal" data-target="#myClauseForm">服務條款</a>,
+                                        並同意其內容。</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 服務條款結束 -->
+
+                        <div id="confirmBtn" class="m-5 text-center">
+                            <div class="m-auto">
+                                <input type="submit" name="" id="" value="確定註冊" class="jo_btn jo_btnRed">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <a><img id="registerBird" class="jo_hover" src="../assets/img/jo_images/jo_bird_astronant.svg" alt=""></a>
+
+            </form>
+
+
+
+
+
+
+        </div>
+
+    </div>
+
+    <!-- 註冊表格結束 -->
+
+
+
+    <!-- modal條款開始 -->
+    <div class="jo_col_pc mb-1 modal fade" id="myClauseForm" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog  myClause-dialog modal-dialog-centered" role="document">
+            <div class="myClause_width jo_modal">
+
+
+                <form class="col-lg-12 col-md-12 col-sm-12 row position-relative m-auto" id="myClauseForm">
+
+                    <!-- 關掉按鈕開始 -->
+                    <div class="clauseXX">
+                        <button role="button" data-dismiss="modal"
+                            class="madalClose modal_close jo_hover position-absolute" title="Close">
+                            <span></span></button>
+                    </div>
+                    <!-- 關掉按鈕結束 -->
+
+
+                    <!-- 標題文字開始 -->
+                    <div id="myClauseHeader" class="col-7 d-flex m-auto ">
+                        <div class="m-auto clauseTitle d-flex ">
+                            <img src="../assets/img/jo_images/jo_logo.svg" alt="">
+                            <h1>使用者服務條款</h1>
+                        </div>
+                    </div>
+                    <!-- 標題文字結尾 -->
+
+
+                    <div class="col-12 clauseModal_content myClause ">
+
+                        <textarea name="" id="" rows="25" class="jo_scrollbar">
+
+     這是以《政府網站版型與內容管理規範》中為基礎的隱私權條款範本稍微調整過移除不適用
+     一般企業的項目，任何網站皆可將此範本加上自己的網站名稱，並做修改後使用於網站上。
+     請注意，若您要針對此以私權條款模板做修改，需要至少包含以下項目:
+                                
+    一、隱私權保護政策的適用範圍請說明該網站隱私權保護政策的適用範圍。
+                                
+    二、個人資料的蒐集、處理及利用方式請說明該網站針對個人資料的蒐集、處理及利用方式。
+                                
+    三、資料之保護請說明該網站針對取得資料的安全維護措施，如防止個人資料被竊取、竄改、
+    毀損、滅失或洩漏，採取技術上及組織上之必要措施。
+                                
+    四、網站對外的相關連結請說明對外連結網站不適用本網站的隱私權保護政策，必須參考該連
+    結網站中的隱私權保護政策。
+                                
+    五、與第三人共用個人資料之政策
+
+    六、Cookie之使用請說明該網站使用Cookie技術來儲存或追蹤使用者的資料的情況。
+                                
+    七、隱私權保護政策之修正請說明該網站針對隱私權保護政策之修正措施。隱私權條款範本文
+    件請將「JoJo網站」修改為您的網站名稱
+                                
+    非常歡迎您光臨「JoJo網站」（以下簡稱本網站），為了讓您能夠安心的使用本網站的各項服
+    務與資訊，特此向您說明本網站的隱私權保護政策，以保障您的權益，請您詳閱下列內容：
+                            
+    一、隱私權保護政策的適用範圍
+    隱私權保護政策內容，包括本網站如何處理在您使用網站服務時收集到的個人識別資料。隱私
+    權保護政策不適用於本網站以外的相關連結網站，也不適用於非本網站所委託或參與管理的人員。
+                                
+    二、個人資料的蒐集、處理及利用方式
+    當您造訪本網站或使用本網站所提供之功能服務時，我們將視該服務功能性質，請您提供必要的
+    個人資料，並在該特定目的範圍內處理及利用您的個人資料；非經您書面同意，本網站不會將個
+    人資料用於其他用途。
+                                
+    本網站在您使用服務信箱、問卷調查等互動性功能時，會保留您所提供的姓名、電子郵件地址、
+    聯絡方式及使用時間等。於一般瀏覽時，伺服器會自行記錄相關行徑，包括您使用連線設備的IP
+    位址、使用時間、使用的瀏覽器、瀏覽及點選資料記錄等，做為我們增進網站服務的參考依據，
+    此記錄為內部應用，決不對外公佈。為提供精確的服，我們會將收集的問卷調查內容進行統計與
+    分析，分析結果之統計數據或說明文字呈現，除供內部研究外，我們會視需要公佈統計數據及說
+    明文字，但不涉及特定個人之資料。
+
+    四、隱私權保護政策之修正
+    本網站隱私權保護政策將因應需求隨時進行修正，修正後的條款將刊登於網站上。
+                            </textarea>
+
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal條款結束 -->
+
+
+    <div id='jo_footer'>
+        <div id="jo_Info"> footer內容放這</div>
+        <img id="jo_footerBG" src="../assets/img/jo_images/jo_footer.svg" alt="">
+    </div>
+
+
+    <script>
+        // 類別全選鈕開始
+        function toggle(e) {
+            checkboxes = document.getElementsByName('favCat');
+            for (var i = 0, n = checkboxes.length; i < n; i++) {
+                checkboxes[i].checked = e.checked;
+            }
+        }
+        //類別全選鈕結束
+
+        $("#jo_footer").css({ "width": $(document).width() });
+        console.log($(document).width())
+        $(function () {
+
+            $("#myApplicationForm div").css("margin", "0");
+            $("input,select,textArea").addClass("jo_hover")
+
+
+            var whichInput;
+
+            $('.pnlEventCalendar').calendar({
+                months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+                days: ['一', '二', '三', '四', '五', '六', '日'], onSelect: function (event) {
+                    $('#lblEventCalendar').text(event.label);
+
+                    // console.log(event.label)
+                    // var myDateAry = ('#lblEventCalendar').text(event.label).split(".");
+                    var myDateAry = event.label.split(".");
+                    console.log($("#memberBirthday"));
+                    console.log(whichInput)
+                    if (whichInput == "memberBirthday") {
+                        $("#memberBirthday").val(`${myDateAry[2]}-${myDateAry[1]}-${myDateAry[0]}`)
+                    } else if (whichInput == "a_endDate") {
+                        $("#a_endDate").val(`${myDateAry[2]}-${myDateAry[1]}-${myDateAry[0]}`)
+                    } else {
+                        console.log("NOK")
+                    }
+
+
+                }
+            });
+
+
+            $(".myDate").click(function () {
+                whichInput = $(this).prop("id");
+                console.log(whichInput);
+                $(".pnlEventCalendar").show();
+                $("td").removeClass("selected")
+
+            })
+
+            $(".pnlEventCalendar").on("click", "tr", function () {
+                $(".pnlEventCalendar").hide()
+            })
+
+            $(".button right").removeClass("right")
+            $(".button left").removeClass("left")
+
+        });
+
+    </script>
+
+    <script src="../assets/js/jo_js.js"></script>
+
+</body>
+
+</html>

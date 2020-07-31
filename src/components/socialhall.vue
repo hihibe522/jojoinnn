@@ -36,29 +36,30 @@
         </div>
         <section class="mySection row no-gutters animateItem">
             <div class="catoContent">
-                <div v-for="item in serchPeoples" :key="item.m_ID" class="joManCard">
-                    <div class="imgBox">
-                       <!-- require('../assets/'+pic) -->
-                        <img :src ="item.m_pic" alt="">
-                    </div>
-                    <div class="contentBox">
-                        <div class="joManTitle">
-                            <span class="joManName">{{item.m_name}}</span>
-                              <!-- 星星評價元件 -->
-                              <StarRate :m_rate="item.m_rate"></StarRate>
+                <!-- <div v-if="serchPeoples"> -->
+                    <div v-for="item in serchPeoples" :key="item.m_ID" class="joManCard">
+                        <div class="imgBox">
+                        <!-- require('../assets/'+pic) -->
+                            <img :src ="item.m_pic" alt="">
+                        </div>
+                        <div class="contentBox">
+                            <div class="joManTitle">
+                                <span class="joManName">{{item.m_name}}</span>
+                                <!-- 星星評價元件 -->
+                                <StarRate :m_rate="item.m_rate"></StarRate>
 
-                            <span>({{item.rate_count}}人評價)</span>
-                        </div>
-                        <div class="contentText">
-                            {{item.introduce}}
-                        </div>
-                        <div class="btnBox">
-                            <button class="jo_btn jo_btn_s jo_btnWater">查看</button>
-                            <button class="jo_btn jo_btn_s jo_btnOrange">關注</button>
+                                <span>({{item.rate_count}}人評價)</span>
+                            </div>
+                            <div class="contentText">
+                                {{item.introduce}}
+                            </div>
+                            <div class="btnBox">
+                                <button class="jo_btn jo_btn_s jo_btnWater">查看</button>
+                                <button class="jo_btn jo_btn_s jo_btnOrange">關注</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-
+                <!-- </div> -->
             </div>
         </section>
       </div>
@@ -72,122 +73,42 @@
               <div class="leaderboard">
                   <div class="row no-gutters">
                       <div class="number1 col-6">
-                          <div class="num1"><img src="../assets/img/socialhall/rank1.png" alt=""></div>
-                          <img class="head" src="../assets/img/socialhall/1.png" alt="">
-                          <div class="num1Name">椰子</div>
-                          <ul>
-                              <li><i class="fa fa-star"></i></li>
-                              <li><i class="fa fa-star"></i></li>
-                              <li><i class="fa fa-star"></i></li>
-                              <li><i class="fa fa-star"></i></li>
-                              <li><i class="fa fa-star"></i></li>
-                              <li><span>4.9分</span></li>
-                          </ul>
-
+                          <div class="num1"><img src="../../static/img/socialhall/rank1.png" alt=""></div>
+                          <img class="head" :src="masterHost[0].m_profile" alt="">
+                          <div class="num1Name">{{masterHost[0].m_name}}</div>
+                           <StarRate :m_rate="masterHost[0].rate_star"></StarRate>
                           <div class="num1text">
-                              遠的詩又是一支畫風突變的MV😆😆
-                              第一次聽的時候覺得是一首很奇特的歌~也聽不懂一開始的rap是什麼
+                              {{masterHost[0].introduce}}
                           </div>
                           <div>
-                              <span>1000人追蹤中</span>
+                              <span>{{masterHost[0].follow_people_num}}人追蹤中</span>
                           </div>
-                          <button class="jo_btn jo_btn_s jo_btnWater">查看</button>
+                          <router-link :to="{ name: 'FAQ', params: { mID:masterHost[0].m_ID } }"><button class="jo_btn jo_btn_s jo_btnWater">查看</button></router-link>
                       </div>
                       <div class="numberelse col-6">
-                          <select @change="SearchMasterHost" v-model="HostSelected" name="MasterHost" id="">
-                              <option selected value="全部">全部</option>
-                              <option value="益智類">益智類</option>
-                              <option value="戶外活動">戶外活動</option>
-                              <option value="宅宅">宅宅</option>
-                              <option value="學術研究">學術研究</option>
+                          <select @change="SearchMasterHost(selHostCategory)" v-model="selHostCategory" id="">
+                              <option selected value="all">全部</option>
+                              <option v-for="item in category" :key="item.c_ID" :value="item.c_ID">{{item.c_category}}</option>
+                           
                           </select>
-                          <div class="numbercard">
-                              <div class="num"><img src="../assets/img/socialhall/rank2.png" alt=""></div>
-                              <div><img src="../assets/img/socialhall/4.jpg" alt=""></div>
+                          <div class="numbercard" v-for="(item,index) in masterHostTo4" :key="index">
+                              <div class="num"><img :src="require(`../../static/img/socialhall/rank${index+2}.png`)" ></div>
+                              <div><img :src="item.m_profile" alt=""></div>
                               <div>
                                   <div>
-                                      <h4>馬克</h4>
-                                      <ul>
-                                          <li><i class="fa fa-star"></i></li>
-                                          <li><i class="fa fa-star"></i></li>
-                                          <li><i class="fa fa-star"></i></li>
-                                          <li><i class="fa fa-star"></i></li>
-                                          <li><i class="fa fa-star"></i></li>
-                                      </ul>
+                                      <h4>{{item.m_name}}</h4>
+                                        <StarRate :m_rate="item.rate_star"></StarRate>
                                   </div>
                                   <div class="numSum">
-                                      聽說在實驗室或在工作的你...
-                                      天天都到實驗室報到...都沒有在放暑假的😢
+                                      {{item.introduce}}
                                   </div>
                               </div>
                           </div>
-                          <div class="numbercard">
-                              <div class="num"><img src="../assets/img/socialhall/rank3.png" alt=""></div>
-                              <div><img src="../assets/img/socialhall/4.jpg" alt=""></div>
-                              <div>
-                                  <div>
-                                      <h4>馬克</h4>
-                                      <ul>
-                                          <li><i class="fa fa-star"></i></li>
-                                          <li><i class="fa fa-star"></i></li>
-                                                  <li><i class="fa fa-star"></i></li>
-                                                  <li><i class="fa fa-star"></i></li>
-                                                  <li><i class="fa fa-star"></i></li>
-                                              </ul>
-                                          </div>
-                                          <div class="numSum">
-                                              聽說在實驗室或在工作的你...
-                                              天天都到實驗室報到...都沒有在放暑假的😢
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="numbercard">
-                                      <div class="num"><img src="../assets/img/socialhall/rank4.png" alt=""></div>
-                                      <div><img src="../assets/img/socialhall/4.jpg" alt=""></div>
-                                      <div>
-                                          <div>
-                                              <h4>馬克</h4>
-                                              <ul>
-                                                  <li><i class="fa fa-star"></i></li>
-                                                  <li><i class="fa fa-star"></i></li>
-                                                  <li><i class="fa fa-star"></i></li>
-                                                  <li><i class="fa fa-star"></i></li>
-                                                  <li><i class="fa fa-star"></i></li>
-                                              </ul>
-                                          </div>
-                                          <div class="numSum">
-                                              聽說在實驗室或在工作的你...
-                                              天天都到實驗室報到...都沒有在放暑假的😢
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="numbercard">
-                                      <div class="num"><img src="../assets/img/socialhall/rank5.png" alt=""></div>
-                                      <div><img src="../assets/img/socialhall/4.jpg" alt=""></div>
-                                      <div>
-                                          <div>
-                                              <h4>馬克</h4>
-                                              <ul>
-                                                  <li><i class="fa fa-star"></i></li>
-                                                  <li><i class="fa fa-star"></i></li>
-                                                  <li><i class="fa fa-star"></i></li>
-                                                  <li><i class="fa fa-star"></i></li>
-                                                  <li><i class="fa fa-star"></i></li>
-                                              </ul>
-                                          </div>
-                                          <div class="numSum">
-                                              聽說在實驗室或在工作的你...
-                                              天天都到實驗室報到...都沒有在放暑假的😢
-                                          </div>
-                                      </div>
-                                  </div>
-
                               </div>
                           </div>
                       </div>
           </section>
       </div>
-
       <div class="sectionArea animateItem">
           <div class="animateItem">
               <h1>超級 Jo粉</h1>
@@ -197,83 +118,40 @@
                       <div class="leaderboard">
                           <div class="row no-gutters">
                               <div class="number1 col-6">
-                                  <div class="num1"><img src="../assets/img/socialhall/rank1.png" alt=""></div>
-                                  <img class="head" src="../assets/img/socialhall/1.png" alt="">
-                                  <div class="num1Name">椰子</div>
+                                  <div class="num1"><img src="../../static/img/socialhall/rank1.png" alt=""></div>
+                                  <img class="head" :src="masterPlayer[0].m_profile" alt="">
+                                  <div class="num1Name">{{masterPlayer[0].m_name}}</div>
                                   <div class="expPoint">
-                                      <span>綜合</span>經驗值<span>50000</span>pt
+                                      <span>{{selPlayerCategory}}</span>經驗值<span>{{masterPlayer[0].points}}</span>pt
                                   </div>
 
                                   <div class="num1text">
-                                      遠的詩又是一支畫風突變的MV😆😆
-                                      第一次聽的時候覺得是一首很奇特的歌~也聽不懂一開始的rap是什麼
+                                      {{masterPlayer[0].introduce}}
                                   </div>
                                   <div>
-                                      <span>1000人追蹤中</span>
+                                      <span>{{masterPlayer[0].follow_people_num}}人追蹤中</span>
 
                                   </div>
                                   <button class="jo_btn jo_btn_s jo_btnWater">查看</button>
                               </div>
                               <div class="numberelse col-6">
-                                  <select @change="searchMasterPlayer" name="" id="">
-                                      <option value="全部">全部</option>
-                                      <option value="益智類">益智類</option>
-                                      <option value="戶外活動">戶外活動</option>
-                                      <option value="宅宅">宅宅</option>
-                                      <option value="學術研究">學術研究</option>
-                                  </select>
-                                  <div class="numbercard">
-                                      <div class="num"><img src="../assets/img/socialhall/rank2.png" alt=""></div>
-                                      <div><img src="../assets/img/socialhall/3.jpg" alt=""></div>
+                                  <select @change="searchMasterPlayer(selPlayerCategory)" v-model="selPlayerCategory" id="">
+                                    <option selected value="all">全部</option>
+                                    <option v-for="item in category" :key="item.c_ID" :value="item.c_ID">{{item.c_category}}</option>
+                                </select>
+                                  <div v-for="(item,index) in playerTo4" :key="index" class="numbercard">
+                                      <div class="num"><img :src="require(`../../static/img/socialhall/rank${index+2}.png`)" alt=""></div>
+                                      <div><img :src="item.m_profile" alt=""></div>
                                       <div>
                                           <div>
-                                              <h4>米腦鼠</h4>
-                                              <span  class="numbercardExp">9527pt</span>
+                                              <h4>{{item.m_name}}</h4>
+                                              <span  class="numbercardExp">{{item.points}}pt</span>
                                           </div>
                                           <div class="numSum">
-                                              如果想念依依不捨 無時無刻等待皆可，從一到五的摯愛細數每個好與壞，一 一丟掉 再 一 一重來😢
+                                              {{item.introduce}}
                                           </div>
                                       </div>
-                                  </div>
-                                  <div class="numbercard">
-                                      <div class="num"><img src="../assets/img/socialhall/rank3.png" alt=""></div>
-                                      <div><img src="../assets/img/socialhall/3.jpg" alt=""></div>
-                                      <div>
-                                          <div>
-                                              <h4>米腦鼠</h4>
-                                              <span  class="numbercardExp">9527pt</span>
-                                          </div>
-                                          <div class="numSum">
-                                              如果想念依依不捨 無時無刻等待皆可，從一到五的摯愛細數每個好與壞，一 一丟掉 再 一 一重來😢
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="numbercard">
-                                      <div class="num"><img src="../assets/img/socialhall/rank4.png" alt=""></div>
-                                      <div><img src="../assets/img/socialhall/3.jpg" alt=""></div>
-                                      <div>
-                                          <div>
-                                              <h4>米腦鼠</h4>
-                                              <span  class="numbercardExp">9527pt</span>
-                                          </div>
-                                          <div class="numSum">
-                                              如果想念依依不捨 無時無刻等待皆可，從一到五的摯愛細數每個好與壞，一 一丟掉 再 一 一重來😢
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="numbercard">
-                                      <div class="num"><img src="../assets/img/socialhall/rank5.png" alt=""></div>
-                                      <div><img src="../assets/img/socialhall/3.jpg" alt=""></div>
-                                      <div>
-                                          <div>
-                                              <h4>米腦鼠</h4>
-                                              <span  class="numbercardExp">9527pt</span>
-                                          </div>
-                                          <div class="numSum">
-                                              如果想念依依不捨 無時無刻等待皆可，從一到五的摯愛細數每個好與壞，一 一丟掉 再 一 一重來😢
-                                          </div>
-                                      </div>
-                                  </div>
+                                  </div>                                
                               </div>
                           </div>
                       </div>
@@ -298,19 +176,20 @@ export default{
         data() {
           return {
                 sendMsg:"",
-                HostSelected:"",
+                selHostCategory:"all",
+                selPlayerCategory:"all",
                 category:[],
                 msgArray:[],
                 connectPeople:[],
                 serchText:"",
                 serchPeoples:[],
                 masterHost:[],
-                masterPlayer:[]
+                masterPlayer:[],
+                rankPic:[]
           }
         },
         sockets:{
           connect:function(){
-            // console.log(this);
             console.log("connect to socialhall");
           },
           online:function(amount){
@@ -334,19 +213,97 @@ export default{
                   console.log("inToMsgBoard");
                   let room = "socialhall";
                   if(room){
-                    console.log(this.$socket.id);
+                    // console.log(this.$socket.id);
                     // socket.emit("greet");
                     this.$socket.emit("group",room);
                   }
                 },
-                SearchMasterHost(){
+                SearchMasterHost(selCategory){
                   var vm = this;
-                  console.log("445");
-                  console.log(vm.HostSelected);
+                //   console.log(vm.selHostCategory);
+                 
+                  let ajax_data = [
+                      {m_ID: 111,
+                       m_name:"椰子",
+                       m_profile:"../static/img/socialhall/1.png",
+                       follow_people_num:1000,
+                       rate_star:5,
+                       introduce:"疑 是不是自己開發了業配新型態 🤔漂白水廠商快來"
+                      },
+                      {m_ID: 12,
+                       m_name:"馬克",
+                       m_profile:"../static/img/socialhall/2.png",
+                       follow_people_num:200,
+                       rate_star:4.5,
+                       introduce:"【日本氣球藝術家的創意設計合輯】登峰造極的氣球~"
+                      },
+                      {m_ID: 18,
+                       m_name:"鬥士",
+                       m_profile:"../static/img/socialhall/2.png",
+                       follow_people_num:245,
+                       rate_star:4,
+                       introduce:"看來勢必又會引領一波風潮了～～🔥搭編回家也來練練好了哈哈哈🤣🤣🤣"
+                      },
+                      {m_ID: 45,
+                       m_name:"珊瑚橘",
+                       m_profile:"../static/img/socialhall/2.png",
+                       follow_people_num:555,
+                       rate_star:3.8,
+                       introduce:"喜歡暖色調髮色可以嘗試看看橘色這種入門款色，保證讓你一開始就愛不釋手。"
+                      },
+                      {m_ID: 111,
+                       m_name:"巴哈姆特",
+                       m_profile:"../static/img/socialhall/2.png",
+                       follow_people_num:1000,
+                       rate_star:3,
+                       introduce:"巴哈姆特電玩瘋直播 PS4 人氣動漫畫改編角色扮演遊戲《FAIRY TAIL 魔導少年》"
+                      }
+                  ]
+                  vm.masterHost = ajax_data;
+
 
                 },
-                searchMasterPlayer(){
-
+                searchMasterPlayer(selCategory){
+                  var vm = this;
+                 
+                  let ajax_data = [
+                      {m_ID: 111,
+                       m_name:"椰子",
+                       m_profile:"/static/img/socialhall/1.png",
+                       follow_people_num:1000,
+                       points:50000,
+                       introduce:"疑 是不是自己開發了業配新型態 🤔漂白水廠商快來"
+                      },
+                      {m_ID: 12,
+                       m_name:"馬克",
+                       m_profile:"../static/img/socialhall/3.jpg",
+                       follow_people_num:200,
+                       points:12546,
+                       introduce:"【日本氣球藝術家的創意設計合輯】登峰造極的氣球~"
+                      },
+                      {m_ID: 18,
+                       m_name:"鬥士",
+                       m_profile:"../static/img/socialhall/3.jpg",
+                       follow_people_num:245,
+                       points:7855,
+                       introduce:"看來勢必又會引領一波風潮了～～🔥搭編回家也來練練好了哈哈哈🤣🤣🤣"
+                      },
+                      {m_ID: 45,
+                       m_name:"珊瑚橘",
+                       m_profile:"../static/img/socialhall/3.jpg",
+                       follow_people_num:555,
+                       points:5756,
+                       introduce:"喜歡暖色調髮色可以嘗試看看橘色這種入門款色，保證讓你一開始就愛不釋手。"
+                      },
+                      {m_ID: 111,
+                       m_name:"巴哈姆特",
+                       m_profile:"../static/img/socialhall/3.jpg",
+                       follow_people_num:1000,
+                       points:2136,
+                       introduce:"巴哈姆特電玩瘋直播 PS4 人氣動漫畫改編角色扮演遊戲《FAIRY TAIL 魔導少年》"
+                      }
+                    ]
+                  vm.masterPlayer = ajax_data;
                 },
                 searchPeople(){
                     console.log(this.serchText);
@@ -368,8 +325,6 @@ export default{
 
                     this.serchPeoples = data ;
                     // console.log()
-
-
                 },
                 topMsgBoard(people){
                     this.connectPeople = people;
@@ -426,12 +381,6 @@ export default{
                 window.addEventListener("beforeunload",function(){
                         vm.$socket.emit("leaveGroup");
                 })
-
-            },
-            watch: {
-              //  sockets(){
-              //   console.log("sockets",this.sockets)
-              // }
             },
             updated() {
                 // 維持對話視窗置底
@@ -439,17 +388,28 @@ export default{
 
             },
             computed: {
+                masterHostTo4:function(){
+                    var data =  this.masterHost.splice(1);
+                    return data;
+                },
+                playerTo4:function(){
+                     var data = this.masterPlayer.splice(1);
+                    return data;
+                }
             },
             created() {
               // let.vm = this;
+              console.log( this.$socket);
+              this.inToMsgBoard();
+
               axios.get('modules/category').then(e=>{
-                  console.log(e);
+                //   console.log(e);
                     this.category = e.data ;
                     // vm.getChatList();
 
               })
-              console.log( this.$socket);
-              this.inToMsgBoard();
+               this.SearchMasterHost();
+               this.searchMasterPlayer();
 
             }
       }

@@ -70,9 +70,9 @@ export default{
   methods: {
             login(){
                 var vm = this;
-                let id = vm.myInfo.myId;
+                let name = vm.myInfo.myId;
                 // console.log(id);
-                axios.post('login',{id:id}).then(
+                axios.post('login',{id:name}).then(
                   e=>{
                     console.log(e)
                     console.log(e.data)
