@@ -3,7 +3,6 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const app = express();
 const http = require('http');
-// const records = require('./socket/chat_records.js');
 const cors = require('cors');
 
 const sessionMiddleware = require('./sessionMiddleware')
@@ -31,6 +30,7 @@ app.use(sessionMiddleware);
 
 
 //----------------------router----------------------------
+
 app.use('/modules', modules);
 app.use('/', chatRouter);
 app.use('/login',login);
@@ -44,18 +44,6 @@ app.set('port', port);
 
 
 // ----------------------socket.io-------------------------------
-
-
-  // app.use(cookieParser());
-  // // app.use(cors());
-  // app.use(cors({
-  //   origin:['http://localhost:8080'],
-  //   methods:['GET','POST'],
-  //   alloweHeaders:['Conten-Type', 'Authorization']
-  // }));
-  // app.use(sessionMiddleware);
-
-
 
 
 var server = http.createServer(app);
