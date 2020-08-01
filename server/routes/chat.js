@@ -10,7 +10,7 @@ var conn = require('../db');
 /* GET users listing. */
 router.get('/chat', function(req, res, next) {
   // req.session.userName = "be";
-    console.log(req.session.userName);
+    // console.log(req.session.userName);
     if(req.session.userName){
 
       conn.query('SELECT * FROM chatroom where userId=? or friendId=?',[req.session.userName,req.session.userName], function(err, rows) {
