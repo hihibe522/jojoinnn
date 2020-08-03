@@ -10,7 +10,7 @@ const addSocket = require("./socket");
 //--------------router路徑-----------------------------------
 
 var chatRouter = require('./routes/chat');
-var socialhallRouter = require('./routes/socialhallRouter');
+var socialhallRouter = require('./routes/socialhall');
 var login = require('./routes/login');
 var modules = require('./routes/modules');
 

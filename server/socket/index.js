@@ -1,5 +1,6 @@
 
 const records = require('./chat_records.js');
+var conn = require('../db');
 
 let sockInfo = {};
 let socket_List= [];
@@ -37,21 +38,33 @@ module.exports = (io) => {
       })
 
       socket.on("sendchat",(myid,uid,msg)=>{
-        var num = 1; 
-        console.log(myid,uid,msg);
+
+        var num = Math.random();
+        // console.log(myid,uid,msg);
         var user = socket_List.filter((ele) =>{
             return ele.myID == uid;
         })
         // console.log(socket_List);
         // console.log(user);
+        let sql ="INSERT INTO chatroom (userID, friendID,msg,time) VALUES (?,?,?,?)";
+          conn.query(sql,[myid,uid,msg,currTime()],function(err, rows){
+            if (err) {
+              console.log(err);
+            }
+              // res.json(rows);
+              console.log("insert OK")
+          })
         if(user != "" ){
-          // console.log(user[0].sID);
-          io.sockets.to(user[0].sID).emit('reply', {num:num, id: myid, self: false, date:currTime(), msg});
+            // console.log(user[0].sID);
+            io.sockets.to(user[0].sID).emit('reply', {num:num, id: myid, self: false, date:currTime(), msg});
         }
+
         socket.emit('reply', {num:num,id:myid,self: true , date: currTime(),msg});
-        num++;
+        // num++;
       })
 
+      // console.log("sockInfo socialll",sockInfo);
+    //  if(sockInfo !== "" ){
       let name = Math.floor(Math.random()*100);
       // 接收由socialhall 發出的請求
       socket.on("group",(room)=>{
@@ -103,7 +116,7 @@ module.exports = (io) => {
             
         });
       })
-    
+    //  }
     });
     
     records.on("new_message", (re) => {
@@ -111,7 +124,7 @@ module.exports = (io) => {
       console.log(re);
       io.emit("msg", re);
     });
-    
+  
 // ------------------------------socket.io_end----------------------------
 
 }

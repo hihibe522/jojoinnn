@@ -6,6 +6,8 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import router from './router'
 import store from './store'
+import './bus';
+import Toasted from 'vue-toasted';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap'
@@ -30,13 +32,13 @@ axios.defaults.withCredentials = true;
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 
-/* eslint-disable no-new */
-// new Vue({
-//   el: '#app',
-//   router,
-//   components: { App },
-//   template: '<App/>'
-// })
+const Options={
+  theme: "bubble", 
+  position: "top-center", 
+  duration : 3000,
+  className:"toasted_style"
+}
+Vue.use(Toasted,Options);
 
 new Vue({
   router,

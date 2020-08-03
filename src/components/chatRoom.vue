@@ -3,8 +3,10 @@
     <div id="loginInput">
         <input v-model="myInfo.myId" type="text" name="" id="">
         <button @click="login" class="btn btn-primary">登入</button>
+        <button @click="logout" class="btn btn-primary">登出</button>
     </div>
     <div class="btnww">
+        <button id="be" @click="goChat" class="btn btn-success talkTo">be</button>
         <button id="apple" @click="goChat" class="btn btn-danger talkTo">Apple</button>
         <button id="cat" @click="goChat" class="btn btn-info talkTo">Cat</button>
         <button id="fish" @click="goChat" class="btn btn-warning talkTo">Fish</button>
@@ -23,11 +25,13 @@
                       <div v-for="item in friendRecords" :key="item.chat" :class="['msgList',item.userId == myInfo.myId ? 'myMsg':'otherMsg']">
                         {{item.msg}}
                       </div>
+                      <div v-for="item in onlineChatMsgs[chatMsg.toId]" :key="item.num" :class="['msgList',item.id == myInfo.myId ? 'myMsg':'otherMsg']">
+                        {{item.msg}}
+                      </div>
                   </div>
                   <div class="inputMsg">
-                      <input v-model="chatMsg.msg" @keyup.enter="sendMsg" type="text" placeholder="請輸入訊息">
+                      <input v-model="chatMsg.msg" @keyup.13="sendMsg" type="text" placeholder="請輸入訊息">
                   </div>
-
           </div>
           <div class="chatRightbox">
                 <ul>
@@ -57,11 +61,13 @@ export default{
                 myId:"",
                 myName:"嗶波"
              },
+      onlinePeople:[],
       chatMsg:{
-                fromId:"",
                 toId:"",
+                toName:"",
                 msg:""
               },
+      onlineChatMsgs:{},
       recordsData:{},
       friendList:[],
       friendRecords:[],
@@ -72,33 +78,58 @@ export default{
        connect:function(){
             console.log("connect to chat");
         },
+        sockInfo:function(sid){
+            this.myInfo.sID = sid;
+        },
+        getOnlineMan:function(list){
+            // console.log(list);
+            this.onlinePeople = list;
+        },
+        reply:function(data){
+            console.log(data);
+            this.chatOnBox(data);
+        }
     
   },
 
   methods: {
+            chatOnBox(data){
+                var vm = this ;
+                vm.onlineChatMsgs[vm.chatMsg.toId].push(data);
+                console.log( vm.onlineChatMsgs[vm.chatMsg.toId]);
+
+            },  
             login(){
                 var vm = this;
                 let name = vm.myInfo.myId;
                 // console.log(id);
                 axios.post('login',{id:name}).then(
                   e=>{
-                    console.log(e)
-                    console.log(e.data)
+                    // console.log(e)
+                    // console.log(e.data);
                     vm.loginOK = true;
                     vm.getChatList();
+                    vm.selfInfo();
+                    vm.$bus.$emit('islogin',e.data);
                   }
                 )
-                //  $.post("http://localhost:4000/login",{id:id},function(e){
-                //     console.log(e);
-                //  }).then(e=>{
-                //     vm.loginOK = true;
-                //     vm.getChatList();
-                //  })
+            },
+            selfInfo(){
+                var vm = this;
+                let self = {
+                            myID : vm.myInfo.myId,
+                            myName : vm.myInfo.myName
+                            };
+                this.$socket.emit("uInfo", self);
+                
+            },
+            logout(){
+                 this.$socket.emit("leavechat",this.myInfo.sid);
             },
             getChatList(){
                 var vm = this;
                 axios.get("chat").then(e=>{
-                    console.log(e)
+                    // console.log(e.data);
                     vm.recordsData = e.data;
                     e.data.forEach((item)=>{
                         let friendInfo = { };
@@ -114,7 +145,7 @@ export default{
                     })
                     const set = new Set();
                     vm.friendList = vm.friendList.filter(item => !set.has(item.friendId) ? set.add(item.friendId) : false);
-                    console.log(vm.friendList);
+                    // console.log(vm.friendList);
                     // vm.friendList = vm.friendList.filter(function(element, index, arr){
                     //     return arr.indexOf(element) === index;
                     // });
@@ -122,13 +153,36 @@ export default{
             },
             goChat(e){
                 this.showChatBox = true;
-                // this.chatMsg
-                console.log(e.target.id);
                 this.chatMsg.toId = e.target.id;
+                this.chatMsg.toName = e.target.innerText;
+                // console.log(this.friendList);
+                // console.log(this.chatMsg.toId);
+                let friend = {friendId: this.chatMsg.toId,
+                              friendName:this.chatMsg.toName
+                             };
 
+                console.log(friend);
+
+                // 判斷對象是否已存在對話列表
+                let isFriend = this.friendList.find(ele=>{
+                    return ele.friendId == this.chatMsg.toId;
+                })
+                if(!isFriend){
+                    // axios.get('')
+                    this.friendList.push(friend);
+                }
+                else{
+                    this.selFriendToChat(this.chatMsg.toId);
+                }
             },
             sendMsg(){
-
+                var vm = this;
+                console.log(vm.myInfo.myId);
+                console.log(vm.chatMsg.toId);
+                this.$socket.emit("sendchat",vm.myInfo.myId,vm.chatMsg.toId,vm.chatMsg.msg);
+                vm.chatMsg.msg = "";
+                // console.log(vm.chatMsg);
+                
             },
             selFriendToChat(id){
                 let vm = this;
@@ -137,8 +191,17 @@ export default{
                             return item;
                         }
                 })
-                console.log( vm.friendRecords);
+                vm.chatMsg.toId = id;
+                // 對話列表統整
+                let has = vm.onlineChatMsgs.hasOwnProperty(vm.chatMsg.toId);
+                if(!has){
+                     vm.$set(vm.onlineChatMsgs,vm.chatMsg.toId,[])
+                }
             }
+        },
+        updated() {
+            // 維持對話視窗置底
+            $(".msgBox").scrollTop($(".msgBox")[0].scrollHeight);
         }
 }
 </script>
@@ -159,100 +222,3 @@ export default{
   }
 
 </style>
-
-<!-- <script src="js/jquery-3.5.1.min.js"></script> -->
-<!-- <script src="js/chatRoom.js"></script> -->
-<!-- <script>
-    var app = new Vue({
-        el:"#app",
-        data:{
-            loginOK:false,
-            myInfo:{
-                myId:"",
-            },
-            chatMsg:{
-                fromId:"",
-                toId:"",
-                msg:""
-            },
-            recordsData:{},
-            friendList:[],
-            friendRecords:[],
-            showChatBox:false
-        },
-        methods: {
-            login(){
-                var vm = this;
-                let id = vm.myInfo.myId;
-                // console.log(id);
-                 $.post("/login",{id:id},function(e){
-                    console.log(e);
-                 }).then(e=>{
-                    vm.loginOK = true;
-                    vm.getChatList();
-                 })
-            },
-            getChatList(){
-                var vm = this;
-                $.get("/").then(data=>{
-                    console.log(data)
-                    vm.recordsData = data;
-                    data.forEach((item)=>{
-                        let friendInfo = { };
-                        if(item.userId == vm.myInfo.myId){
-                            friendInfo['friendId'] = item.friendId;
-                            friendInfo['friendName'] = item.friendId
-                        }
-                        if( item.friendId == vm.myInfo.myId){
-                            friendInfo['friendId'] = item.userId;
-                            friendInfo['friendName'] = item.userId;
-                        }
-                        vm.friendList.push(friendInfo)
-                    })
-                    const set = new Set();
-                    vm.friendList = vm.friendList.filter(item => !set.has(item.friendId) ? set.add(item.friendId) : false);
-                    console.log(vm.friendList);
-                    // vm.friendList = vm.friendList.filter(function(element, index, arr){
-                    //     return arr.indexOf(element) === index;
-                    // });
-                })
-            },
-            goChat(e){
-                this.showChatBox = true;
-                // this.chatMsg
-                console.log(e.target.id);
-                this.chatMsg.toId = e.target.id;
-
-            },
-            sendMsg(){
-
-            },
-            selFriendToChat(id){
-                let vm = this;
-                vm.friendRecords = vm.recordsData.filter(item=>{
-                        if(item.friendId == id ||item.userId == id ){
-                            return item;
-                        }
-                })
-                console.log( vm.friendRecords);
-            }
-                // getFriends(){
-            //     var vm = this;
-            //     console.log(vm.recordsData);
-            //     return vm.recordsData.map(function(item,index,arr){
-            //     return vm.myInfo.Id.indexOf(item.userId) > -1;
-
-            //     })
-            // }
-        },
-        created() {
-
-        },
-        mounted() {
-            // this.getChatList()
-        },
-        computed: {
-
-        },
-    })
-</script> -->

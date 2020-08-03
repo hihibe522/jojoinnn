@@ -27,6 +27,11 @@ export default new Router({
           component: register,
         },
         {
+          path:'socialhall',
+          name:'socialhall',
+          component: socialhall,
+        },
+        {
           path:'FAQ',
           name:'FAQ',
           component: FAQ,
@@ -42,11 +47,6 @@ export default new Router({
       path: '/consumptionHis',
       name: 'consumptionHis',
       component: consumptionHis
-    },
-    {
-      path: '/socialhall',
-      name: 'socialhall',
-      component: socialhall
     },
     {
       path: '/StarRate',
