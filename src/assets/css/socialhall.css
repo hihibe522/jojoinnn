@@ -1,18 +1,17 @@
 body{
     overflow-x: hidden;
-    background-image: url("../img/socialhall/bg.jpg");
-    background-size: cover;
-    background-attachment: fixed;
+}
+.leaderboard button{
+    outline: none;
 }
 h1{
-    color: var(--jo_lGrey2);
-    /* font-size: 2rem; */
+    color: var(--jo_water);
     text-align: center;
     padding: 20px;
     width: 300px;
     margin: auto;
     margin-bottom: 20px;
-    border-bottom:var(--jo_lGrey2) 3px solid ;
+    border-bottom:var(--jo_water) 3px solid ;
 }
 h2{
     text-align: center;
@@ -243,6 +242,7 @@ img{
     display: inline;
 }
 .contentBox{
+    width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -257,7 +257,6 @@ img{
 }
 .joManName{
     font-size: 1.8rem;
-    /* margin: 0 10px 10px 0; */
 }
 .btnBox{
     text-align: right;
@@ -268,10 +267,11 @@ img{
 }
 /* 排行榜 */
  .number1{
-     width: 50%;
+     width: 800px;
      display: flex;
      flex-direction: column;
      align-items: center;
+     justify-content: space-between;
      float: left;
      background-color: bisque;
      padding: 20px;
@@ -298,11 +298,12 @@ img{
  .num1text{
      width: 80%;
      line-height: 1.4rem;
+     text-align: center;
  }
  .numberelse{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
  }
  .numberelse img{
      width: 80px;
@@ -313,7 +314,6 @@ img{
  .numberelse select{
     width: 150px;
     height: 35px;
-    /* float: right; */
     border-radius: 8px;
     border: 1px var(--jo_dGrey3) solid;
     padding: 5px;
@@ -346,6 +346,17 @@ img{
     font-size: 3rem;
     margin-left: 30px;
     position: absolute;
+ }
+ .num_content{
+     width: 80%;
+ }
+ .num_content div{
+    display: flex;
+    justify-content: space-between;
+ }
+ .num_content button{
+    width: 50px;
+    border-radius: 10px;
  }
 
  .expPoint span{

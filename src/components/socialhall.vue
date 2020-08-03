@@ -32,30 +32,28 @@
       <div class="sectionArea">
         <div class="sectionTitle animateItem">
         <h1>搜尋 Jo友</h1>
-        <div class="searchBox">請輸入玩家暱稱或帳號搜尋 <input type="search" name="" id="" placeholder="搜尋玩家"> <button @click="searchPeople" class="jo_btn jo_btn_s jo_btnWater"><i class="fa fa-search"></i></button></div>
+        <div class="searchBox">請輸入玩家暱稱或帳號搜尋 <input v-model="serchText" type="search" name="" id="" placeholder="搜尋玩家"> <button @click="searchPeople" class="jo_btn jo_btn_s jo_btnWater"><i class="fa fa-search"></i></button></div>
         </div>
         <section class="mySection row no-gutters animateItem">
             <div class="catoContent">
                 <!-- <div v-if="serchPeoples"> -->
                     <div v-for="item in serchPeoples" :key="item.m_ID" class="joManCard">
-                        <div class="imgBox">
-                        <!-- require('../assets/'+pic) -->
-                            <img :src ="item.m_pic" alt="">
+                        <div class="imgBox">  
+                            <img :src ="require(`../../static/img/head/${item.m_profile}`)" alt="">
                         </div>
                         <div class="contentBox">
                             <div class="joManTitle">
                                 <span class="joManName">{{item.m_name}}</span>
                                 <!-- 星星評價元件 -->
-                                <StarRate :m_rate="item.m_rate"></StarRate>
+                                <StarRate :m_rate="item.rate"></StarRate>
 
-                                <span>({{item.rate_count}}人評價)</span>
+                                <span>({{item.counts}}人評價)</span>
                             </div>
                             <div class="contentText">
                                 {{item.introduce}}
                             </div>
                             <div class="btnBox">
                                 <button class="jo_btn jo_btn_s jo_btnWater">查看</button>
-                                <button class="jo_btn jo_btn_s jo_btnOrange">關注</button>
                             </div>
                         </div>
                     </div>
@@ -74,16 +72,17 @@
                   <div class="row no-gutters">
                       <div class="number1 col-6">
                           <div class="num1"><img src="../../static/img/socialhall/rank1.png" alt=""></div>
-                          <img class="head" :src="masterHost[0].m_profile" alt="">
+                          <img class="head" :src="require(`../../static/img/head/${masterHost[0].m_profile}`)" alt="">
                           <div class="num1Name">{{masterHost[0].m_name}}</div>
-                           <StarRate :m_rate="masterHost[0].rate_star"></StarRate>
+                           <StarRate :m_rate="masterHost[0].rate"></StarRate>
                           <div class="num1text">
                               {{masterHost[0].introduce}}
                           </div>
                           <div>
-                              <span>{{masterHost[0].follow_people_num}}人追蹤中</span>
+                            <!-- <router-link :to="{ name: 'FAQ', params: { mID:masterHost[0].m_ID } }"> -->
+                                <button class="jo_btn jo_btn_s jo_btnWater">查看</button>
+                            <!-- </router-link> -->
                           </div>
-                          <router-link :to="{ name: 'FAQ', params: { mID:masterHost[0].m_ID } }"><button class="jo_btn jo_btn_s jo_btnWater">查看</button></router-link>
                       </div>
                       <div class="numberelse col-6">
                           <select @change="SearchMasterHost(selHostCategory)" v-model="selHostCategory" id="">
@@ -93,14 +92,19 @@
                           </select>
                           <div class="numbercard" v-for="(item,index) in masterHostTo4" :key="index">
                               <div class="num"><img :src="require(`../../static/img/socialhall/rank${index+2}.png`)" ></div>
-                              <div><img :src="item.m_profile" alt=""></div>
-                              <div>
+                              <div><img :src="require(`../../static/img/head/${item.m_profile}`)" alt=""></div>
+                              <div class="num_content">
                                   <div>
                                       <h4>{{item.m_name}}</h4>
-                                        <StarRate :m_rate="item.rate_star"></StarRate>
+                                        <StarRate :m_rate="item.rate"></StarRate>
                                   </div>
                                   <div class="numSum">
-                                      {{item.introduce}}
+                                      <div>{{item.introduce}}</div>
+                                      <div>
+                                          <!-- <router-link :to="{ name: 'FAQ', params: { mID:masterHost[0].m_ID } }"> -->
+                                              <button class="jo_btn jo_btn_s jo_btnWater">查看</button>
+                                          <!-- </router-link> -->
+                                      </div>
                                   </div>
                               </div>
                           </div>
@@ -119,19 +123,19 @@
                           <div class="row no-gutters">
                               <div class="number1 col-6">
                                   <div class="num1"><img src="../../static/img/socialhall/rank1.png" alt=""></div>
-                                  <img class="head" :src="masterPlayer[0].m_profile" alt="">
+                                  <img class="head" :src="require(`../../static/img/head/${masterPlayer[0].m_profile}`)" alt="">
                                   <div class="num1Name">{{masterPlayer[0].m_name}}</div>
                                   <div class="expPoint">
-                                      <span>{{selPlayerCategory}}</span>經驗值<span>{{masterPlayer[0].points}}</span>pt
+                                      <span>{{selPlayerCategory}}</span>經驗值<span>{{masterPlayer[0].points}}</span>exp
                                   </div>
 
                                   <div class="num1text">
                                       {{masterPlayer[0].introduce}}
                                   </div>
-                                  <div>
+                                  <!-- <div>
                                       <span>{{masterPlayer[0].follow_people_num}}人追蹤中</span>
 
-                                  </div>
+                                  </div> -->
                                   <button class="jo_btn jo_btn_s jo_btnWater">查看</button>
                               </div>
                               <div class="numberelse col-6">
@@ -141,14 +145,15 @@
                                 </select>
                                   <div v-for="(item,index) in playerTo4" :key="index" class="numbercard">
                                       <div class="num"><img :src="require(`../../static/img/socialhall/rank${index+2}.png`)" alt=""></div>
-                                      <div><img :src="item.m_profile" alt=""></div>
-                                      <div>
+                                      <div><img :src="require(`../../static/img/head/${item.m_profile}`)" alt=""></div>
+                                      <div class="num_content">
                                           <div>
                                               <h4>{{item.m_name}}</h4>
-                                              <span  class="numbercardExp">{{item.points}}pt</span>
+                                              <span  class="numbercardExp">{{item.points}}exp</span>
                                           </div>
                                           <div class="numSum">
-                                              {{item.introduce}}
+                                              <div>{{item.introduce}}</div>
+                                              <div><router-link :to="{ name: 'FAQ', params: { mID:masterHost[0].m_ID } }"><button class="jo_btn jo_btn_s jo_btnWater">查看</button></router-link></div>
                                           </div>
                                       </div>
                                   </div>                                
@@ -160,9 +165,6 @@
   </div>
 
 </template>
-
-    <!-- <script src="/js/socialhall.js"></script> -->
-
 <script>
 import $ from "jquery";
 import axios from "axios";
@@ -183,9 +185,22 @@ export default{
                 connectPeople:[],
                 serchText:"",
                 serchPeoples:[],
-                masterHost:[],
-                masterPlayer:[],
-                rankPic:[]
+                masterHost:[{
+                    m_ID:"",
+                    m_name:"",
+                    m_profile:"",
+                    rate:0,
+                    introduce:""
+                }],
+                masterPlayer:[{
+                    m_ID:"",
+                    m_name:"",
+                    m_profile:"",
+                    points:0,
+                    introduce:""   
+                }],
+                rankPic:[],
+                isLogin:false
           }
         },
         sockets:{
@@ -220,117 +235,36 @@ export default{
                 },
                 SearchMasterHost(selCategory){
                   var vm = this;
-                //   console.log(vm.selHostCategory);
-                 
-                  let ajax_data = [
-                      {m_ID: 111,
-                       m_name:"椰子",
-                       m_profile:"../static/img/socialhall/1.png",
-                       follow_people_num:1000,
-                       rate_star:5,
-                       introduce:"疑 是不是自己開發了業配新型態 🤔漂白水廠商快來"
-                      },
-                      {m_ID: 12,
-                       m_name:"馬克",
-                       m_profile:"../static/img/socialhall/2.png",
-                       follow_people_num:200,
-                       rate_star:4.5,
-                       introduce:"【日本氣球藝術家的創意設計合輯】登峰造極的氣球~"
-                      },
-                      {m_ID: 18,
-                       m_name:"鬥士",
-                       m_profile:"../static/img/socialhall/2.png",
-                       follow_people_num:245,
-                       rate_star:4,
-                       introduce:"看來勢必又會引領一波風潮了～～🔥搭編回家也來練練好了哈哈哈🤣🤣🤣"
-                      },
-                      {m_ID: 45,
-                       m_name:"珊瑚橘",
-                       m_profile:"../static/img/socialhall/2.png",
-                       follow_people_num:555,
-                       rate_star:3.8,
-                       introduce:"喜歡暖色調髮色可以嘗試看看橘色這種入門款色，保證讓你一開始就愛不釋手。"
-                      },
-                      {m_ID: 111,
-                       m_name:"巴哈姆特",
-                       m_profile:"../static/img/socialhall/2.png",
-                       follow_people_num:1000,
-                       rate_star:3,
-                       introduce:"巴哈姆特電玩瘋直播 PS4 人氣動漫畫改編角色扮演遊戲《FAIRY TAIL 魔導少年》"
-                      }
-                  ]
-                  vm.masterHost = ajax_data;
-
-
+                  axios.get(`/socialhall/searchHost/${selCategory}`)
+                  .then(e=>{
+                      console.log(e);
+                      vm.masterHost = e.data;
+                  })
                 },
                 searchMasterPlayer(selCategory){
                   var vm = this;
-                 
-                  let ajax_data = [
-                      {m_ID: 111,
-                       m_name:"椰子",
-                       m_profile:"/static/img/socialhall/1.png",
-                       follow_people_num:1000,
-                       points:50000,
-                       introduce:"疑 是不是自己開發了業配新型態 🤔漂白水廠商快來"
-                      },
-                      {m_ID: 12,
-                       m_name:"馬克",
-                       m_profile:"../static/img/socialhall/3.jpg",
-                       follow_people_num:200,
-                       points:12546,
-                       introduce:"【日本氣球藝術家的創意設計合輯】登峰造極的氣球~"
-                      },
-                      {m_ID: 18,
-                       m_name:"鬥士",
-                       m_profile:"../static/img/socialhall/3.jpg",
-                       follow_people_num:245,
-                       points:7855,
-                       introduce:"看來勢必又會引領一波風潮了～～🔥搭編回家也來練練好了哈哈哈🤣🤣🤣"
-                      },
-                      {m_ID: 45,
-                       m_name:"珊瑚橘",
-                       m_profile:"../static/img/socialhall/3.jpg",
-                       follow_people_num:555,
-                       points:5756,
-                       introduce:"喜歡暖色調髮色可以嘗試看看橘色這種入門款色，保證讓你一開始就愛不釋手。"
-                      },
-                      {m_ID: 111,
-                       m_name:"巴哈姆特",
-                       m_profile:"../static/img/socialhall/3.jpg",
-                       follow_people_num:1000,
-                       points:2136,
-                       introduce:"巴哈姆特電玩瘋直播 PS4 人氣動漫畫改編角色扮演遊戲《FAIRY TAIL 魔導少年》"
-                      }
-                    ]
-                  vm.masterPlayer = ajax_data;
+                   axios.get(`/socialhall/searchFans/${selCategory}`)
+                  .then(e=>{
+                    //   console.log(e);
+                    vm.masterPlayer = e.data;
+
+                  })
                 },
                 searchPeople(){
                     console.log(this.serchText);
-                    var data = [{m_ID:1,
-                                m_name:"鞋貓K",
-                                m_account:"abc123",
-                                m_pic:require('@/assets/img/socialhall/8.jpg'),
-                                introduce:"大家好我是貓，很高興跟大家見面～買烘焙原材料、器具模具? 想學習 蛋糕麵包 製作知識?",
-                                m_rate:4.5,
-                                rate_count:20},
-                                {m_ID:2,
-                                m_name:"蛋頭",
-                                m_account:"5555",
-                                m_pic:require('@/assets/img/socialhall/3.jpg'),
-                                introduce:"有時候不是你比例問題～😉靠對的穿搭也可以幫你修飾身材！😎",
-                                m_rate:3.2,
-                                rate_count:10}
-                                ]
+                    axios.get(`/socialhall/${this.serchText}`)
+                    .then(e=>{
+                        console.log(e);
+                        console.log(e.data);
+                        this.serchPeoples = e.data ;
 
-                    this.serchPeoples = data ;
-                    // console.log()
+                    })
                 },
                 topMsgBoard(people){
                     this.connectPeople = people;
                 },
                 showMsgOnBoard(msg){
-                    console.log(msg);
+                    // console.log(msg);
                     msg["color"] = {color:`rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`,
                                     top:`${Math.floor(Math.random()*255)}px`}
                     this.msgArray.push(msg);
@@ -381,11 +315,11 @@ export default{
                 window.addEventListener("beforeunload",function(){
                         vm.$socket.emit("leaveGroup");
                 })
+              
             },
             updated() {
                 // 維持對話視窗置底
                 $(".chatList").scrollTop($(".chatList")[0].scrollHeight);
-
             },
             computed: {
                 masterHostTo4:function(){
@@ -397,21 +331,30 @@ export default{
                     return data;
                 }
             },
+            // watch: {
+            //     isLogin:function(){
+            //         this.inToMsgBoard();
+            //     }
+            // },
             created() {
-              // let.vm = this;
-              console.log( this.$socket);
-              this.inToMsgBoard();
-
+            // this.$toasted.show('hello billo😉');
+               this.$bus.$on('islogin', (data) => {
+                   console.log(data);
+                   this.inToMsgBoard();
+                });
               axios.get('modules/category').then(e=>{
                 //   console.log(e);
                     this.category = e.data ;
                     // vm.getChatList();
 
               })
-               this.SearchMasterHost();
-               this.searchMasterPlayer();
+               this.SearchMasterHost("all");
+               this.searchMasterPlayer("all");
 
-            }
+            },
+            beforeDestroy() {
+               this.$bus.$off('islogin'); 
+            },
       }
 
     </script>
