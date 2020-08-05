@@ -13,7 +13,25 @@ router.get('/category', function(req, res, next){
     }
       res.json(rows);
   })
+})
 
+router.post('/collect',function(req,res,next){
+  let sql =  `INSERT INTO member_collect VALUES (?,?) `;
+  conn.query(sql,[req.body.info.m_ID,req.body.info.a_ID],function(err, rows){
+    if (err) {
+      console.log(err);
+    }
+    res.send("post ok")
+  })
+})
+router.post('/delcollect',function(req,res,next){
+  let sql =`DELETE FROM member_collect WHERE m_ID = ? AND a_ID= ? `;
+  conn.query(sql,[req.body.info.m_ID,req.body.info.a_ID],function(err, rows){
+    if (err) {
+      console.log(err);
+    }
+    res.send("delete ok")
+  })
 
 })
 

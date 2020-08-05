@@ -1,4 +1,3 @@
-
 const records = require('./chat_records.js');
 var conn = require('../db');
 
@@ -26,7 +25,7 @@ module.exports = (io) => {
         else{
           socket_List.push(sockInfo);
         }
-        // console.log(socket_List);
+        console.log(socket_List);
         socket.emit("sockInfo",socket.id);
         io.sockets.emit('getOnlineMan', socket_List);
       })
@@ -41,11 +40,12 @@ module.exports = (io) => {
 
         var num = Math.random();
         // console.log(myid,uid,msg);
+        console.log("1111",socket_List);
         var user = socket_List.filter((ele) =>{
             return ele.myID == uid;
         })
-        // console.log(socket_List);
-        // console.log(user);
+        console.log("222222",socket_List);
+        console.log("1111",user);
         let sql ="INSERT INTO chatroom (userID, friendID,msg,time) VALUES (?,?,?,?)";
           conn.query(sql,[myid,uid,msg,currTime()],function(err, rows){
             if (err) {

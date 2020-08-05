@@ -14,5 +14,6 @@ export default {
 @import './assets/css/reset.css' ;
 @import './assets/css/jo_css.css' ;
 @import './assets/css/jo_animation.css' ;
-
+@import '../static/fontawesome/css/fontawesome.css';
+@import '../static/fontawesome/css/all.css';
 </style>

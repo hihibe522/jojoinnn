@@ -6,9 +6,7 @@ var conn = require('../db');
 
 // ----------------------socket.io-------------------------------
 
-
-/* GET users listing. */
-router.get('/chat', function(req, res, next) {
+router.get('/', function(req, res, next) {
   // req.session.userName = "be";
     // console.log(req.session.userName);
     if(req.session.userName){
@@ -17,14 +15,32 @@ router.get('/chat', function(req, res, next) {
       if (err) {
         console.log(err);
       }
-        // console.log("dsff",rows);
+        // console.log(rows);
         res.json(rows);
       });
 
     }
-    // next();
-    // res.sendFile('/jo_chat/public/chatRoom.html');
 });
+router.post('/friendinfo', function(req, res, next){
+
+  var data = req.body.info;
+  var queryData = [data] ;
+  // console.log(data);
+  let sql = `SELECT m_ID,m_name,m_profile FROM member WHERE m_ID IN ?`;
+  
+  conn.query(sql,[queryData], function(err, rows) {
+    if (err) {
+      console.log(err);
+    }
+      res.json(rows);
+    });
+
+
+
+})
+
+
+
 
 module.exports = router;
 
