@@ -37,9 +37,9 @@
         <section class="mySection row no-gutters animateItem">
             <div class="catoContent">
                 <!-- <div v-if="serchPeoples"> -->
-                    <div v-for="item in serchPeoples" :key="item.m_ID" class="joManCard">
+                    <div  v-for="item in serchPeoples" :key="item.m_ID" class="joManCard">
                         <div class="imgBox">  
-                            <img :src ="require(`../../static/img/head/${item.m_profile}`)" alt="">
+                            <img v-if="item.m_name" :src ="require(`../../static/img/head/${item.m_profile}`)" alt="">
                         </div>
                         <div class="contentBox">
                             <div class="joManTitle">
@@ -53,7 +53,12 @@
                                 {{item.introduce}}
                             </div>
                             <div class="btnBox">
-                                <button class="jo_btn jo_btn_s jo_btnWater">查看</button>
+                               <router-link :to="{ name:'userhosting',query:{m_ID:item.m_ID }}">
+                                <button class="jo_btn jo_btn_s jo_btnWater">
+                                    查看
+                                </button>
+                                </router-link>
+                               
                             </div>
                         </div>
                     </div>
@@ -61,7 +66,6 @@
             </div>
         </section>
       </div>
-
       <div class="sectionArea">
           <div class="animateItem">
               <h1>最佳 Jo主</h1>
@@ -70,7 +74,7 @@
           <section class="mySection animateItem">
               <div class="leaderboard">
                   <div class="row no-gutters">
-                      <div class="number1 col-6">
+                      <div class="number1 col-6" v-if="masterHost[0].m_profile">
                           <div class="num1"><img src="../../static/img/socialhall/rank1.png" alt=""></div>
                           <img class="head" :src="require(`../../static/img/head/${masterHost[0].m_profile}`)" alt="">
                           <div class="num1Name">{{masterHost[0].m_name}}</div>
@@ -79,9 +83,9 @@
                               {{masterHost[0].introduce}}
                           </div>
                           <div>
-                            <!-- <router-link :to="{ name: 'FAQ', params: { mID:masterHost[0].m_ID } }"> -->
+                            <router-link :to="{ name:'userhosting',query:{m_ID:masterHost[0].m_ID}}">
                                 <button class="jo_btn jo_btn_s jo_btnWater">查看</button>
-                            <!-- </router-link> -->
+                            </router-link>
                           </div>
                       </div>
                       <div class="numberelse col-6">
@@ -101,9 +105,9 @@
                                   <div class="numSum">
                                       <div>{{item.introduce}}</div>
                                       <div>
-                                          <!-- <router-link :to="{ name: 'FAQ', params: { mID:masterHost[0].m_ID } }"> -->
+                                          <router-link :to="{ name:'userhosting',query:{m_ID:item.m_ID}}">
                                               <button class="jo_btn jo_btn_s jo_btnWater">查看</button>
-                                          <!-- </router-link> -->
+                                          </router-link>
                                       </div>
                                   </div>
                               </div>
@@ -123,7 +127,7 @@
                           <div class="row no-gutters">
                               <div class="number1 col-6">
                                   <div class="num1"><img src="../../static/img/socialhall/rank1.png" alt=""></div>
-                                  <img class="head" :src="require(`../../static/img/head/${masterPlayer[0].m_profile}`)" alt="">
+                                  <img class="head" v-if="masterPlayer[0].m_name" :src="require(`../../static/img/head/${masterPlayer[0].m_profile}`)" alt="">
                                   <div class="num1Name">{{masterPlayer[0].m_name}}</div>
                                   <div class="expPoint">
                                       <span>{{selPlayerCategory}}</span>經驗值<span>{{masterPlayer[0].points}}</span>exp
@@ -132,11 +136,9 @@
                                   <div class="num1text">
                                       {{masterPlayer[0].introduce}}
                                   </div>
-                                  <!-- <div>
-                                      <span>{{masterPlayer[0].follow_people_num}}人追蹤中</span>
-
-                                  </div> -->
-                                  <button class="jo_btn jo_btn_s jo_btnWater">查看</button>
+                                    <router-link :to="{ name:'userhosting',query:{m_ID:masterPlayer[0].m_ID}}">
+                                              <button class="jo_btn jo_btn_s jo_btnWater">查看</button>
+                                    </router-link>
                               </div>
                               <div class="numberelse col-6">
                                   <select @change="searchMasterPlayer(selPlayerCategory)" v-model="selPlayerCategory" id="">
@@ -153,7 +155,7 @@
                                           </div>
                                           <div class="numSum">
                                               <div>{{item.introduce}}</div>
-                                              <div><router-link :to="{ name: 'FAQ', params: { mID:masterHost[0].m_ID } }"><button class="jo_btn jo_btn_s jo_btnWater">查看</button></router-link></div>
+                                              <div><router-link :to="{name:'userhosting',query:{m_ID:item.m_ID}}"><button class="jo_btn jo_btn_s jo_btnWater">查看</button></router-link></div>
                                           </div>
                                       </div>
                                   </div>                                
@@ -358,7 +360,7 @@ export default{
       }
 
     </script>
-<style>
+<style scoped>
 @import '../assets/css/socialhall.css';
 
 

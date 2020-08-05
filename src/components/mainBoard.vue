@@ -2,17 +2,11 @@
  <div>
   <navbar></navbar>
   <chatroom></chatroom>
+  
   <router-view></router-view>
-  <!-- <div class="container-fluid">
-    <div class="row">
 
-      <sidebar></sidebar>
-      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-        <router-view></router-view>
-      </main>
-    </div>
-  </div> -->
   <bgcanvas></bgcanvas>
+  <vfooter></vfooter>
 </div>
 </template>
 
@@ -23,12 +17,14 @@
 import navbar from './Vue_navBar'
 import bgcanvas from './StarBgCanvas';
 import chatroom from './chatRoom';
+import vfooter from './Footer';
 
 export default {
   components:{
     navbar,
     bgcanvas,
     chatroom,
+    vfooter
   }
 }
 </script>

@@ -9,7 +9,9 @@ import deposit from '@/components/Vue_deposit'
 
 import mainboard from '@/components/mainBoard'
 import socialhall from '@/components/socialhall'
-import StarRate from '@/components/StarRate'
+import UserHouse from '@/components/pages/UserHouse'
+import UserHosting from '@/components/pages/UserHosting'
+import UserHistory from '@/components/pages/UserHistory'
 
 
 Vue.use(Router)
@@ -41,17 +43,29 @@ export default new Router({
           name:'deposit',
           component: deposit,
         },
+        {
+          path:'/userhouse',
+          name:'userhouse',
+          component:UserHouse,
+          children:[
+            {
+              path:'userhosting',
+              name:'userhosting',
+              component: UserHosting,
+            },
+            {
+              path:'userhistory',
+              name:'userhistory',
+              component: UserHistory,
+            },
+          ]
+        },
       ]
     },
     {
       path: '/consumptionHis',
       name: 'consumptionHis',
       component: consumptionHis
-    },
-    {
-      path: '/StarRate',
-      name: 'StarRate',
-      component: StarRate
     },
   ]
 })

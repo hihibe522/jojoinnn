@@ -1,12 +1,8 @@
-body {
-    /* background-color: var(--jo_dark_water); */
-}
-
 * {
     box-sizing: border-box;
 }
 
-.jo_col_pc {
+#memberCol {
     display: flex;
     justify-content: space-between;
 }
@@ -25,7 +21,7 @@ body {
     padding: 3rem 0;
     flex: 0.25;
     filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.2));
-  justify-content: flex-start;
+    justify-content: flex-start;
 }
 
 #mamemberMain_R {
@@ -35,6 +31,18 @@ body {
 
 .memberInfo div {
     margin-bottom: 1rem;
+}
+
+.memberRating {
+    /* height: 50px; */
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.memberInfo div[class*="rating"] {
+    height: 20px;
+    margin: auto;
 }
 
 .memberInfo {
@@ -64,27 +72,7 @@ body {
     margin: 1rem 0;
 }
 
-.memberRating ul {
-    display: flex;
-    justify-content: space-around;
-}
-
-.memberRating ul li {
-    display: flex;
-}
-
-.memberRating ul img {
-    width: 20px;
-    height: 20px;
-    margin: auto;
-    color: var(--jo_yellow);
-}
-
-.memberRating ul li:nth-child(5) i {
-    color: var(--jo_lGrey1);
-}
-
-.memberRating ul h5 {
+.memberRating h5 {
     margin: auto;
 }
 
@@ -114,9 +102,21 @@ body {
     flex: 1;
     text-align: center;
     display: flex;
-    margin: 0 .3rem;
     border-radius: 10px 10px 0px 0px;
     box-shadow: 0px 8px 0px var(--jo_yellow);
+}
+
+.bookMarkOriginal {
+    margin: 0px 0.3rem;
+}
+
+.bookMarkOriginal li {
+    display: flex;
+    width: 100%;
+}
+
+.bookMarkOriginal h5 {
+    margin: auto;
 }
 
 /* 按下書籤 */
@@ -135,7 +135,7 @@ body {
 
 /* 書籤hover */
 
-.bookMarkHover {
+.bookMarkHover, .bookMarkOriginal:hover {
     background-color: var(--jo_lGrey1);
     transform: translateY(-8px);
     box-shadow: 0px 10px 0px var(--yellow);
@@ -145,13 +145,13 @@ body {
     cursor: url("../img/jo_images/cursorPoint.png"), auto;
 }
 
-.bookMarkHover:active {
+.bookMarkHover:active, .bookMarkOriginal:active {
     background-color: var(--jo_white);
     transform: translateY(-15px);
     box-shadow: 0px 20px 0px var(--jo_white);
 }
 
-.bookMarkHover h5 {
+.bookMarkHover h5,.bookMarkOriginal:hover h5 {
     font-weight: bold;
 }
 
@@ -267,6 +267,10 @@ select {
     transition-duration: 0.2s;
 }
 
+.collectTitle a h5{
+    color: var(--jo_dark_water);
+}
+
 /* 圖片hover */
 
 .pic_hover:hover {
@@ -287,6 +291,10 @@ select {
 }
 
 /* 我的收藏卡片 */
+
+#collectSection{
+    margin-top:1rem ;
+}
 
 .collectCard {
     margin-bottom: 2rem;
@@ -773,7 +781,7 @@ select {
     color: var(--jo_text);
 }
 
-/* Modal */
+/* Modal
 
 @media (min-width: 576px) {
     .wheelModal-dialog {
@@ -806,7 +814,7 @@ select {
 
 .cancelCheck {
     margin-bottom: 2rem;
-}
+} */
 
 /* 留下評價 */
 
@@ -863,9 +871,9 @@ select {
     font-size: 1.2rem;
 }
 
-
 /* 兌換獎品 */
-#changeGift_QR{
+
+#changeGift_QR {
     width: 250px;
     height: 250px;
     margin: auto;

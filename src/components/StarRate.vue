@@ -20,7 +20,14 @@ export default {
              let rate = Math.floor((this.star/5)*100);
              return `width: ${rate}%`;
           }
-        }
+        },
+
+        watch: {
+          m_rate:function(newValue, oldValue) {
+              this.star = newValue;
+          } 
+        },
+
 }
 </script>
 

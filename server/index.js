@@ -13,6 +13,8 @@ var chatRouter = require('./routes/chat');
 var socialhallRouter = require('./routes/socialhall');
 var login = require('./routes/login');
 var modules = require('./routes/modules');
+var member = require('./routes/member');
+var elseuser = require('./routes/elseUser');
 
 //--------------router路徑_end-----------------------------------
 
@@ -32,9 +34,11 @@ app.use(sessionMiddleware);
 //----------------------router----------------------------
 
 app.use('/modules', modules);
-app.use('/', chatRouter);
 app.use('/login',login);
 app.use('/socialhall', socialhallRouter);
+app.use('/member', member);
+app.use('/chat', chatRouter);
+app.use('/user', elseuser);
 
 var server = http.createServer(app);
 // ------------------------router_end---------------------------
