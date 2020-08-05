@@ -50,7 +50,7 @@
           </div>
 
           <div class="jo_navTitleYellow">
-            <router-link active-class="nav_active" class="jo_hover" to="/abc">登入</router-link>
+            <router-link active-class="nav_active" class="jo_hover" to="/login">登入</router-link>
             <hr />
           </div>
         </div>

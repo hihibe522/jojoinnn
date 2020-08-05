@@ -18,7 +18,7 @@ var memberID;
 
 // 會員登入
 router.get('/', function (req, res, next) {
-    // req.session.userName = "";
+    req.session.userName = "";
     // memberAccount.forEach(function(e){
     //     console.log(e.m_account)
     // });
