@@ -11,10 +11,20 @@ const addSocket = require("./socket");
 
 var chatRouter = require('./routes/chat');
 var socialhallRouter = require('./routes/socialhall');
-var login = require('./routes/login');
+// var login = require('./routes/login');
 var modules = require('./routes/modules');
-var member = require('./routes/member');
 var elseuser = require('./routes/elseUser');
+var login = require('./routes/login');
+
+
+//0805姍姍新增
+var checkSession = require('./routes/checkSession');
+var navCheck = require('./routes/navCheck');
+var cancelHost = require('./routes/cancelHost');
+var deposit = require('./routes/deposit');
+var consumption = require('./routes/consumption');
+var member = require('./routes/member');
+
 
 //--------------router路徑_end-----------------------------------
 
@@ -36,9 +46,21 @@ app.use(sessionMiddleware);
 app.use('/modules', modules);
 app.use('/login',login);
 app.use('/socialhall', socialhallRouter);
-app.use('/member', member);
 app.use('/chat', chatRouter);
 app.use('/user', elseuser);
+app.use('/login', login);
+
+
+//0805姍姍新增
+app.use('/navCheck', navCheck);
+app.use('/cancelHost', cancelHost);
+app.use('/checkSession', checkSession);
+app.use('/deposit', deposit);
+app.use('/consumption', consumption);
+app.use('/member', member);
+
+
+
 
 var server = http.createServer(app);
 // ------------------------router_end---------------------------

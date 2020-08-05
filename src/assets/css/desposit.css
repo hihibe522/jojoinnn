@@ -1,7 +1,7 @@
 #depositBody {
     margin-left: 10rem;
     margin-right: 10rem;
-
+    margin-top: 110px;
 }
 
 #depositBody input, #depositBody select {
@@ -66,7 +66,7 @@
 
 #depositStep2 input {
     background-color: var(--jo_white);
-    padding: 5px 1rem;
+    padding: 10px 1rem;
     font-size: 1.2rem;
     border: none;
     border-radius: 10px;
@@ -88,14 +88,12 @@
     margin: 1rem 0;
 }
 
-
-
-#depositCredit h5{
+#depositCredit h5 {
     display: flex;
     align-items: center;
 }
 
-#depositCredit{
+#depositCredit {
     margin: 0;
 }
 
@@ -108,7 +106,6 @@
     display: flex;
     /* background-color: blue; */
     margin-bottom: .5rem;
-    
 }
 
 .creditForm h5 {
@@ -136,7 +133,8 @@
 
 #creditBtnDiv {
     text-align: center;
-    margin-bottom: 4rem;
+    /* margin-bottom: 4rem; */
+    padding-bottom: 4rem;
 }
 
 #creditTerm {
@@ -151,7 +149,6 @@
     padding-top: 3rem;
     display: flex;
     justify-content: space-around;
-
 }
 
 #creditImgDiv {
@@ -161,10 +158,6 @@
 }
 
 /* 左右區塊調整 */
-
-#creditUlDiv {
-    /* flex: .5; */
-}
 
 #creditImgDiv>div {
     margin: auto;
@@ -195,4 +188,34 @@
     100% {
         opacity: .05;
     }
+}
+
+#payModal .jomodal_content span {
+    color: var(--jo_water);
+}
+
+#payModal .jomodal_content img {
+    margin-bottom: 1rem;
+}
+
+#payModal .jomodal_content h5 {
+    margin-top: 2rem;
+    color: var(--jo_orange);
+}
+
+#payModal_body {
+    padding: 3rem 0;
+}
+
+
+
+@media (min-width: 576px) {
+    .pay-dialog {
+        max-width: 650px;
+    }
+    
+}
+
+.pay-dialog{
+    width: 650px;
 }

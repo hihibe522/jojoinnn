@@ -2,10 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
 // import chatRoom from '@/components/chatRoom'
-import consumptionHis from '@/components/Vue_consumptionHis'
-import FAQ from '@/components/pages/Vue_FAQ'
 import register from '@/components/pages/register'
-import deposit from '@/components/Vue_deposit'
 
 import mainboard from '@/components/mainBoard'
 import socialhall from '@/components/socialhall'
@@ -13,7 +10,19 @@ import UserHouse from '@/components/pages/UserHouse'
 import UserHosting from '@/components/pages/UserHosting'
 import UserHistory from '@/components/pages/UserHistory'
 
-
+import Login from '@/components/login'
+//-------------33------------------------------------- 
+import FAQ from '@/components/pages/Vue_FAQ'
+import consumption from '@/components/Vue_consumptionHis'
+import deposit from '@/components/Vue_deposit'
+import member from '@/components/Vue_member'
+import memberJoing from '@/components/Vue_memberJoing'
+import memberCollect from '@/components/Vue_memberCollect'
+import memberHosting from '@/components/Vue_memberHosting'
+import memberHistory from '@/components/Vue_memberHistory'
+import memberFollow from '@/components/Vue_memberFollow'
+import memberLucky from '@/components/Vue_memberLuck'
+//-------------------33------------------------------------- 
 Vue.use(Router)
 
 export default new Router({
@@ -32,6 +41,53 @@ export default new Router({
           path:'socialhall',
           name:'socialhall',
           component: socialhall,
+        },
+        {
+          path:'login',
+          name:'login',
+          component: Login,
+        },
+        {
+          path:'consumption',
+          name:'consumption',
+          component: consumption,
+        },
+        {
+          path:'/member',
+          name:'member',
+          component: member,
+          children:[
+            {
+              path:'memberJoing',
+              name:'memberJoing',
+              component: memberJoing,
+            },
+            {
+              path:'memberCollect',
+              name:'memberCollect',
+              component: memberCollect,
+            },
+            {
+              path:'memberHosting',
+              name:'memberHosting',
+              component: memberHosting,
+            },
+            {
+              path:'memberHistory',
+              name:'memberHistory',
+              component: memberHistory,
+            },
+            {
+              path:'memberFollow',
+              name:'memberFollow',
+              component: memberFollow,
+            },
+            {
+              path:'memberLucky',
+              name:'memberLucky',
+              component: memberLucky,
+            },
+          ]
         },
         {
           path:'FAQ',
@@ -61,11 +117,6 @@ export default new Router({
           ]
         },
       ]
-    },
-    {
-      path: '/consumptionHis',
-      name: 'consumptionHis',
-      component: consumptionHis
     },
   ]
 })

@@ -1,0 +1,42 @@
+/* Modal */
+.jomodal_title {
+    margin-bottom: 3rem;
+}
+
+.jomodal_content, .jomodal_content h1 {
+    margin-bottom: 0px;
+}
+
+
+@media (min-width: 576px) {
+    .wheelModal-dialog {
+        max-width: 650px;
+    }
+    .cancelHoding_modal-dialog {
+        max-width: 500px;
+    }
+    .cancelJoing_modal-dialog {
+        max-width: 500px;
+    }
+}
+
+.wheelModal_width {
+    width: 650px;
+}
+
+.cancelInfo {
+    margin: 1rem 0;
+}
+
+.cancelInfo~textarea {
+    margin: 1rem 0;
+}
+
+.cancelInfo span {
+    color: var(--jo_water);
+    font-weight: bold;
+}
+
+.cancelCheck {
+    margin-bottom: 2rem;
+}

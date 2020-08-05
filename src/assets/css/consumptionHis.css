@@ -3,6 +3,7 @@
     margin-left: 15%;
     margin-right: 15%;
     position: relative;
+    margin-top: 120px;
     /* overflow: hidden; */
 }
 
@@ -26,7 +27,7 @@
 #consumptionBody table {
     width: 100%;
     table-layout: fixed;
-    background-image: linear-gradient(to bottom, rgb(212, 212, 212,0) 15%, rgb(235, 235, 235) 16%);
+    background-color: rgb(235, 235, 235);
     /* background-color: var(--jo_lGrey2); */
     border-radius: 25px;
 }
@@ -63,7 +64,7 @@
 }
 
 #consumptionBody th{
-    border-radius: 25px 25px 0 0 ;
+    /* border-radius: 25px 25px 0 0 ; */
     /* background-color: royalblue; */
 }
 
@@ -122,3 +123,12 @@
 #consumptionBody tr:nth-last-child(1) td:nth-child(4) {
     border-radius: 0 0 25px 0;
 }
+
+#consumptionBody th:nth-child(1) {
+    border-radius: 25px 0 0 0 ;
+}
+
+#consumptionBody th:nth-child(4) {
+    border-radius:  0 25px 0 0 ;
+}
+
