@@ -1,10 +1,10 @@
 <template>
   <div id="chatRoomApp">
     <div id="loginInput">
-        <input v-model="myInfo.myId" type="text" name="" id="">
+        <!-- <input v-model="myInfo.myId" type="text" name="" id=""> -->
     <favicon :liked="like.likeit" :aid="like.aid" ></favicon>
-        <button @click="login" class="btn btn-primary">登入</button>
-        <button @click="logout" class="btn btn-primary">登出</button>
+        <!-- <button @click="login" class="btn btn-primary">登入</button>
+        <button @click="logout" class="btn btn-primary">登出</button> -->
     </div>
     <div v-if="loginOK" @click="showChatBox = true" class="chat_icon">
         <img class="ld ld-bounceAlt" src="../assets/img/jo_images/jo_i_chat.svg" alt="">
@@ -57,10 +57,11 @@ export default{
   },
   data() {
     return {
+      localStorage:"",
       loginOK:false,
       myInfo:{
                 myId:"",
-                myName:"嗶波"
+                myName:""
              },
       onlinePeople:[],
       chatMsg:{
@@ -115,20 +116,28 @@ export default{
                 console.log( vm.onlineChatMsgs[vm.chatMsg.toId]);
 
             },  
-            login(){
+            checklogin(a){
                 var vm = this;
-                let name = vm.myInfo.myId;
-                // console.log(id);
-                axios.post('login',{id:name}).then(
-                  e=>{
-                    // console.log(e)
-                    // console.log(e.data);
-                    vm.loginOK = true;
-                    vm.getChatList();
-                    vm.selfInfo();
-                    vm.$bus.$emit('islogin',e.data);
-                  }
-                )
+                console.log(a);
+                vm.myInfo.myId = a.m_ID;
+                vm.myInfo.myName = a.m_name;
+                vm.loginOK = true;
+                vm.getChatList();
+                vm.selfInfo();
+                // vm.loginOK = true;
+                // vm.getChatList();
+                // vm.selfInfo();
+                // vm.$bus.$emit('islogin',myInfo);
+                // axios.post('login',{id:name}).then(
+                //   e=>{
+                //     // console.log(e)
+                //     // console.log(e.data);
+                //     vm.loginOK = true;
+                //     vm.getChatList();
+                //     vm.selfInfo();
+                //     vm.$bus.$emit('islogin',e.data);
+                //   }
+                // )
             },
             selfInfo(){
                 var vm = this;
@@ -146,7 +155,7 @@ export default{
             },
             getChatList(){
                 var vm = this;
-                axios.get("chat")
+                axios.get(`chat/${vm.myInfo.myId}`)
                 .then(e=>{
                     // console.log(e.data);
                     vm.recordsData = e.data;
@@ -182,7 +191,7 @@ export default{
                 })
             },
             goChatBox(e){
-                this.showChatBox = true;
+            this.showChatBox = true;
              console.log(e)
              console.log(e.a_host)
              console.log(e.m_name)
@@ -233,9 +242,23 @@ export default{
             // 維持對話視窗置底
             $(".msgBox").scrollTop($(".msgBox")[0].scrollHeight);
         },
+        mounted() {
+            // this.checklogin();
+        },
         created() {
             var vm = this;
-             this.$bus.$on('gogochat', (userinfo) => {
+            vm.localStorage = JSON.parse( localStorage.getItem('myinfo'));
+            // console.log( vm.localStorage);
+            if(vm.localStorage){
+                vm.checklogin(vm.localStorage);
+
+            }
+            this.$bus.$on('islogin', (myinfo) => {
+                console.log(myinfo)
+                vm.checklogin(myinfo);
+            });
+            
+            this.$bus.$on('gogochat', (userinfo) => {
                  console.log(userinfo);
                  console.log(vm);
                  vm.goChatBox(userinfo);
@@ -252,6 +275,7 @@ export default{
           },3000)  
         },
         beforeDestroy() {
+            this.$bus.$off("islogin");
             this.$bus.$off("gogochat");
         },
         
