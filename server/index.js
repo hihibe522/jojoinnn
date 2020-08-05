@@ -11,14 +11,18 @@ const addSocket = require("./socket");
 
 var chatRouter = require('./routes/chat');
 var socialhallRouter = require('./routes/socialhall');
-// var login = require('./routes/login');
 var modules = require('./routes/modules');
 var elseuser = require('./routes/elseUser');
 var login = require('./routes/login');
 
+//0805 kuo
+var newActivity = require('./routes/newActivity');
+var activity = require('./routes/activity');
+var payPage = require('./routes/payPage');
+var actLocations = require('./routes/gpsPage');
 
 //0805姍姍新增
-var checkSession = require('./routes/checkSession');
+// var checkSession = require('./routes/checkSession');
 var navCheck = require('./routes/navCheck');
 var cancelHost = require('./routes/cancelHost');
 var deposit = require('./routes/deposit');
@@ -50,11 +54,15 @@ app.use('/chat', chatRouter);
 app.use('/user', elseuser);
 app.use('/login', login);
 
+//0805 kuo
+app.use('/newActivity', newActivity);
+app.use('/activity', activity);
+app.use('/payPage', payPage);
+app.use('/actLocations', actLocations); 
 
 //0805姍姍新增
 app.use('/navCheck', navCheck);
 app.use('/cancelHost', cancelHost);
-// app.use('/checkSession', checkSession);
 app.use('/deposit', deposit);
 app.use('/consumption', consumption);
 app.use('/member', member);

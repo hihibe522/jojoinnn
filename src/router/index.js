@@ -9,7 +9,6 @@ import socialhall from '@/components/socialhall'
 import UserHouse from '@/components/pages/UserHouse'
 import UserHosting from '@/components/pages/UserHosting'
 import UserHistory from '@/components/pages/UserHistory'
-
 import Login from '@/components/login'
 //-------------33------------------------------------- 
 import FAQ from '@/components/pages/Vue_FAQ'
@@ -22,7 +21,17 @@ import memberHosting from '@/components/Vue_memberHosting'
 import memberHistory from '@/components/Vue_memberHistory'
 import memberFollow from '@/components/Vue_memberFollow'
 import memberLucky from '@/components/Vue_memberLuck'
-//-------------------33------------------------------------- 
+//-------------------33-------------------------------------
+//------------------------ kk------------------------
+import newActivity from '@/components/kuoNewActivity_Vue'
+import activity from '@/components/kuoActivity_Vue'
+import payPage from '@/components/kuoPayPage_Vue'
+import actLocations from '@/components/kuoGpsPage_Vue'
+import newActFinish from '@/components/kuoNewActivityFinish'
+
+//------------------------ kk------------------------
+
+
 Vue.use(Router)
 
 export default new Router({
@@ -115,6 +124,35 @@ export default new Router({
               component: UserHistory,
             },
           ]
+        },
+        {
+          path: '/newActivity',
+          name: 'newActivity',
+          component: newActivity
+          
+        },   
+         {
+          path: '/activity/',
+          name: 'activity',
+          component: activity
+    
+        }, 
+         {
+          path: '/payPage',
+          name: 'payPage',
+          component: payPage
+    
+        },
+         {
+          path: '/actLocations',
+          name: 'actLocations',
+          component: actLocations
+    
+        },
+         {
+          path: '/newActFinish',
+          name: 'newActFinish',
+          component: newActFinish
         },
       ]
     },
