@@ -179,6 +179,9 @@ export default{
         },
         data() {
           return {
+                myInfo:{
+                    m_name:""
+                },
                 sendMsg:"",
                 selHostCategory:"all",
                 selPlayerCategory:"all",
@@ -229,10 +232,11 @@ export default{
                 inToMsgBoard(){
                   console.log("inToMsgBoard");
                   let room = "socialhall";
-                  if(room){
+                  let name = this.myInfo.m_name;
+                  if(name){
                     // console.log(this.$socket.id);
                     // socket.emit("greet");
-                    this.$socket.emit("group",room);
+                    this.$socket.emit("group",room,name);
                   }
                 },
                 SearchMasterHost(selCategory){
@@ -317,6 +321,12 @@ export default{
                 window.addEventListener("beforeunload",function(){
                         vm.$socket.emit("leaveGroup");
                 })
+                // let localStorage = JSON.parse( localStorage.getItem('myinfo'));
+                //     console.log(localStorage);
+                // if(localStorage){
+                // this.inToMsgBoard();
+
+                // }
               
             },
             updated() {
@@ -340,11 +350,19 @@ export default{
             // },
             created() {
             // this.$toasted.show('hello billo😉');
-               this.$bus.$on('islogin', (data) => {
+
+            // let localStorage = JSON.parse( localStorage.getItem('myinfo'));
+            // console.log(this.hallStorage);
+                if(localStorage){
+                    this.myInfo = JSON.parse(localStorage.getItem('myinfo'));
+                    this.inToMsgBoard();
+                }
+
+                this.$bus.$on('islogin', (data) => {
                    console.log(data);
                    this.inToMsgBoard();
                 });
-              axios.get('modules/category').then(e=>{
+                axios.get('modules/category').then(e=>{
                 //   console.log(e);
                     this.category = e.data ;
                     // vm.getChatList();

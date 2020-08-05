@@ -54,7 +54,7 @@ app.use('/login', login);
 //0805姍姍新增
 app.use('/navCheck', navCheck);
 app.use('/cancelHost', cancelHost);
-app.use('/checkSession', checkSession);
+// app.use('/checkSession', checkSession);
 app.use('/deposit', deposit);
 app.use('/consumption', consumption);
 app.use('/member', member);

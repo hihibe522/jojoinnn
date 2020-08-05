@@ -6,20 +6,19 @@ var conn = require('../db');
 
 // ----------------------socket.io-------------------------------
 
-router.get('/', function(req, res, next) {
+router.get('/:ID', function(req, res, next) {
   // req.session.userName = "be";
-    // console.log(req.session.userName);
-    if(req.session.userName){
-
-      conn.query('SELECT * FROM chatroom where userId=? or friendId=?',[req.session.userName,req.session.userName], function(err, rows) {
+    // console.log(req.params.ID);
+    // if(req.session.userName){
+    conn.query('SELECT * FROM chatroom where userId=? or friendId=?',[req.params.ID,req.params.ID], function(err, rows) {
       if (err) {
         console.log(err);
       }
         // console.log(rows);
         res.json(rows);
-      });
+    });
 
-    }
+    // }
 });
 router.post('/friendinfo', function(req, res, next){
 

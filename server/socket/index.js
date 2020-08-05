@@ -65,9 +65,10 @@ module.exports = (io) => {
 
       // console.log("sockInfo socialll",sockInfo);
     //  if(sockInfo !== "" ){
-      let name = Math.floor(Math.random()*100);
+      
       // 接收由socialhall 發出的請求
-      socket.on("group",(room)=>{
+      socket.on("group",(room,n)=>{
+        let name = n;
         //加入前檢查是否已有所在房間
         const nowRoom = Object.keys(socket.rooms).find(room =>{
           return room !== socket.id

@@ -34,7 +34,9 @@ export default {
         localStorage.setItem('myinfo',JSON.stringify( e.data[0]));
         var me = JSON.parse( localStorage.getItem('myinfo'));
         console.log(me)
-        // vm.checkSession();
+
+        //控制JO聊啟動
+        vm.$bus.$emit('islogin',me);
       })
     },
     logout(){
