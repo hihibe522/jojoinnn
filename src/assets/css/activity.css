@@ -1,3 +1,8 @@
+body {
+  background-color: #29383d;
+  overflow-x: hidden;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -5,6 +10,21 @@
 
 img {
   object-fit: contain;
+}
+#activityTitle {
+  margin: 11rem auto auto auto;
+  width: 75%;
+  padding: 0 -10px 0 0;
+  color: white;
+}
+
+#mainContent {
+  width: 75%;
+  margin: auto;
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+  border-radius: 25px;
+  /* background: radial-gradient(ellipse, #FFFFFF 0%, #E9E7F1 95%, #203F6E 99.9%, #314568 100%); */
+  background-color: white;
 }
 
 #activityImg {
@@ -22,19 +42,19 @@ img {
 
 #activityExplain {
   background-color: #f3f3f3;
-  margin-top: 140px;
-  margin-bottom: 160px;
+  margin-top: 100px;
+  margin-bottom: 150px;
 }
 
-textarea {
-  padding: 0;
+#textarea {
+  padding: 10px;
   width: 100%;
   box-sizing: border-box;
-  height: 300px;
-  border: 1px solid #e1e100;
-  background: #f5fffa;
+  height: 150px;
+  border: 1px solid var(--jo_dGrey2);
   overflow: auto;
-
+  border-radius: 10pt;
+  font-size: 1.25rem;
 }
 
 .msgContent {
@@ -63,10 +83,10 @@ textarea {
 
 #collectBtnArea {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  visibility: hidden;
-  transform: translate(-50%, -50%) scale(0.8);
+  left: 19%;
+  top: 8%;
+  /* visibility: hidden; */
+  transform: translate(-50%, -50%) scale(0.5);
   /* color: white; */
   font-weight: 600;
 }
@@ -88,4 +108,12 @@ textarea {
 
 #colectText {
   padding-left: 10px;
+}
+
+#canvas {
+  background-color: #29383d;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -999;
 }
