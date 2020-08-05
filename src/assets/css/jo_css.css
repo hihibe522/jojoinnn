@@ -27,7 +27,9 @@ html {
 }
 a,a:hover{
   text-decoration: none;
+  
 }
+
 
 .jo_hover:hover {
     cursor: url("../img/jo_images/cursorPoint.png"), auto;
@@ -49,7 +51,7 @@ body {
 
 .jo_col_pc {
     box-sizing: border-box;
-    margin: 11rem 8%;
+    margin: 12rem 8%;
     padding: 1.5rem;
 }
 
@@ -133,7 +135,7 @@ select {
     text-align: center;
 }
 
-button {
+button[class*="btn"]:active {
     outline: none;
 }
 
@@ -356,6 +358,8 @@ button {
     height: 90px;
     margin: 10px 15px;
 }
+
+
 
 .jo_navBar {
     z-index: 100;
@@ -605,6 +609,7 @@ button.modal_close span:after {
     animation-name: jo_noticeAni;
     animation-duration: 0.5s;
     animation-timing-function: cubic-bezier(.99, .02, .99, .54);
+
 }
 
 .jo_noticeRead {
@@ -614,6 +619,7 @@ button.modal_close span:after {
 .jo_notice ul {
     width: 100%;
     margin: 0;
+    z-index: 10;
 }
 
 .jo_notice li {

@@ -1,9 +1,12 @@
 <template>
-  <div class="jo_col_pc" id="depositBody">
-    <div>
-      <input type="button" value="Jo幣存摺" id="depositHisBtn" class="jo_btn jo_btnWater jo_btn_m" />
-    </div>
-    <form action>
+  <div>
+    <div class="jo_col_pc" id="depositBody">
+      <div>
+        <router-link active-class="nav_active" class="jo_hover" to="/consumption">
+          <input type="button" value="Jo幣存摺" id="depositHisBtn" class="jo_btn jo_btnWater jo_btn_m" />
+        </router-link>
+      </div>
+
       <div id="depositCard">
         <h1 id="depositTitle">歡迎來到Jo幣線上儲值系統</h1>
         <!-- 區塊一 > 選擇金額 -->
@@ -22,14 +25,15 @@
           </li>
 
           <li>
+            <!-- 選擇儲值金額 -->
             <h5>請選擇您要儲值的金額：</h5>
-            <select name id @change="depositCount">
-              <option value disabled="true" selected>請選擇金額</option>
-              <option value="100">100元 - 100 Jo幣</option>
-              <option value="500">500元 - 500 Jo幣</option>
-              <option value="1000">1000元 - 1000 Jo幣</option>
-              <option value="1500">1500元 - 1500 Jo幣</option>
-              <option value="2000">2000元 - 2000 Jo幣</option>
+            <select v-model="selected">
+              <option :value="0" disabled="true" selected>請選擇金額</option>
+              <option
+                v-for="(depositItem,index) in depositList"
+                :value="depositItem.price"
+                :key="index"
+              >{{depositItem.priceInfo}}</option>
             </select>
 
             <h5 class="joCoinChange">✱JO幣與新台幣換算比率為1:1</h5>
@@ -55,26 +59,26 @@
               <li>
                 <h5 id="thisDeposit">
                   本筆訂單需付款的金額
-                  <span>${{totalPrice}}</span>
+                  <span>${{selected}}</span>
                 </h5>
               </li>
               <li>
                 <div id="writeCredit">
                   <div class="creditForm">
                     <h5>持卡人姓名：</h5>
-                    <input type="text" name id placeholder="請輸入姓名" />
+                    <input type="text" placeholder="請輸入姓名" />
                   </div>
                   <div id="depositCredit" class="creditForm">
                     <h5>信用卡卡號：</h5>
                     <br />
                     <div>
-                      <input type="text" name id placeholder=" " />
+                      <input type="text" placeholder=" " />
                       <h5>&nbsp;-&nbsp;</h5>
-                      <input type="text" name id placeholder=" " />
+                      <input type="text" placeholder=" " />
                       <h5>&nbsp;-&nbsp;</h5>
-                      <input type="text" name id placeholder=" " />
+                      <input type="text" placeholder=" " />
                       <h5>&nbsp;-&nbsp;</h5>
-                      <input type="text" name id placeholder=" " />
+                      <input type="text" placeholder=" " />
                     </div>
                   </div>
 
@@ -136,21 +140,61 @@
         </div>
 
         <div id="creditBtnDiv">
-          <input type="button" class="jo_btn jo_btnRed" id="creditBtn" value="確定儲值" />
+          <input
+            type="button"
+            class="jo_btn jo_btnRed"
+            id="creditBtn"
+            value="確定儲值"
+            @click="creditOK"
+          />
         </div>
       </div>
-    </form>
+    </div>
+
+    <div
+      class="modal fade"
+      id="payModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <!-- modal -->
+      <div class="modal-dialog modal-dialog-centered pay-dialog" role="document">
+        <div class="jo_modal pay-dialog" id="payModal_body">
+          <div class="jomodal_content">
+            <img src="@/assets/img/jo_images/jo_depositSuccess.svg" />
+            <h1>儲值成功</h1>
+            <h4>
+              你目前持有的Jo幣
+              <span>{{memberData[0].joCoin}}元</span>
+            </h4>
+            <h5>{{minute}}秒後回到首頁</h5>
+          </div>
+          <!-- <div class="jomodal_footer"></div> -->
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import $ from "jquery";
+import axios from "axios";
 export default {
   name: "deposit",
-
   data() {
     return {
-      memberData: [{ m_ID: 1, m_name: "妙蛙種子", joCoin: 50000 }],
+      // 100,500,100,1500,2000
+      selected: 0,
+      depositList: [
+        { price: 100, priceInfo: "100元 - 100 Jo幣" },
+        { price: 500, priceInfo: "500元 - 500 Jo幣" },
+        { price: 1000, priceInfo: "1000元 - 1000 Jo幣" },
+        { price: 1500, priceInfo: "1500元 - 1500 Jo幣" },
+        { price: 2000, priceInfo: "2000元 - 2000 Jo幣" },
+      ],
+      memberData: [{}],
       creditMonth: [
         "一月",
         "二月",
@@ -166,22 +210,60 @@ export default {
         "十二月",
       ],
       creditYear: [],
-      totalPrice: 0,
+      minute: 3,
     };
   },
   methods: {
-    depositCount: function (e) {
-      this.totalPrice = `${e.target.value}`;
+    checkSession() {
+      var vm = this;
+      axios.get("checkSession").then((e) => {
+        vm.memberData = e.data;
+        // console.log(e.data);
+      });
     },
-    getYears: function () {
+
+    creditOK() {
+      var rm = this;
+      var id = rm.memberData[0].m_ID;
+      var select = rm.selected;
+      rm.memberData[0].joCoin = parseInt(rm.memberData[0].joCoin) + rm.selected;
+      var money = rm.memberData[0].joCoin;
+      axios
+        .post("deposit", { id: id, money: money, select: select })
+        .then((e) => {
+          this.successModal();
+        });
+    },
+
+    getYears() {
       var i;
       var year = new Date().getFullYear();
-      console.log(year);
+      // console.log(year);
       for (i = year; i <= year + 5; i++) {
         this.creditYear.push(i);
       }
     },
+
+    successModal() {
+      var tm = this;
+
+      $("#payModal").modal("show");
+
+      setInterval(() => {
+        tm.minute = tm.minute - 1;
+        // console.log(tm.minute);
+      }, 1000);
+
+      setTimeout(() => {
+        window.location.replace("/");
+      }, 3000);
+    },
   },
+
+  created() {
+    this.checkSession();
+  },
+
   mounted() {
     this.getYears();
   },
