@@ -54,7 +54,7 @@
             </div>
             <div id="activityDes">
               <h5>活動時間：{{a_start}} ~ {{a_end}}</h5>
-              <h5>地點：{{a_address}}</h5>
+              <h5>活動地點：{{a_address}}</h5>
               <h5>報名截止：{{a_deadline}}</h5>
             </div>
 
@@ -97,6 +97,8 @@
             </div>
             <div class="d-flex col-12 mt-4">
               <input
+                      data-toggle="modal"
+                  data-target="#my_jomodal"
                 type="button"
                 name
                 id
@@ -159,6 +161,57 @@
         </div>
       </div>
     </div>
+
+
+
+
+    <!-- MODAL -->
+      <div
+      class="modal fade"
+      id="my_jomodal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="jo_modal">
+          <div class="jomodal_title">
+            <button
+              role="button"
+              type="button"
+              data-dismiss="modal"
+              class="modal_close jo_hover madalClose"
+              title="Close"
+            >
+              <span></span>
+            </button>
+          </div>
+          <div class="jomodal_content">
+            <h2 class="m-3 pb-3">已報名參加</h2>
+            
+          </div>
+          <div class="jomodal_footer">
+            <input
+              type="button"
+              class="jo_btn jo_btn_m jo_btnOrange"
+              value="搜尋其他活動"
+              @click="function() {hideModal();postData()}"
+            />
+             <router-link to="/payPage">
+            <input
+              type="button"
+              class="jo_btn jo_btn_m jo_btnBlue"
+              data-dismiss="modal"
+              value="付款去"
+            />
+                   </router-link>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!-- *********** -->
   </div>
   <!-- ******************** /content ******************** -->
 </template>
@@ -167,6 +220,8 @@
     <script>
 import $ from "jquery";
 import axios from "axios";
+var c_ID;
+var aHostID;
 
 export default {
   name: "activity",
@@ -260,6 +315,7 @@ export default {
     },
 
     attendActivity: function () {
+   
       console.log("OK")
       var attData = {
         c_ID : c_ID,
@@ -271,7 +327,9 @@ export default {
 
       axios.post("activity", { data: attData }).then((e) => {
         console.log(e);
+
       });
+        
     },
 
     statusSetting: function () {

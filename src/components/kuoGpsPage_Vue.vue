@@ -23,8 +23,8 @@
           <h5>
             <b>{{item.text}}</b>
             <br />
-          </h5>活動時間:
-          <br />活動地點:
+          </h5>活動開始:{{item.sTime}}
+          <br />活動地點:{{item.addr}}
           <br />
           <!-- <span>收藏人數: 100+</span> -->
         </div>
@@ -51,18 +51,48 @@ export default {
       addressList: [
         {
           lat: "24.151",
-          lng: "120.651 ",
-          addr: "台中南屯區公益路二段51號B1樓",
-          text: "資策會專題發表",
-          sTime: "",
-          eTIme: "",
+          lng: "120.651",
+          addr: "南屯區公益路二段51號B1樓",
+          text: "資策會成果發表",
+          sTime: "08-21 10:00:00",
+          eTIme: "08-21 14:30:00",
+          // event: show,
+        },
+        {
+          lat: "",
+          lng: "",
+          addr: "台中北區忠明南路561號",
+          text: "party",
+          sTime: "08-10 23:30:00",
+          eTIme: "08-11 05:00:00",
           // event: show,
         },
         {
           lat: "",
           lng: "",
           addr: "台中南屯區大業路201號",
+          text: "自然美欣賞藝術欣賞",
+          sTime: "08-12 12:30:00",
+          eTIme: "08-12 18:30:00",
+          // event: show,
+        },
+        {
+          lat: "",
+          lng: "",
+          addr: "台中南屯區大進街469號",
           text: "鍋鍋拍賣展",
+          sTime: "08-15 10:30:00",
+          eTIme: "08-15 16:30:00",
+          // event: show,
+        },
+
+        {
+          lat: "",
+          lng: "",
+          addr: "台中南屯區文心南路289號6樓",
+          text: "音樂賞欣",
+          sTime: "08-13 18:30:00",
+          eTIme: "08-13 20:30:00",
           // event: show,
         },
       ],
@@ -79,6 +109,7 @@ export default {
     this.geocode();
     this.setSelfMarker();
     this.setMarker();
+    // console.log(this.addressList)
   },
   methods: {
     getData: function () {
@@ -233,7 +264,7 @@ export default {
   watch: {
     addressList: function (newValue, oldValue) {
       console.log("watch");
-      console.log(this.addressList)
+      console.log(this.addressList);
       this.addMarkerStatus();
       this.initGeocoder();
       this.geocode();
@@ -245,12 +276,15 @@ export default {
 </script>
 
 <style scoped>
-#actMap{
-    height: 100vh;
+#actMap {
+  height: 100vh;
+
+
 }
 .google-map {
   /* width: 100%; */
   height: 100vh;
+  
 }
 
 .map {

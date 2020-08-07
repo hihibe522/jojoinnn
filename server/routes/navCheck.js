@@ -2,48 +2,49 @@ var express = require('express');
 var router = express.Router();
 var conn = require('../db');
 var navInfo = {};
-var memberID;
-
-// 驗證
-// router.get('/', function (req, res, next) {
-//     conn.query('SELECT * FROM member', function (err, rows) {
-
-//         navInfo.mamberCheck = JSON.stringify(rows);
-//         // 目前的會員ID
-//         memberAccount = JSON.parse(navInfo.mamberCheck);
-//         next();
-//     });
-// });
 
 
 // 會員登入
-router.get('/', function (req, res, next) {
-    req.session.userName = "";
-    // memberAccount.forEach(function(e){
-    //     console.log(e.m_account)
-    // });
-    if (req.session.userName != "") {
+// router.get('/', function (req, res, next) {
+//     req.session.userName = "";
+//     // memberAccount.forEach(function(e){
+//     //     console.log(e.m_account)
+//     // });
+//     if (req.session.userName != "") {
 
-        conn.query('SELECT * FROM member where m_account=?', [req.session.userName], function (err, rows) {
-            navInfo.mamberInfo = JSON.stringify(rows);
-            // 目前的會員ID
-            memberID = JSON.parse(navInfo.mamberInfo)[0].m_ID;
-            // console.log(req.session.userName);
-            next();
-        });
+//         conn.query('SELECT * FROM member where m_account=?', [req.session.userName], function (err, rows) {
+//             navInfo.mamberInfo = JSON.stringify(rows);
+//             // 目前的會員ID
+//             memberID = JSON.parse(navInfo.mamberInfo)[0].m_ID;
+//             // console.log(req.session.userName);
+//             next();
+//         });
 
-    } else {
-        res.send(false);
-    }
+//     } else {
+//         res.send(false);
+//     }
+
+// });
+
+// 目前主JO的活動
+router.get('/:id', function (req, res, next) {
+
+    conn.query(`SELECT m_ID, m_name, m_account, joCoin, introduce, m_profile 
+    FROM member WHERE m_ID=?`, [req.params.id], function (err, rows) {
+
+        navInfo.memberData = rows;
+        next();
+
+    });
 
 });
 
 // 目前主JO的活動
-router.get('/', function (req, res, next) {
+router.get('/:id', function (req, res, next) {
 
-    conn.query('select * from current_activity where a_host=? and a_avalible=?', [memberID, 0], function (err, rows) {
+    conn.query('select * from current_activity where a_host=? and a_avalible=?', [req.params.id, 0], function (err, rows) {
 
-        navInfo.hostingData = JSON.stringify(rows);
+        navInfo.hostingData = rows;
         next();
 
     });
@@ -52,11 +53,11 @@ router.get('/', function (req, res, next) {
 
 
 // 目前參加的活動
-router.get('/', function (req, res, next) {
+router.get('/:id', function (req, res, next) {
 
-    conn.query('select * from (transaction join member ON transaction.a_host=member.m_ID )INNER JOIN current_activity on transaction.a_ID = current_activity.a_ID WHERE transaction.m_ID=? and current_activity.a_avalible<=?', [memberID, 2], function (err, rows) {
+    conn.query('select * from (transaction join member ON transaction.a_host=member.m_ID )INNER JOIN current_activity on transaction.a_ID = current_activity.a_ID WHERE transaction.m_ID=? and current_activity.a_avalible<=?', [req.params.id, 2], function (err, rows) {
 
-        navInfo.joingData = JSON.stringify(rows);
+        navInfo.joingData = rows;
         // console.log(navInfo.joingData)
         next();
 
@@ -66,11 +67,11 @@ router.get('/', function (req, res, next) {
 
 
 // EXP
-router.get('/', function (req, res, next) {
+router.get('/:id', function (req, res, next) {
 
-    conn.query('select SUM(c_exp) as expSum from member_property where m_ID=?', [memberID], function (err, rows) {
+    conn.query('select SUM(c_exp) as expSum from member_property where m_ID=?', [req.params.id], function (err, rows) {
 
-        navInfo.mamberExp = JSON.stringify(rows);
+        navInfo.mamberExp = rows;
         // res.send(JSON.stringify(navInfo));
         next();
 
@@ -79,13 +80,13 @@ router.get('/', function (req, res, next) {
 });
 
 // 目前訊息
-router.get('/', function (req, res, next) {
+router.get('/:id', function (req, res, next) {
 
-    conn.query('select * from reminder where m_ID=? ORDER BY r_ID DESC', [memberID], function (err, rows) {
+    conn.query('select * from reminder where m_ID=? ORDER BY r_ID DESC', [req.params.id], function (err, rows) {
 
-        navInfo.msgData = JSON.stringify(rows);
-        res.send(JSON.stringify(navInfo));
-        
+        navInfo.msgData = rows;
+        res.send(navInfo);
+
         // next();
 
     });
@@ -120,13 +121,13 @@ router.put('/', function (req, res, next) {
 
 
 
-// 登出
-router.post('/', function (req, res, next) {
+// // 登出
+// router.post('/', function (req, res, next) {
 
-    req.session.userName = "";
-    res.send(false);
+//     req.session.userName = "";
+//     res.send(false);
 
-});
+// });
 
 
 

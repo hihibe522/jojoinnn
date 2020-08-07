@@ -41,7 +41,8 @@ router.get('/searchHost/:category', function(req, res, next) {
   }
   else{
     sql = `SELECT b.*,a.m_ID,a.m_name,a.m_profile,a.introduce 
-           FROM( SELECT AVG(rate) AS rate , SUM(rate) AS sum ,a_host ,c_ID FROM transaction WHERE c_ID =? GROUP BY a_host ) AS b
+           FROM( SELECT AVG(rate) AS rate , SUM(rate) AS sum ,a_host ,c_ID 
+           FROM transaction WHERE c_ID =? GROUP BY a_host ) AS b
            LEFT JOIN member AS a ON b.a_host = a.m_ID ORDER BY rate DESC LIMIT 5`;
 
     conn.query(sql,[req.params.category],function(err,rows){

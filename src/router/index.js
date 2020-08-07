@@ -2,14 +2,16 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
 // import chatRoom from '@/components/chatRoom'
+
+//0805 dan 
 import register from '@/components/pages/register'
+import Login from '@/components/pages/login'
 
 import mainboard from '@/components/mainBoard'
 import socialhall from '@/components/socialhall'
 import UserHouse from '@/components/pages/UserHouse'
 import UserHosting from '@/components/pages/UserHosting'
 import UserHistory from '@/components/pages/UserHistory'
-import Login from '@/components/login'
 //-------------33------------------------------------- 
 import FAQ from '@/components/pages/Vue_FAQ'
 import consumption from '@/components/Vue_consumptionHis'

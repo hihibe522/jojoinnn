@@ -19,8 +19,8 @@
 
             <!-- 個人資料 -->
             <h4>
-              {{memberData[0].m_name}}目前擁有JO幣數量
-              <span>{{memberData[0].joCoin}}</span>元
+              {{memberData.m_name}}目前擁有JO幣數量
+              <span>{{memberData.joCoin}}</span>元
             </h4>
           </li>
 
@@ -167,7 +167,7 @@
             <h1>儲值成功</h1>
             <h4>
               你目前持有的Jo幣
-              <span>{{memberData[0].joCoin}}元</span>
+              <span>{{memberData.joCoin}}元</span>
             </h4>
             <h5>{{minute}}秒後回到首頁</h5>
           </div>
@@ -175,6 +175,7 @@
         </div>
       </div>
     </div>
+    
   </div>
 </template>
 
@@ -215,24 +216,30 @@ export default {
   },
   methods: {
     checkSession() {
-      var vm = this;
-      axios.get("checkSession").then((e) => {
-        vm.memberData = e.data;
-        // console.log(e.data);
-      });
+      var meLog = JSON.parse(localStorage.getItem("myinfo"));
+      if (meLog) {
+        this.memberData = meLog;
+      } else {
+        this.$toasted.show("請先登入🙇‍♀️");
+        this.$router.push("/login");
+      }
     },
 
     creditOK() {
       var rm = this;
-      var id = rm.memberData[0].m_ID;
+      var id = rm.memberData.m_ID;
       var select = rm.selected;
-      rm.memberData[0].joCoin = parseInt(rm.memberData[0].joCoin) + rm.selected;
-      var money = rm.memberData[0].joCoin;
-      axios
-        .post("deposit", { id: id, money: money, select: select })
-        .then((e) => {
-          this.successModal();
-        });
+      rm.memberData.joCoin = parseInt(rm.memberData.joCoin) + rm.selected;
+      var money = rm.memberData.joCoin;
+      if (select) {
+        axios
+          .post("deposit", { id: id, money: money, select: select })
+          .then((e) => {
+            this.successModal();
+          });
+      }else{
+            this.$toasted.show("請輸入儲值金額🙆");
+      }
     },
 
     getYears() {
@@ -246,7 +253,6 @@ export default {
 
     successModal() {
       var tm = this;
-
       $("#payModal").modal("show");
 
       setInterval(() => {

@@ -14,9 +14,10 @@ router.post('/', function (req, res, next) {
         if(err){
             console.log(err);
         }
+        // console.log(rows)
         if(rows == ""){
-            res.send("登入失敗")
-            return
+            res.send("登入失敗");
+            return ;
         }
         res.send(rows);
 

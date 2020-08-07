@@ -12,8 +12,10 @@ img {
 }
 
 div {
-    padding: 5px;
     object-fit: contain;
+}
+.formbox div{
+    padding: 5px;
 }
 
 #myLoginFormRow{
@@ -31,7 +33,7 @@ div {
 /* 左半邊開始 */
 
 .leftSide{
-    background-image: url(/img/jo_images/註冊背景.svg);
+    background-image: url(../img/jo_images/註冊背景.svg);
     background-repeat: no-repeat;
     background-size:cover;
     overflow: hidden;
@@ -79,7 +81,7 @@ right: 2rem;
 
 /* 左半邊結束 */
 
-#myLoginForm form {
+#myLoginForm .formbox {
     /* position: relative; */
     /* box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2); */
     background-color: white;
@@ -179,7 +181,7 @@ body {
 
 /* 詢問加入會員區塊 */
 
-.myRules a{
+.myRules {
     text-decoration: none;
     color: #F8B064;
     font-weight: bold;

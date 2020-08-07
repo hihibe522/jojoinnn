@@ -107,7 +107,15 @@ export default {
   },
   methods: {
     goChat(user){
-      this.$bus.$emit('gogochat',user)
+      console.log(localStorage)
+      let islog = localStorage.getItem('myinfo')
+      // console.log(localStorage)
+      if(islog){
+        this.$bus.$emit('gogochat',user)
+      }
+      else{
+         this.$toasted.show('請先進行登入😉');
+      }
     }
   },
   created() {

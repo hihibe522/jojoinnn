@@ -18,7 +18,7 @@
         </div>
 
         <div class="jo_navTitleYellow">
-          <span class="jo_hover">Jo誼廳</span>
+          <router-link active-class="nav_active" class="jo_hover" to="/socialhall">Jo誼廳</router-link>
           <hr />
         </div>
 
@@ -43,7 +43,7 @@
       <!-- 右邊資訊 -->
       <div id="jo_navBar_R">
         <!-- 未登入 -->
-        <div id="jo_notLogged" v-if="!loginOK">
+        <div id="jo_notLogged" v-if="!ifLog">
           <div class="jo_navTitleYellow">
             <span class="jo_hover">註冊</span>
             <hr />
@@ -56,12 +56,12 @@
         </div>
 
         <!-- 登入 -->
-        <div id="jo_login" v-if="loginOK">
+        <div id="jo_login" v-if="ifLog">
           <div class="jo_money">
             <img src="@/assets/img/jo_icon/jo_i_coin.svg" alt />
             <div>
               <!-- 目前JO幣 -->
-              <h5>${{memberData[0].joCoin}}</h5>
+              <h5>${{memberData.joCoin}}</h5>
             </div>
           </div>
 
@@ -73,7 +73,11 @@
           </div>
 
           <div class="jo_profile">
-            <img class="joPic_hover jo_hover" :src="memberData[0].m_profile" @click="houseShow" />
+            <img
+              class="joPic_hover jo_hover"
+              :src="ifLog? `/static/img/head/${memberData.m_profile}`:''"
+              @click="houseShow"
+            />
           </div>
         </div>
       </div>
@@ -102,22 +106,22 @@
         <div class="jo_house_top">
           <!-- 大頭照 -->
           <div class="jo_houseHeader">
-            <img :src="memberData[0].m_profile" alt />
+            <img :src="ifLog? `/static/img/head/${memberData.m_profile}`:''" alt />
           </div>
           <!-- 個人資料 -->
           <div class="jo_houseInfo">
-            <h4>{{memberData[0].m_name}}</h4>
+            <h4>{{memberData.m_name}}</h4>
             <div class="jo_houseIcon" id="jo_houseMedals">
               <img class="medalsImg" src="@/assets/img/jo_images/jo_medalsCopper.svg" alt />
               <img class="medalsImg" src="@/assets/img/jo_images/jo_medalsSilver.svg" alt />
               <img class="medalsImg" src="@/assets/img/jo_images/jo_medalsGold.svg" alt />
             </div>
             <div class="jo_houseBtn">
-              <router-link active-class="nav_active" class="jo_hover" to="/member">
+              <router-link active-class="nav_active" class="jo_hover" to="/member/memberHosting">
                 <input type="button" value="JoJo小屋" class="jo_btn jo_btnWater jo_btn_s" />
               </router-link>
 
-              <input type="button" value="登出" class="jo_btn jo_btnBlue jo_btn_s" @click="logOut" />
+              <input type="button" value="登出" class="jo_btn jo_btnBlue jo_btn_s" @click="logout" />
             </div>
           </div>
         </div>
@@ -129,7 +133,7 @@
               <!-- 活動卡片 -->
               <li :key="index" v-for="(hostingItem,index) in hostingData">
                 <div>
-                  <img :src="hostingItem.a_pic" alt />
+                  <img :src="ifLog?`/static/img/activityPic/${hostingItem.a_pic}`:''" alt />
                 </div>
                 <div class="jo_house_joingTitle">
                   <h5>{{hostingItem.a_name}}</h5>
@@ -157,7 +161,7 @@
               <!-- 活動卡片 -->
               <li :key="index" v-for="(joingItem,index) in joingData">
                 <div>
-                  <img v-bind:src="joingItem.a_pic" alt />
+                  <img :src="ifLog?`/static/img/activityPic/${joingItem.a_pic}`:''" alt />
                 </div>
                 <div class="jo_house_joingTitle">
                   <h5>{{joingItem.a_name}}</h5>
@@ -205,7 +209,7 @@ export default {
     return {
       loginOK: false,
       // 登入後的會員資料
-      memberData: [{}],
+      memberData: {},
 
       // 經驗值
       memberExp: [{}],
@@ -219,6 +223,7 @@ export default {
       // 正在參Jo的活動
       joingData: [{}],
 
+      ifLog: false,
       infoCount: 0,
       infoArrayLi: [],
       infoNumber: -1,
@@ -226,45 +231,37 @@ export default {
     };
   },
   methods: {
-
     // 重新get資料
     navCheck() {
-      var vm = this;
-      axios.get("navCheck").then((e) => {
-        vm.loginOK = e.data;
-        if (vm.loginOK != false) {
-          // console.log(e.data);
+      var meLog = JSON.parse(localStorage.getItem("myinfo"));
+      // 如果登入
+      if (meLog) {
+        this.ifLog = true;
+        let id = meLog.m_ID;
+        axios.get(`navCheck/${id}`).then((e) => {
+          let vm = this;
           // 個人資料
-          vm.memberData = JSON.parse(e.data.mamberInfo);
-
+          vm.memberData = e.data.memberData[0];
+          localStorage.setItem("myinfo", JSON.stringify(e.data.memberData[0]));
+          console.log(vm.memberData);
           // 主JO
-          vm.hostingData = JSON.parse(e.data.hostingData);
+          vm.hostingData = e.data.hostingData;
 
           // 參加
-          vm.joingData = JSON.parse(e.data.joingData);
+          vm.joingData = e.data.joingData;
 
           // 經驗值
-          vm.memberExp = JSON.parse(e.data.mamberExp);
+          vm.memberExp = e.data.mamberExp;
 
           // 訊息
-          vm.msgData = JSON.parse(e.data.msgData);
+          vm.msgData = e.data.msgData;
 
           // 訊息提示
           var msgDataNum = vm.msgData.filter((e) => e.read_or_not == 0);
           vm.infoCount = msgDataNum.length;
 
-          // 圖片叫用
-          var memberPic = vm.memberData[0].m_profile;
-          vm.memberData[0].m_profile = `/static/img/memberPic/${memberPic}`;
+
           this.memberMedals();
-
-          vm.hostingData.forEach(function (e) {
-            e.a_pic = `/static/img/activityPic/${e.a_pic}`;
-          });
-
-          vm.joingData.forEach(function (e) {
-            e.a_pic = `/static/img/activityPic/${e.a_pic}`;
-          });
 
           // 日期裁剪
           vm.hostingData.forEach(function (e) {
@@ -275,8 +272,10 @@ export default {
             e.a_start = e.a_start.substring(0, 10);
           });
           // console.log(vm.joingData)
-        }
-      });
+        });
+      } else {
+        console.log("請先登入");
+      }
     },
 
     msgRead(e) {
@@ -305,11 +304,9 @@ export default {
         });
     },
 
-    logOut() {
-      axios.post("navCheck", "").then((e) => {
-        this.loginOK = e.data;
-        location.reload();
-      });
+    logout() {
+      localStorage.clear();
+      window.location.replace("/");
     },
 
     // 取消鳩團
@@ -389,6 +386,13 @@ export default {
 
   created() {
     this.navCheck();
+    this.$bus.$on("islogin", (event) => {
+      this.navCheck();
+    });
+  },
+
+  beforeDestroy: function () {
+    this.$bus.$off("islogin");
   },
 };
 </script>

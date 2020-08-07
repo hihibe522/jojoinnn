@@ -29,7 +29,8 @@ var deposit = require('./routes/deposit');
 var consumption = require('./routes/consumption');
 var member = require('./routes/member');
 
-
+// 0805 Dan
+var register = require('./routes/register');
 //--------------router路徑_end-----------------------------------
 
 
@@ -67,7 +68,8 @@ app.use('/deposit', deposit);
 app.use('/consumption', consumption);
 app.use('/member', member);
 
-
+// 0805 Dan
+app.use('/register', register);
 
 
 var server = http.createServer(app);

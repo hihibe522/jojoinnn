@@ -5,19 +5,18 @@ let sockInfo = {};
 let socket_List= [];
 let onlineGroupCount = 0;
 let onlineGroupPeople = [];
-
+var num = 1;
 
 module.exports = (io) => {
 
   io.on('connection', (socket) => {
-
+   
       socket.on("uInfo",(uInfo)=>{
         sockInfo ={...uInfo };
-        // let sockInfo.myID = 
         sockInfo.sID = socket.id;
         // console.log(uInfo);
         // console.log(socket.id);
-        // console.log(sockInfo);
+        console.log("uuuu",sockInfo);
         const found = socket_List.findIndex(ele=> ele.myID == sockInfo.myID);
         if(found > -1){
           socket_List[found].sID = socket.id;
@@ -25,7 +24,7 @@ module.exports = (io) => {
         else{
           socket_List.push(sockInfo);
         }
-        console.log(socket_List);
+        // console.log(socket_List);
         socket.emit("sockInfo",socket.id);
         io.sockets.emit('getOnlineMan', socket_List);
       })
@@ -37,15 +36,16 @@ module.exports = (io) => {
       })
 
       socket.on("sendchat",(myid,uid,msg)=>{
+        
+        // var num = Math.random()*Math.random();
+        // var num;
+        console.log("first",num)
 
-        var num = Math.random();
-        // console.log(myid,uid,msg);
-        console.log("1111",socket_List);
+        console.log(myid,uid,msg);
+        // console.log("1111",socket_List);
         var user = socket_List.filter((ele) =>{
             return ele.myID == uid;
         })
-        console.log("222222",socket_List);
-        console.log("1111",user);
         let sql ="INSERT INTO chatroom (userID, friendID,msg,time) VALUES (?,?,?,?)";
           conn.query(sql,[myid,uid,msg,currTime()],function(err, rows){
             if (err) {
@@ -60,13 +60,14 @@ module.exports = (io) => {
         }
 
         socket.emit('reply', {num:num,id:myid,self: true , date: currTime(),msg});
-        // num++;
+        num++;
+        console.log("sec",num)
       })
 
       // console.log("sockInfo socialll",sockInfo);
     //  if(sockInfo !== "" ){
       
-      // 接收由socialhall 發出的請求
+      //接收由socialhall 發出的請求
       socket.on("group",(room,n)=>{
         let name = n;
         //加入前檢查是否已有所在房間
@@ -78,7 +79,7 @@ module.exports = (io) => {
         }
         //再加入新的
         socket.join(room);
-        console.log("socialhall",socket.rooms);
+        // console.log("socialhall",socket.rooms);
         onlineGroupCount++;
         onlineGroupPeople.push(name);
     
@@ -94,6 +95,7 @@ module.exports = (io) => {
           // let d = new Date();
           let time = currTime();
           a["time"] = time;
+          // console.log(a);
           if (Object.keys(a).length < 3) return;
           records.push(a);
         });
@@ -122,7 +124,7 @@ module.exports = (io) => {
     
     records.on("new_message", (re) => {
       // 廣播訊息到聊天室
-      console.log(re);
+      // console.log(re);
       io.emit("msg", re);
     });
   

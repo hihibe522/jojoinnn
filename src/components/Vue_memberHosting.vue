@@ -54,7 +54,7 @@
         </div>
       </div>
     </div>
-    <modalcancel  v-on:cancelModalClose="checkSession"></modalcancel>
+    <!-- <modalcancel v-on:cancelModalClose="checkSession"></modalcancel> -->
     <!-- 取消modal -->
   </div>
   <!-- 標題區塊結束 -->
@@ -63,12 +63,9 @@
 <script>
 import $ from "jquery";
 import axios from "axios";
-import modalcancel from "./Vue_modalCancel";
+// import modalcancel from "./Vue_modalCancel";
 export default {
   name: "memberHosting",
-  components: {
-    modalcancel,
-  },
   data() {
     return {
       memberData: [{}],
@@ -80,15 +77,16 @@ export default {
 
   methods: {
     checkSession() {
-      var vm = this;
-      axios.get("checkSession").then((e) => {
-        vm.memberData = e.data;
-        vm.getMemberHosting();
-      });
+      var meLog = JSON.parse(localStorage.getItem("myinfo"));
+      if (meLog) {
+        this.memberData = meLog;
+        this.getMemberHosting();
+      }
     },
+
     getMemberHosting() {
       var vm = this;
-      var id = vm.memberData[0].m_ID;
+      var id = vm.memberData.m_ID;
       axios.get(`member/memberHosting/${id}`).then((e) => {
         vm.hostData = e.data;
         console.log(vm.hostData);
@@ -105,9 +103,9 @@ export default {
       });
     },
 
-  abc(){
-    console.log("AAA")
-  },
+    abc() {
+      console.log("AAA");
+    },
 
     // 取消鳩團
     getCancelNumber(e, f) {
