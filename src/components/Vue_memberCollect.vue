@@ -23,9 +23,9 @@
 
             <h6>{{collectItem.a_start}}</h6>
           </div>
-          <div class="jo_heartDiv">
-            <img class="jo_heart collectHeart" src="../assets/img/jo_images/jo_heart.svg" alt />
-            <img class="jo_heart jo_hover" src="../assets/img/jo_images/jo_heart.svg" alt />
+
+          <div>
+            <favicon :liked="1" :aid="collectItem.a_ID" v-on:addLike="getMemberCollect"></favicon>
           </div>
         </div>
       </div>
@@ -37,6 +37,8 @@
 <script>
 import $ from "jquery";
 import axios from "axios";
+import favicon from "./Favicon";
+
 export default {
   name: "memberCollect",
   data() {
@@ -45,17 +47,20 @@ export default {
       collectData: [{}],
     };
   },
+  components: {
+    favicon,
+  },
   methods: {
     checkSession() {
-      var vm = this;
-      axios.get("checkSession").then((e) => {
-        vm.memberData = e.data;
-        vm.getMemberCollect();
-      });
+      var meLog = JSON.parse(localStorage.getItem("myinfo"));
+      if (meLog) {
+        this.memberData = meLog;
+        this.getMemberCollect();
+      }
     },
     getMemberCollect() {
       var vm = this;
-      var id = vm.memberData[0].m_ID;
+      var id = vm.memberData.m_ID;
       // console.log(id)
       axios.get(`member/memberCollect/${id}`).then((e) => {
         vm.collectData = e.data;

@@ -10,7 +10,7 @@ body {
 
 
 div {
-    padding: 5px;
+    /* padding: 5px; */
     object-fit: contain;
 }
 
@@ -54,12 +54,6 @@ div {
 
 /* clause */
 
-.clauseTitle {
-    /* height: 80px;
-    line-height: 80px;
-    padding-left: 120px; */
-    /* background: url(/img/jo_images/jo_logo.svg) no-repeat left center */
-}
 
 .clauseTitle h1{
     color:#616E7D;

@@ -1,337 +1,545 @@
 <template>
-    <div>
-         <!-- 註冊表格開始 -->
+  <div>
+    <!-- 註冊表格開始 -->
     <div class="jo_col_pc" id="myRegisterForm">
-        <div class="position-relative" id="myApplicationForm">
-            <form>
-                <!-- 標題文字開始 -->
-                <div id="myFormHeader" class="col-12 d-flex my-5">
-                    <div class="m-auto">
-                        <h1>註冊成為Jo星人</h1>
-                        <h5>已經有帳號嗎? <a href="/login.html"><span class="jo_hover">來這登入</span></a></h5>
-                    </div>
+      <div class="position-relative" id="myApplicationForm">
+        <form>
+          <!-- 標題文字開始 -->
+          <div id="myFormHeader" class="col-12 d-flex my-5">
+            <div class="m-auto">
+              <h1>註冊成為Jo星人</h1>
+              <h5>
+                已經有帳號嗎?
+                <a href="/login.html">
+                  <span class="jo_hover">來這登入</span>
+                </a>
+              </h5>
+            </div>
+          </div>
+          <!-- 標題文字結尾 -->
+
+          <!-- 表格內容開始 -->
+          <div class="row m-auto">
+            <div class="m-auto w-100">
+              <!-- 設定帳號開始 -->
+              <div class="form-group row qTitle">
+                <span class="jo_formSmallTitle">
+                  <h5>建立帳號</h5>
+                </span>
+
+                <!-- 一鍵生成開始 -->
+                <div class="m-auto w-100">
+                  <button
+                    class="jo_hover btn btn-outline-warning"
+                    type="button"
+                    id="autoMsg"
+                    @click="autoMsg"
+                    style="position: absolute; opacity:0; z-index:1"
+                  >點擊生成</button>
                 </div>
-                <!-- 標題文字結尾 -->
+                <!-- 一鍵生成結束 -->
 
+                <label for="accountName" class="align-items-center col-4 col-form-label">設定帳號</label>
+                <div class="col-4">
+                  <input
+                    v-model="accountName"
+                    placeholder="請輸入6-12位小寫英文+數字"
+                    id="accountName"
+                    name="accountName"
+                    type="text"
+                    class="form-control myForm-control"
+                    required
+                  />
+                </div>
+              </div>
+              <!-- 設定帳號結束 -->
 
-                <!-- 表格內容開始 -->
-                <div class="row m-auto">
-                    <div class="m-auto w-100">
+              <!-- 設定密碼開始 -->
+              <div class="form-group row">
+                <label
+                  for="passwordName"
+                  class="align-items-center col-4 col-form-label my-auto"
+                >設定密碼</label>
+                <div class="col-4">
+                  <input
+                    v-model="passwordName"
+                    placeholder="請輸入6-12位小寫英文+數字"
+                    id="passwordName"
+                    name="passwordName"
+                    type="password"
+                    class="form-control myForm-control"
+                    required
+                  />
+                </div>
+              </div>
+              <!-- 設定密碼結束 -->
 
-                        <!-- 設定帳號開始 -->
-                        <div class="form-group row qTitle">
-                            <span class="jo_formSmallTitle">
-                                <h5>建立帳號</h5>
-                            </span>
+              <!-- 設定再次輸入密碼開始 -->
+              <div class="form-group row">
+                <label
+                  for="rePasswordName"
+                  class="align-items-center col-4 col-form-label my-auto"
+                >再次輸入密碼</label>
+                <div class="col-4">
+                  <input
+                    v-model="rePasswordName"
+                    placeholder="請再次輸入設定的密碼"
+                    id="rePasswordName"
+                    name="rePasswordName"
+                    type="password"
+                    class="form-control myForm-control"
+                    required
+                  />
+                </div>
+              </div>
+              <!-- 設定再次輸入密碼結束 -->
 
-                            <label for="accountName" class="align-items-center col-4 col-form-label ">設定帳號</label>
-                            <div class="col-4">
-                                <input placeholder="請輸入6-12位小寫英文+數字" id="accountName" name="accountName" type="text"
-                                    class="form-control myForm-control" required>
-                            </div>
-                        </div>
-                        <!-- 設定帳號結束 -->
+              <!-- 填寫個人資料開始 -->
+              <div class="form-group row myFormMargin qTitle">
+                <span class="jo_formSmallTitle">
+                  <h5>填寫個人資料</h5>
+                </span>
 
-                        <!-- 設定密碼開始 -->
-                        <div class="form-group row ">
-                            <label for="passwordName"
-                                class="align-items-center col-4 col-form-label my-auto">設定密碼</label>
-                            <div class="col-4">
-                                <input placeholder="請輸入6-12位小寫英文+數字" id="passwordName" name="passwordName" type="text"
-                                    class="form-control myForm-control" required>
-                            </div>
-                        </div>
-                        <!-- 設定密碼結束 -->
+                <!-- 上傳頭像開始 -->
+                <label
+                  for="accountProfile"
+                  class="align-items-center col-4 col-form-label my-auto"
+                >上傳圖像</label>
+                <div class="col-4" style="position: relative">
+                  <label for="file-upload" class="custom-file-upload jo_hover file-upload">
+                    <input
+                      type="button"
+                      name="uploadBtnR"
+                      id="uploadBtnR"
+                      class="jo_hover jo_btn jo_btnOrange"
+                      value="請上傳個人圖像"
+                    />
+                    <input
+                      type="file"
+                      name="avatar"
+                      id="uploadBtnRFile"
+                      class="jo_hover jo_btn jo_btnOrange"
+                      value="請上傳個人圖像"
+                      accept="image/jpg"
+                      @change="changeAvatar"
+                    />
+                  </label>
+                </div>
+                <!-- 上傳頭像結束 -->
+              </div>
+              <!-- 填寫個人資料結束 -->
 
-                        <!-- 設定再次輸入密碼開始 -->
-                        <div class="form-group row ">
-                            <label for="rePasswordName"
-                                class="align-items-center col-4 col-form-label my-auto">再次輸入密碼</label>
-                            <div class="col-4">
-                                <input placeholder="請再次輸入設定的密碼" id="rePasswordName" name="rePasswordName" type="text"
-                                    class="form-control myForm-control" required>
-                            </div>
-                        </div>
-                        <!-- 設定再次輸入密碼結束 -->
+              <!-- 設定姓名開始 -->
+              <div class="form-group row">
+                <label for="memberName" class="align-items-center col-4 col-form-label my-auto">姓名</label>
+                <div class="col-4">
+                  <input
+                    v-model="memberName"
+                    placeholder="請輸入您的姓名"
+                    id="memberName"
+                    name="memberName"
+                    type="text"
+                    class="form-control myForm-control"
+                    required
+                  />
+                </div>
+              </div>
+              <!-- 設定姓名結束 -->
 
+              <!-- 設定性別開始 -->
+              <div class="form-group row">
+                <label class="align-items-center col-4">性別</label>
+                <div class="col-8">
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input
+                      @change="onChange($event)"
+                      v-model="sex"
+                      name="sex"
+                      id="male"
+                      type="radio"
+                      value="male"
+                      class="custom-control-input"
+                    />
+                    <label for="male" class="custom-control-label">男</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input
+                      @change="onChange($event)"
+                      v-model="sex"
+                      name="sex"
+                      id="female"
+                      type="radio"
+                      class="custom-control-input"
+                      value="female"
+                    />
+                    <label for="female" class="custom-control-label">女</label>
+                  </div>
+                </div>
+              </div>
+              <!-- 設定性別開始 -->
 
+              <!-- 設定信箱開始 -->
+              <div class="form-group row">
+                <label for="memberMail" class="align-items-center col-4 col-form-label my-auto">信箱</label>
+                <div class="col-4">
+                  <input
+                    v-model="memberMail"
+                    placeholder="請輸入常用信箱"
+                    id="memberMail"
+                    name="memberMail"
+                    type="text"
+                    class="form-control myForm-control"
+                    required
+                  />
+                </div>
+              </div>
+              <!-- 設定信箱結束 -->
 
+              <!-- 設定電話開始 -->
+              <div class="form-group row">
+                <label for="memberPhone" class="align-items-center col-4 col-form-label my-auto">電話</label>
+                <div class="col-4">
+                  <input
+                    v-model="memberPhone"
+                    placeholder="請輸入連絡電話"
+                    id="memberPhone"
+                    name="memberPhone"
+                    type="text"
+                    class="form-control myForm-control"
+                    required
+                  />
+                </div>
+              </div>
+              <!-- 設定電話結束 -->
 
-                        <!-- 填寫個人資料開始 -->
-                        <div class="form-group row myFormMargin qTitle">
-                            <span class="jo_formSmallTitle">
-                                <h5>填寫個人資料</h5>
-                            </span>
+              <!-- 設定生日開始 -->
+              <div class="form-group row">
+                <label for="memberBirth" class="align-items-center col-4 col-form-label">生日</label>
+                <div
+                  class="pnlEventCalendar fix-top"
+                  style="width:40%; position: absolute;left: 50%;z-index: 100;"
+                ></div>
+                <div class="col-4">
+                  <input
+                    v-model="memberBirthday"
+                    placeholder="請輸入您的生日"
+                    id="memberBirthday"
+                    name="memberBirthday"
+                    type="date"
+                    class="form-control myForm-control myDate"
+                    value="2020-08-21"
+                    required
+                  />
+                </div>
+              </div>
 
-                            <!-- 上傳頭像開始 -->
-                            <label for="accountName"
-                                class="align-items-center col-4 col-form-label my-auto">上傳圖像</label>
-                            <div class="col-4">
-                                <input type="button" name="" id="uploadBtnR" value="請上傳個人圖像"
-                                    class="jo_btn jo_btnOrange">
-                            </div>
-                            <!-- 上傳頭像結束 -->
+              <!-- 設定生日結束 -->
 
-                        </div>
-                        <!-- 填寫個人資料結束 -->
+              <!-- 設定居住地開始 -->
+              <div class="form-group row">
+                <label for="m_city" class="align-items-center col-4 col-form-label">居住地區</label>
+                <div class="col-4">
+                  <select v-model="m_city" id="m_city" name="m_city" class="custom-select myLiving">
+                    <option value disabled selected>請選擇居住地區</option>
+                    <option :key="index" v-for="(option,index) in options" v-bind:value="option.value">{{ option.text }}</option>
+                  </select>
+                </div>
+              </div>
+              <!-- 設定居住地結束 -->
 
-                        <!-- 設定姓名開始 -->
-                        <div class="form-group row ">
-                            <label for="memberName" class="align-items-center col-4 col-form-label my-auto">姓名</label>
-                            <div class="col-4">
-                                <input placeholder="請輸入您的姓名" id="memberName" name="memberName" type="text"
-                                    class="form-control myForm-control" required>
-                            </div>
-                        </div>
-                        <!-- 設定姓名結束 -->
+              <!-- 喜歡的類別開始 -->
 
-                        <!-- 設定信箱開始 -->
-                        <div class="form-group row ">
-                            <label for="memberMail" class="align-items-center col-4 col-form-label my-auto">信箱</label>
-                            <div class="col-4">
-                                <input placeholder="請輸入常用信箱" id="memberMail" name="memberMail" type="text"
-                                    class="form-control myForm-control" required>
-                            </div>
-                        </div>
-                        <!-- 設定信箱結束 -->
-
-                        <!-- 設定電話開始 -->
-                        <div class="form-group row ">
-                            <label for="memberPhone" class="align-items-center col-4 col-form-label my-auto">電話</label>
-                            <div class="col-4">
-                                <input placeholder="請輸入連絡電話" id="memberPhone" name="memberPhone" type="text"
-                                    class="form-control myForm-control" required>
-                            </div>
-                        </div>
-                        <!-- 設定電話結束 -->
-
-                        <!-- 設定生日開始 -->
-                        <div class="form-group row">
-                            <label for="memberBirth" class="align-items-center col-4 col-form-label">生日</label>
-                            <div class="pnlEventCalendar fix-top"
-                                style="width:40%; position: absolute;left: 50%;z-index: 100;"></div>
-                            <div class="col-4">
-                                <input placeholder="請輸入您的生日" id="memberBirthday" name="memberBirthday" type="text"
-                                    class="form-control myForm-control myDate" required>
-                            </div>
-                        </div>
-
-                        <!-- 設定生日結束 -->
-
-                        <!-- 設定居住地開始 -->
-                        <div class="form-group row">
-                            <label for="m_city" class="align-items-center col-4 col-form-label ">居住地區</label>
-                            <div class="col-4">
-                                <select id="m_city" name="m_city" class="custom-select myLiving">
-                                    <optgroup>
-                                        <option selected="selected" value="Taipei">臺北市</option>
-                                        <option value="NewTaipei">新北市</option>
-                                        <option value="Taoyuan">桃園市</option>
-                                        <option value="Taichung">臺中市</option>
-                                        <option value="Tainan">臺南市</option>
-                                        <option value="Kaohsiung">高雄市</option>
-                                        <option value="Keelung">基隆市</option>
-                                        <option value="Hsinchuh">新竹縣</option>
-                                        <option value="HsinchuCity">新竹市</option>
-                                        <option value="Chiayi">嘉義縣</option>
-                                        <option value="ChiayiCity">嘉義市</option>
-                                        <option value="Miaoli">苗栗縣</option>
-                                        <option value="Changhua">彰化縣</option>
-                                        <option value="Nantou">南投縣</option>
-                                        <option value="Yunlin">雲林縣</option>
-                                        <option value="Pingtung">屏東縣</option>
-                                        <option value="Yilan">宜蘭縣</option>
-                                        <option value="Hualien">花蓮縣</option>
-                                        <option value="Taitung">臺東縣</option>
-                                        <option value="Penghu">澎湖縣</option>
-                                    </optgroup>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- 設定居住地結束 -->
-
-                        <!-- 喜歡的類別開始 -->
-
-                        <div class="form-group row">
-                            <label class="align-items-center col-4">喜歡的類別 (可複選) </label>
-                            <div class="col-8">
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input @click="toggle()" id="favCat_0" type="checkbox"
-                                        class="custom-control-input">
-                                    <label for="favCat_0" class="custom-control-label">全部都想選</label>
-                                </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input name="favCat" id="favCat_1" type="checkbox" class="custom-control-input"
-                                        value="bar1">
-                                    <label for="favCat_1" class="custom-control-label">運動類</label>
-                                </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input name="favCat" id="favCat_2" type="checkbox" class="custom-control-input"
-                                        value="bar2">
-                                    <label for="favCat_2" class="custom-control-label">音樂類</label>
-                                </div>
-                            </div>
-
-
-                            <label class="align-items-center col-4"></label>
-                            <div class="col-8">
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input name="favCat" id="favCat_3" type="checkbox" class="custom-control-input"
-                                        value="bar3">
-                                    <label for="favCat_3" class="custom-control-label">社交聯誼類</label>
-                                </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input name="favCat" id="favCat_4" type="checkbox" class="custom-control-input"
-                                        value="bar4">
-                                    <label for="favCat_4" class="custom-control-label">藝文類</label>
-                                </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input name="favCat" id="favCat_5" type="checkbox" class="custom-control-input"
-                                        value="bar5">
-                                    <label for="favCat_5" class="custom-control-label">益智類</label>
-                                </div>
-                            </div>
-
-
-                            <label class="align-items-center col-4"></label>
-                            <div class="col-8">
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input name="favCat" id="favCat_6" type="checkbox" class="custom-control-input"
-                                        value="bar6">
-                                    <label for="favCat_6" class="custom-control-label">社會服務類</label>
-                                </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input name="favCat" id="favCat_7" type="checkbox" class="custom-control-input"
-                                        value="bar7">
-                                    <label for="favCat_7" class="custom-control-label">視聽類</label>
-                                </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input name="favCat" id="favCat_8" type="checkbox" class="custom-control-input"
-                                        value="bar8">
-                                    <label for="favCat_8" class="custom-control-label">飲食類</label>
-                                </div>
-                            </div>
-
-                            <label class="align-items-center col-4"></label>
-                            <div class="col-8">
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input name="favCat" id="favCat_9" type="checkbox" class="custom-control-input"
-                                        value="bar9">
-                                    <label for="favCat_9" class="custom-control-label">學術研究類</label>
-                                </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input name="favCat" id="favCat_10" type="checkbox" class="custom-control-input"
-                                        value="bar10">
-                                    <label for="favCat_10" class="custom-control-label">旅遊類</label>
-                                </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input name="favCat" id="favCat_11" type="checkbox" class="custom-control-input"
-                                        value="bar11">
-                                    <label for="favCat_11" class="custom-control-label">宅文化</label>
-                                </div>
-                            </div>
-
-
-                            <label class="align-items-center col-4"></label>
-                            <div class="col-8">
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input name="favCat" id="favCat_12" type="checkbox" class="custom-control-input"
-                                        value="bar12">
-                                    <label for="favCat_12" class="custom-control-label">戶外休閒類</label>
-                                </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input name="favCat" id="favCat_13" type="checkbox" class="custom-control-input"
-                                        value="bar13">
-                                    <label for="favCat_13" class="custom-control-label">科技類</label>
-                                </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input name="favCat" id="favCat_14" type="checkbox" class="custom-control-input"
-                                        value="bar14">
-                                    <label for="favCat_14" class="custom-control-label">手作類</label>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 喜歡的類別結束 -->
-
-                        <!-- 簡短自介開始 -->
-                        <div class="form-group row ">
-                            <label for="m_intro" class="align-items-center col-4 col-form-label ">簡短自介</label>
-                            <div class="col-6 m_intro">
-                                <textarea placeholder="請輸入100字內的簡單自我介紹" id="m_intro" name="m_intro" cols="40" rows="5"
-                                    class="form-control jo_scrollbar myIntro"></textarea>
-                            </div>
-                        </div>
-                        <!-- 簡短自介結束 -->
-
-
-                        <!-- 服務條款開始 -->
-                        <div class="form-group row">
-                            <label class="align-items-center col-4"></label>
-                            <div class="col-8">
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input name="myRules" id="myRules_0" type="checkbox" class="custom-control-input"
-                                        value="">
-                                    <label for="myRules_0" class="custom-control-label myRules">我已詳細閱讀<a href="#"
-                                            class="jo_hover" data-toggle="modal" data-target="#myClauseForm">服務條款</a>,
-                                        並同意其內容。</label>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 服務條款結束 -->
-
-                        <div id="confirmBtn" class="m-5 text-center">
-                            <div class="m-auto">
-                                <input type="submit" name="" id="" value="確定註冊" class="jo_btn jo_btnRed">
-                            </div>
-                        </div>
-                    </div>
+              <div class="form-group row">
+                <label class="align-items-center col-4">喜歡的類別 (可複選)</label>
+                <div class="col-8">
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input
+                      v-model="checkName"
+                      value="all"
+                      @click="selectAllCheck"
+                      id="favCat_0"
+                      type="checkbox"
+                      class="custom-control-input"
+                    />
+                    <label for="favCat_0" class="custom-control-label">全部都想選</label>
+                  </div>
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input
+                      v-model="checkName"
+                      value="運動類"
+                      name="favCat"
+                      id="favCat_1"
+                      type="checkbox"
+                      class="custom-control-input testSelected"
+                    />
+                    <label for="favCat_1" class="custom-control-label">運動類</label>
+                  </div>
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input
+                      v-model="checkName"
+                      value="音樂類"
+                      name="favCat"
+                      id="favCat_2"
+                      type="checkbox"
+                      class="custom-control-input testSelected"
+                    />
+                    <label for="favCat_2" class="custom-control-label">音樂類</label>
+                  </div>
                 </div>
 
-                <a><img id="registerBird" class="jo_hover" src="@/assets/img/jo_images/jo_bird_astronant.svg" alt=""></a>
+                <label class="align-items-center col-4"></label>
+                <div class="col-8">
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input
+                      v-model="checkName"
+                      value="社交聯誼"
+                      name="favCat"
+                      id="favCat_3"
+                      type="checkbox"
+                      class="custom-control-input testSelected"
+                    />
+                    <label for="favCat_3" class="custom-control-label">社交聯誼類</label>
+                  </div>
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input
+                      v-model="checkName"
+                      value="藝文類"
+                      name="favCat"
+                      id="favCat_4"
+                      type="checkbox"
+                      class="custom-control-input testSelected"
+                    />
+                    <label for="favCat_4" class="custom-control-label">藝文類</label>
+                  </div>
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input
+                      v-model="checkName"
+                      value="益智類"
+                      name="favCat"
+                      id="favCat_5"
+                      type="checkbox"
+                      class="custom-control-input testSelected"
+                    />
+                    <label for="favCat_5" class="custom-control-label">益智類</label>
+                  </div>
+                </div>
 
-            </form>
+                <label class="align-items-center col-4"></label>
+                <div class="col-8">
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input
+                      v-model="checkName"
+                      value="社會服務類"
+                      name="favCat"
+                      id="favCat_6"
+                      type="checkbox"
+                      class="custom-control-input testSelected"
+                    />
+                    <label for="favCat_6" class="custom-control-label">社會服務類</label>
+                  </div>
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input
+                      v-model="checkName"
+                      value="視聽類"
+                      name="favCat"
+                      id="favCat_7"
+                      type="checkbox"
+                      class="custom-control-input testSelected"
+                    />
+                    <label for="favCat_7" class="custom-control-label">視聽類</label>
+                  </div>
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input
+                      v-model="checkName"
+                      value="飲食類"
+                      name="favCat"
+                      id="favCat_8"
+                      type="checkbox"
+                      class="custom-control-input testSelected"
+                    />
+                    <label for="favCat_8" class="custom-control-label">飲食類</label>
+                  </div>
+                </div>
 
+                <label class="align-items-center col-4"></label>
+                <div class="col-8">
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input
+                      v-model="checkName"
+                      value="學術類"
+                      name="favCat"
+                      id="favCat_9"
+                      type="checkbox"
+                      class="custom-control-input testSelected"
+                    />
+                    <label for="favCat_9" class="custom-control-label">學術研究類</label>
+                  </div>
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input
+                      v-model="checkName"
+                      value="旅遊類"
+                      name="favCat"
+                      id="favCat_10"
+                      type="checkbox"
+                      class="custom-control-input testSelected"
+                    />
+                    <label for="favCat_10" class="custom-control-label">旅遊類</label>
+                  </div>
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input
+                      v-model="checkName"
+                      value="宅文化"
+                      name="favCat"
+                      id="favCat_11"
+                      type="checkbox"
+                      class="custom-control-input testSelected"
+                    />
+                    <label for="favCat_11" class="custom-control-label">宅文化</label>
+                  </div>
+                </div>
 
+                <label class="align-items-center col-4"></label>
+                <div class="col-8">
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input
+                      v-model="checkName"
+                      value="戶外休閒"
+                      name="favCat"
+                      id="favCat_12"
+                      type="checkbox"
+                      class="custom-control-input testSelected"
+                    />
+                    <label for="favCat_12" class="custom-control-label">戶外休閒類</label>
+                  </div>
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input
+                      v-model="checkName"
+                      value="科技類"
+                      name="favCat"
+                      id="favCat_13"
+                      type="checkbox"
+                      class="custom-control-input testSelected"
+                    />
+                    <label for="favCat_13" class="custom-control-label">科技類</label>
+                  </div>
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input
+                      v-model="checkName"
+                      value="手做"
+                      name="favCat"
+                      id="favCat_14"
+                      type="checkbox"
+                      class="custom-control-input testSelected"
+                    />
+                    <label for="favCat_14" class="custom-control-label">手做類</label>
+                  </div>
+                </div>
+              </div>
+              <!-- 喜歡的類別結束 -->
 
+              <!-- 簡短自介開始 -->
+              <div class="form-group row">
+                <label for="m_intro" class="align-items-center col-4 col-form-label">簡短自介</label>
+                <div class="col-6 m_intro">
+                  <textarea
+                    v-model="m_intro"
+                    placeholder="請輸入100字內的簡單自我介紹"
+                    id="m_intro"
+                    name="m_intro"
+                    cols="40"
+                    rows="5"
+                    class="form-control jo_scrollbar myIntro"
+                  ></textarea>
+                </div>
+              </div>
+              <!-- 簡短自介結束 -->
 
+              <!-- 服務條款開始 -->
+              <div class="form-group row">
+                <label class="align-items-center col-4"></label>
+                <div class="col-8">
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input
+                      name="myRules"
+                      id="myRules_0"
+                      type="checkbox"
+                      class="custom-control-input"
+                      value
+                    />
+                    <label for="myRules_0" class="custom-control-label myRules">
+                      我已詳細閱讀
+                      <a
+                        href="#"
+                        class="jo_hover"
+                        data-toggle="modal"
+                        data-target="#myClauseForm"
+                      >服務條款</a>,
+                      並同意其內容。
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <!-- 服務條款結束 -->
 
+              <div id="confirmBtn" class="m-5 text-center">
+                <div class="m-auto">
+                  <input @click="register" type="text" value="確定註冊" class="jo_btn jo_btnRed" />
+                </div>
+              </div>
+            </div>
+          </div>
 
-        </div>
-
+          <a>
+            <img
+              id="registerBird"
+              class="jo_hover"
+              src="@/assets/img/jo_images/jo_bird_astronant.svg"
+              alt
+            />
+          </a>
+        </form>
+      </div>
     </div>
     <!-- 註冊表格結束 -->
     <!-- modal條款開始 -->
-    <div class="jo_col_pc mb-1 modal fade" id="myClauseForm" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div
+      class="jo_col_pc mb-1 modal fade"
+      id="myClauseForm"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog myClause-dialog modal-dialog-centered" role="document">
+        <div class="myClause_width jo_modal">
+          <form
+            class="col-lg-12 col-md-12 col-sm-12 row position-relative m-auto"
+            id="myClauseForm"
+          >
+            <!-- 關掉按鈕開始 -->
+            <div class="clauseXX">
+              <button
+                role="button"
+                data-dismiss="modal"
+                class="madalClose modal_close jo_hover position-absolute"
+                title="Close"
+              >
+                <span></span>
+              </button>
+            </div>
+            <!-- 關掉按鈕結束 -->
 
-        <div class="modal-dialog  myClause-dialog modal-dialog-centered" role="document">
-            <div class="myClause_width jo_modal">
+            <!-- 標題文字開始 -->
+            <div id="myClauseHeader" class="col-7 d-flex m-auto">
+              <div class="m-auto clauseTitle d-flex">
+                <img src="@/assets/img/jo_images/jo_logo.svg" alt />
+                <h1>使用者服務條款</h1>
+              </div>
+            </div>
+            <!-- 標題文字結尾 -->
 
-
-                <form class="col-lg-12 col-md-12 col-sm-12 row position-relative m-auto" id="myClauseForm">
-
-                    <!-- 關掉按鈕開始 -->
-                    <div class="clauseXX">
-                        <button role="button" data-dismiss="modal"
-                            class="madalClose modal_close jo_hover position-absolute" title="Close">
-                            <span></span></button>
-                    </div>
-                    <!-- 關掉按鈕結束 -->
-
-
-                    <!-- 標題文字開始 -->
-                    <div id="myClauseHeader" class="col-7 d-flex m-auto ">
-                        <div class="m-auto clauseTitle d-flex ">
-                            <img src="@/assets/img/jo_images/jo_logo.svg" alt="">
-                            <h1>使用者服務條款</h1>
-                        </div>
-                    </div>
-                    <!-- 標題文字結尾 -->
-
-
-                    <div class="col-12 clauseModal_content myClause ">
-
-                        <textarea name="" id="" rows="25" class="jo_scrollbar">
+            <div class="col-12 clauseModal_content myClause">
+              <textarea rows="25" class="jo_scrollbar">
 
      這是以《政府網站版型與內容管理規範》中為基礎的隱私權條款範本稍微調整過移除不適用
      一般企業的項目，任何網站皆可將此範本加上自己的網站名稱，並做修改後使用於網站上。
@@ -376,122 +584,158 @@
     四、隱私權保護政策之修正
     本網站隱私權保護政策將因應需求隨時進行修正，修正後的條款將刊登於網站上。
                             </textarea>
-
-                    </div>
-
-
-                </form>
             </div>
+          </form>
         </div>
+      </div>
     </div>
 
     <!-- modal條款結束 -->
-    </div>
+  </div>
 </template>
 
- 
+
 <script>
 import $ from "jquery";
 import axios from "axios";
 
-export default{
-    name:"register",
-    data() {
-        return {
-            
-        }
+export default {
+  name: "register",
+  data() {
+    return {
+      //城市迴圈開始
+      options: [
+        { text: "臺北市", value: "臺北市" },
+        { text: "新北市", value: "新北市" },
+        { text: "桃園市", value: "桃園市" },
+        { text: "臺中市", value: "臺中市" },
+        { text: "臺南市", value: "臺南市" },
+        { text: "高雄市", value: "高雄市" },
+        { text: "基隆市", value: "基隆市" },
+        { text: "新竹縣", value: "新竹縣" },
+        { text: "新竹市", value: "新竹市" },
+        { text: "嘉義縣", value: "嘉義縣" },
+        { text: "嘉義市", value: "嘉義市" },
+        { text: "苗栗縣", value: "苗栗縣" },
+        { text: "彰化縣", value: "彰化縣" },
+        { text: "南投縣", value: "南投縣" },
+        { text: "雲林縣", value: "雲林縣" },
+        { text: "屏東縣", value: "屏東縣" },
+        { text: "宜蘭縣", value: "宜蘭縣" },
+        { text: "花蓮縣", value: "花蓮縣" },
+        { text: "臺東縣", value: "臺東縣" },
+        { text: "澎湖縣", value: "澎湖縣" },
+      ],
+
+      m_city: "選擇您的居住城市",
+      //城市迴圈結束
+
+      //全選鈕開始
+      checkName: [""],
+      ifAll: 0,
+      selectAll: [
+        "all",
+        "戶外休閒",
+        "運動類",
+        "音樂類",
+        "藝文類",
+        "益智類",
+        "視聽類",
+        "飲食類",
+        "社交聯誼",
+        "學術類",
+        "旅遊類",
+        "社會服務類",
+        "宅文化",
+        "科技類",
+        "手做",
+      ],
+      //全選鈕結束
+
+      accountName: "",
+      passwordName: "",
+      rePasswordName: "",
+      memberName: "",
+      memberMail: "",
+      memberPhone: "",
+      memberBirthday: "",
+      m_city: "",
+      favCat: "",
+      m_intro: "",
+      sex: "",
+    };
+  },
+
+  methods: {
+
+    //全選鈕可以全選，也可以全取消，開始
+    selectAllCheck: function () {
+      if (!this.ifAll) {
+        this.checkName = this.selectAll;
+        this.ifAll = 1;
+      } else {
+        this.checkName = [];
+        this.ifAll = 0;
+      }
     },
-    methods: {
-        toggle(e){
-            console.log("1324");
-            // let checkboxes = document.getElementsByName('favCat');
-            // for (var i = 0, n = checkboxes.length; i < n; i++) {
-            //     checkboxes[i].checked = e.checked;
-            // }
-        }
-        
+    //全選鈕可以全選，也可以全取消，結束
 
+    onChange(event) {
+      var data = event.target.value;
+      console.log(data);
+    },
 
+    autoMsg: function () {
+      this.accountName = "shanshan no.1";
+      this.passwordName = "1234";
+      this.rePasswordName = "1234";
+      this.memberName = "泡泡";
+      this.memberMail = "bubble@gmail.com";
+      this.memberPhone = "0999999999";
+      this.m_intro = "泡泡第一名";
+      this.sex = "female";
+      this.m_city = "彰化縣";
+      this.memberBirthday = "2020-08-21";
     },
 
 
+    register: function () {
+      // console.log("yes");
+      // console.log(this.accountName);
+      
+      // disable register button 
 
-}   
-        // 類別全選鈕開始
-        // function toggle(e) {
-        //     checkboxes = document.getElementsByName('favCat');
-        //     for (var i = 0, n = checkboxes.length; i < n; i++) {
-        //         checkboxes[i].checked = e.checked;
-        //     }
-        // }
-        //類別全選鈕結束
-
-        // $("#jo_footer").css({ "width": $(document).width() });
-        // console.log($(document).width())
-        // $(function () {
-
-        //     $("#myApplicationForm div").css("margin", "0");
-        //     $("input,select,textArea").addClass("jo_hover")
-
-
-        //     var whichInput;
-
-        //     $('.pnlEventCalendar').calendar({
-        //         months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-        //         days: ['一', '二', '三', '四', '五', '六', '日'], onSelect: function (event) {
-        //             $('#lblEventCalendar').text(event.label);
-
-        //             // console.log(event.label)
-        //             // var myDateAry = ('#lblEventCalendar').text(event.label).split(".");
-        //             var myDateAry = event.label.split(".");
-        //             console.log($("#memberBirthday"));
-        //             console.log(whichInput)
-        //             if (whichInput == "memberBirthday") {
-        //                 $("#memberBirthday").val(`${myDateAry[2]}-${myDateAry[1]}-${myDateAry[0]}`)
-        //             } else if (whichInput == "a_endDate") {
-        //                 $("#a_endDate").val(`${myDateAry[2]}-${myDateAry[1]}-${myDateAry[0]}`)
-        //             } else {
-        //                 console.log("NOK")
-        //             }
+      let memberData = {
+        m_name: this.memberName,
+        m_account: this.accountName,
+        m_password: this.passwordName,
+        m_email: this.memberMail,
+        m_phone: this.memberPhone,
+        m_birthday: this.memberBirthday,
+        m_address: this.m_city,
+        m_introduce: this.m_intro,
+        m_sex: this.sex,
+        m_checkName: this.checkName
+      };
 
 
-        //         }
-        //     });
-
-
-        //     $(".myDate").click(function () {
-        //         whichInput = $(this).prop("id");
-        //         console.log(whichInput);
-        //         $(".pnlEventCalendar").show();
-        //         $("td").removeClass("selected")
-
-        //     })
-
-        //     $(".pnlEventCalendar").on("click", "tr", function () {
-        //         $(".pnlEventCalendar").hide()
-        //     })
-
-        //     $(".button right").removeClass("right")
-        //     $(".button left").removeClass("left")
-
-        // });
-
+      // console.log(memberData);
+      // console.log("OKRE");
+      console.log(this.sex);
+      axios.post("register", { data: memberData }).then((response) => {
+        console.log(response);
+        //todo 檢查 reponse 是否異常
+        //todo alert 註冊成功請重新登入
+        //todo 頁面導到登入畫面
+      });
+    },
+  },
+};
 </script>
-<!-- <script src="./js/jquery.calendar.js"></script> -->
+
 
 <style>
-/* @import '../../assets/css/jquery.calendar.css'; */
-@import '../../assets/css/register.css';
-@import '../../assets/css/clause.css';
-
-div {
-    box-sizing: border-box;
-}
-
-img {
-    object-fit: contain;
-}
-        
-        
+@import "../../assets/css/register.css";
+@import "../../assets/css/clause.css";
 </style>
  

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <modallucky></modallucky>
     <!-- 標題區塊 -->
     <div class="title">
       <h2>Jo轉幸運盤</h2>
@@ -112,41 +111,15 @@
         <!-- 禮物卡片結束 -->
       </div>
     </div>
+    <input
+      type="button"
+      value="點我兌換"
+      class="jo_btn jo_btn_m jo_btnWater"
+      id=""
+      data-toggle="modal"
+      data-target="#cancelHoding_modal2"
+    />
 
-    <!-- 兌換modal -->
-    <div
-      class="modal fade"
-      id="changeGift_modal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog changeGift_modal-dialog modal-dialog-centered" role="document">
-        <div class="jo_modal">
-          <div class="jomodal_title">
-            <button
-              role="button"
-              data-dismiss="modal"
-              class="madalClose modal_close jo_hover"
-              title="Close"
-            >
-              <span></span>
-            </button>
-          </div>
-          <div class="jomodal_content">
-            <h1>獎品兌換</h1>
-            <h5 class="cancelInfo">
-              我要兌換
-              <span>千年積木</span>*1
-            </h5>
-            <div id="changeGift_QR"></div>
-            <h5 class="cancelInfo">序號：abcdefg123456789</h5>
-          </div>
-          <div class="jomodal_footer"></div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -154,13 +127,11 @@
 <script>
 import $ from "jquery";
 import axios from "axios";
-import modallucky from "./Vue_modalLucky";
+
 
 export default {
   name: "memberLucky",
-  components: {
-    modallucky,
-  },
+
   data() {
     return {
       memberData: [{}],
@@ -172,16 +143,16 @@ export default {
 
   methods: {
     checkSession() {
-      var vm = this;
-      axios.get("checkSession").then((e) => {
-        vm.memberData = e.data;
-        vm.getMemberExp();
-      });
+      var meLog = JSON.parse(localStorage.getItem("myinfo"));
+      if (meLog) {
+        this.memberData = meLog;
+        this.getMemberExp();
+      }
     },
 
     getMemberExp() {
       var vm = this;
-      var id = vm.memberData[0].m_ID;
+      var id = vm.memberData.m_ID;
       axios.get(`member/memberInfo/${id}`).then((e) => {
         vm.totalExp = e.data.memberExp[0].expSum;
         // console.log(vm.totalExp);
@@ -200,5 +171,4 @@ export default {
 
 <style>
 @import "../assets/css/member.css";
-@import "../assets/css/jo_modal.css";
 </style>

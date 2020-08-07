@@ -23,7 +23,7 @@
                 type="button"
                 id="gainMsg"
                 @click="gainMsg"
-                style="position: absolute; opacity: 0;"
+                style="position: absolute; width:200px;opacity:0; height:50px; top:80px"
               >一鍵生成</button>
             </div>
             <div class="form-group row col-12">
@@ -123,11 +123,13 @@
                   v-model="a_endTime"
                   required
                 />
+                <input type="text"  v-model="a_endTime">
+               {{a_endTime}}
               </div>
             </div>
             <div class="form-group row col-12">
               <label for="a_city" class="col-3 col-form-label">活動地點</label>
-              <div class="col-2">
+              <div class="col-3">
                 <select id="a_city" name="a_city" class="custom-select" v-model="a_city" required>
                   <option value="臺北市">臺北市</option>
                   <option value="新北市">新北市</option>
@@ -151,7 +153,7 @@
                   <option value="澎湖縣">澎湖縣</option>
                 </select>
               </div>
-              <div class="col-6">
+              <div class="col-5">
                 <input
                   id="a_cityDetail"
                   name="a_end"
@@ -274,12 +276,18 @@
             <h5>活動創建後不能更改資料，確定要Jo團嗎？</h5>
           </div>
           <div class="jomodal_footer">
-            <input
+<!-- &&&&& -->
+ <router-link to="/newActFinish">
+           <input
               type="button"
               class="jo_btn jo_btn_m jo_btnOrange"
               value="確認開團"
               @click="function() {hideModal();postData()}"
             />
+              </router-link>
+
+<!-- &&&&& -->
+
             <input
               type="button"
               class="jo_btn jo_btn_m jo_btnBlue"

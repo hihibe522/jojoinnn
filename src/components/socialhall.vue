@@ -43,7 +43,7 @@
                         </div>
                         <div class="contentBox">
                             <div class="joManTitle">
-                                <span class="joManName">{{item.m_name}}</span>
+                                <span v-if="item.m_name" class="joManName">{{item.m_name}}</span>
                                 <!-- 星星評價元件 -->
                                 <StarRate :m_rate="item.rate"></StarRate>
 
@@ -52,13 +52,21 @@
                             <div class="contentText">
                                 {{item.introduce}}
                             </div>
-                            <div class="btnBox">
-                               <router-link :to="{ name:'userhosting',query:{m_ID:item.m_ID }}">
+                            <div  v-if="me.m_ID != item.m_ID" class="btnBox">
+                               <!-- <router-link v-if="me.m_ID == item.m_ID" :to="{ name:'/member/memberJoing',query:{m_ID:item.m_ID }}"> -->
+                               <router-link :to="{ name:'userhosting',query:{m_ID:item.m_ID }}" >
                                 <button class="jo_btn jo_btn_s jo_btnWater">
                                     查看
                                 </button>
-                                </router-link>
-                               
+                                </router-link>                  
+                            </div>
+                            <div v-else class="btnBox">
+                               <!-- <router-link v-if="me.m_ID == item.m_ID" :to="{ name:'/member/memberJoing',query:{m_ID:item.m_ID }}"> -->
+                               <router-link to="/member/memberJoing">
+                                <button class="jo_btn jo_btn_s jo_btnWater">
+                                    查看
+                                </button>
+                                </router-link>                  
                             </div>
                         </div>
                     </div>
@@ -77,14 +85,14 @@
                       <div class="number1 col-6" v-if="masterHost[0].m_profile">
                           <div class="num1"><img src="../../static/img/socialhall/rank1.png" alt=""></div>
                           <img class="head" :src="require(`../../static/img/head/${masterHost[0].m_profile}`)" alt="">
-                          <div class="num1Name">{{masterHost[0].m_name}}</div>
+                          <div v-if="masterHost[0].m_name" class="num1Name">{{masterHost[0].m_name}}</div>
                            <StarRate :m_rate="masterHost[0].rate"></StarRate>
                           <div class="num1text">
                               {{masterHost[0].introduce}}
                           </div>
                           <div>
                             <router-link :to="{ name:'userhosting',query:{m_ID:masterHost[0].m_ID}}">
-                                <button class="jo_btn jo_btn_s jo_btnWater">查看</button>
+                                <button v-if="me.m_ID != masterHost[0].m_ID" class="jo_btn jo_btn_s jo_btnWater">查看</button>
                             </router-link>
                           </div>
                       </div>
@@ -99,14 +107,14 @@
                               <div><img :src="require(`../../static/img/head/${item.m_profile}`)" alt=""></div>
                               <div class="num_content">
                                   <div>
-                                      <h4>{{item.m_name}}</h4>
+                                      <h4 v-if="item.m_name">{{item.m_name}}</h4>
                                         <StarRate :m_rate="item.rate"></StarRate>
                                   </div>
                                   <div class="numSum">
                                       <div>{{item.introduce}}</div>
                                       <div>
                                           <router-link :to="{ name:'userhosting',query:{m_ID:item.m_ID}}">
-                                              <button class="jo_btn jo_btn_s jo_btnWater">查看</button>
+                                              <button v-if="me.m_ID != item.m_ID" class="jo_btn jo_btn_s jo_btnWater">查看</button>
                                           </router-link>
                                       </div>
                                   </div>
@@ -127,8 +135,8 @@
                           <div class="row no-gutters">
                               <div class="number1 col-6">
                                   <div class="num1"><img src="../../static/img/socialhall/rank1.png" alt=""></div>
-                                  <img class="head" v-if="masterPlayer[0].m_name" :src="require(`../../static/img/head/${masterPlayer[0].m_profile}`)" alt="">
-                                  <div class="num1Name">{{masterPlayer[0].m_name}}</div>
+                                  <img class="head" v-if="masterPlayer[0].m_profile" :src="require(`../../static/img/head/${masterPlayer[0].m_profile}`)" alt="">
+                                  <div class="num1Name" v-if="masterPlayer[0].m_name">{{masterPlayer[0].m_name}}</div>
                                   <div class="expPoint">
                                       <span>{{selPlayerCategory}}</span>經驗值<span>{{masterPlayer[0].points}}</span>exp
                                   </div>
@@ -137,7 +145,7 @@
                                       {{masterPlayer[0].introduce}}
                                   </div>
                                     <router-link :to="{ name:'userhosting',query:{m_ID:masterPlayer[0].m_ID}}">
-                                              <button class="jo_btn jo_btn_s jo_btnWater">查看</button>
+                                            <button v-if="me.m_ID != masterPlayer[0].m_ID" class="jo_btn jo_btn_s jo_btnWater">查看</button>
                                     </router-link>
                               </div>
                               <div class="numberelse col-6">
@@ -147,15 +155,20 @@
                                 </select>
                                   <div v-for="(item,index) in playerTo4" :key="index" class="numbercard">
                                       <div class="num"><img :src="require(`../../static/img/socialhall/rank${index+2}.png`)" alt=""></div>
-                                      <div><img :src="require(`../../static/img/head/${item.m_profile}`)" alt=""></div>
+                                      <div v-if="item.m_profile"><img :src="require(`../../static/img/head/${item.m_profile}`)" alt=""></div>
                                       <div class="num_content">
                                           <div>
-                                              <h4>{{item.m_name}}</h4>
+                                              <h4 v-if="item.m_ID">{{item.m_name}}</h4>
                                               <span  class="numbercardExp">{{item.points}}exp</span>
                                           </div>
                                           <div class="numSum">
                                               <div>{{item.introduce}}</div>
-                                              <div><router-link :to="{name:'userhosting',query:{m_ID:item.m_ID}}"><button class="jo_btn jo_btn_s jo_btnWater">查看</button></router-link></div>
+                                              <div><router-link :to="{name:'userhosting',query:{m_ID:item.m_ID}}">
+                                                    <button v-if="me.m_ID != item.m_ID" class="jo_btn jo_btn_s jo_btnWater">
+                                                      查看
+                                                    </button>
+                                                    </router-link>
+                                              </div>
                                           </div>
                                       </div>
                                   </div>                                
@@ -179,7 +192,7 @@ export default{
         },
         data() {
           return {
-                myInfo:{
+                me:{
                     m_name:""
                 },
                 sendMsg:"",
@@ -230,9 +243,9 @@ export default{
         },
         methods: {
                 inToMsgBoard(){
-                  console.log("inToMsgBoard");
                   let room = "socialhall";
-                  let name = this.myInfo.m_name;
+                  let name = this.me.m_name;
+                //   console.log(name)
                   if(name){
                     // console.log(this.$socket.id);
                     // socket.emit("greet");
@@ -243,7 +256,7 @@ export default{
                   var vm = this;
                   axios.get(`/socialhall/searchHost/${selCategory}`)
                   .then(e=>{
-                      console.log(e);
+                    //   console.log(e);
                       vm.masterHost = e.data;
                   })
                 },
@@ -260,8 +273,6 @@ export default{
                     console.log(this.serchText);
                     axios.get(`/socialhall/${this.serchText}`)
                     .then(e=>{
-                        console.log(e);
-                        console.log(e.data);
                         this.serchPeoples = e.data ;
 
                     })
@@ -274,7 +285,7 @@ export default{
                     msg["color"] = {color:`rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`,
                                     top:`${Math.floor(Math.random()*255)}px`}
                     this.msgArray.push(msg);
-                    console.log(this.msgArray);
+                    // console.log(this.msgArray);
 
                 },
                 msgBoardTextIn(e){
@@ -320,14 +331,7 @@ export default{
 
                 window.addEventListener("beforeunload",function(){
                         vm.$socket.emit("leaveGroup");
-                })
-                // let localStorage = JSON.parse( localStorage.getItem('myinfo'));
-                //     console.log(localStorage);
-                // if(localStorage){
-                // this.inToMsgBoard();
-
-                // }
-              
+                }) 
             },
             updated() {
                 // 維持對話視窗置底
@@ -343,33 +347,30 @@ export default{
                     return data;
                 }
             },
-            // watch: {
-            //     isLogin:function(){
-            //         this.inToMsgBoard();
-            //     }
-            // },
             created() {
             // this.$toasted.show('hello billo😉');
+            var vm = this;
 
-            // let localStorage = JSON.parse( localStorage.getItem('myinfo'));
-            // console.log(this.hallStorage);
-                if(localStorage){
-                    this.myInfo = JSON.parse(localStorage.getItem('myinfo'));
-                    this.inToMsgBoard();
+            let islog = localStorage.getItem('myinfo')
+            // console.log(islog);
+                if(islog){
+                    vm.me = JSON.parse(localStorage.getItem('myinfo'));
+                    console.log( vm.me)
+                    vm.inToMsgBoard();
                 }
 
-                this.$bus.$on('islogin', (data) => {
+                vm.$bus.$on('islogin', (data) => {
                    console.log(data);
-                   this.inToMsgBoard();
+                   vm.inToMsgBoard();
                 });
                 axios.get('modules/category').then(e=>{
-                //   console.log(e);
-                    this.category = e.data ;
+                    //console.log(e);
+                    vm.category = e.data ;
                     // vm.getChatList();
 
               })
-               this.SearchMasterHost("all");
-               this.searchMasterPlayer("all");
+               vm.SearchMasterHost("all");
+               vm.searchMasterPlayer("all");
 
             },
             beforeDestroy() {

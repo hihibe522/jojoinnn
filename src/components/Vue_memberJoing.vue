@@ -86,15 +86,16 @@ export default {
 
   methods: {
     checkSession() {
-      var vm = this;
-      axios.get("checkSession").then((e) => {
-        vm.memberData = e.data;
-        vm.getMemberJoing();
-      });
+      var meLog = JSON.parse(localStorage.getItem("myinfo"));
+      if (meLog) {
+        this.memberData = meLog;
+        this.getMemberJoing();
+      }
     },
+
     getMemberJoing() {
       var vm = this;
-      var id = vm.memberData[0].m_ID;
+      var id = vm.memberData.m_ID;
       axios.get(`member/memberJoing/${id}`).then((e) => {
         vm.joingData = e.data;
         // console.log(vm.joingData[0].m_pay);

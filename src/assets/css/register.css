@@ -7,19 +7,32 @@ body {
     overflow-x: hidden;
 }
 
+
 img {
     object-fit: cover;
 }
 
 div {
-    padding: 5px;
+    /* padding: 5px; */
     object-fit: contain;
+    box-sizing: border-box;
 }
 
 #uploadBtnR {
     border-radius: 12px;
     margin: auto;
-    width: 180px;
+    width: 200px;
+    height:50px;
+    position: absolute; 
+    bottom: 0px
+}
+
+#uploadBtnRFile{
+    position: absolute; 
+    width: 200px; 
+    height: 50px; 
+    opacity: 0; 
+    bottom: 0px
 }
 
 

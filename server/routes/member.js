@@ -76,4 +76,16 @@ router.get('/memberbanList/:id', function (req, res, next) {
 });
 
 
+
+// 轉盤
+router.get('/gift', function (req, res, next) {
+
+    conn.query('SELECT * FROM gift', function (err, rows) {
+        res.send(rows);
+        // next();
+    });
+
+
+});
+
 module.exports = router;

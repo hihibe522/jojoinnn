@@ -56,17 +56,19 @@ export default {
 
   methods: {
     checkSession() {
-      var vm = this;
-      axios.get("checkSession").then((e) => {
-        vm.memberData = e.data;
+      var meLog = JSON.parse(localStorage.getItem("myinfo"));
+      if (meLog) {
+        this.memberData = meLog;
         this.getConsumptionList();
-        // console.log(vm.memberData[0]);
-      });
+      } else {
+        this.$router.push("/login");
+        this.$toasted.show("請先登入🙇‍♀️");
+      }
     },
 
     getConsumptionList() {
       var rm = this;
-      var id = rm.memberData[0].m_ID;
+      var id = rm.memberData.m_ID;
       console.log(id);
       axios.get(`consumption/${id}`).then((e) => {
         rm.consumptionList = e.data;

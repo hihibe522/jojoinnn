@@ -4,9 +4,9 @@
     <div class="memberMain" id="memberMain_L">
       <!-- 基本資料 -->
       <div class="memberInfo">
-        <img :src="memberData[0].m_profile" alt />
+        <img :src="memberData.m_profile" alt />
         <div>
-          <h4 class="memberName">{{memberData[0].m_name}}</h4>
+          <h4 class="memberName">{{memberData.m_name}}</h4>
         </div>
         <div class="memberIcon">
           <img class="medalsImg_m" src="@/assets/img/jo_images/jo_medalsCopper.svg" alt />
@@ -36,7 +36,7 @@
       <!-- 自我介紹 -->
       <div class="memberInfo">
         <div class="memberIntro">
-          <h5>{{memberData[0].introduce}}</h5>
+          <h5>{{memberData.introduce}}</h5>
         </div>
       </div>
 
@@ -124,6 +124,8 @@
         </div>
       </div>
     </div>
+
+<modallucky></modallucky>
   </div>
 </template>
 
@@ -132,42 +134,47 @@ import $ from "jquery";
 import axios from "axios";
 import memberjoing from "./Vue_memberJoing";
 import starrate from "./StarRate";
+import modallucky from "./Vue_modalLucky";
 
 export default {
   name: "member",
   components: {
     memberjoing,
     starrate,
+    modallucky,
   },
   data() {
     return {
-      memberData: [{}],
+      memberData: {},
       memberRate: [{}],
       a: 0,
     };
   },
   methods: {
     checkSession() {
-      var vm = this;
-      axios.get("checkSession").then((e) => {
-        vm.memberData = e.data;
-        vm.getMemberData();
+      var meLog = JSON.parse(localStorage.getItem("myinfo"));
+      if (meLog) {
+        this.memberData = meLog;
         this.$bus.$emit("memberInformation", {
-          m_data: vm.memberData,
+          m_data: this.memberData,
         });
-      });
+        this.getMemberData();
+      } else {
+        this.$router.push("/login");
+        this.$toasted.show("請先登入🙇‍♀️");
+      }
     },
     getMemberData() {
       var vm = this;
-      var id = vm.memberData[0].m_ID;
+      var id = vm.memberData.m_ID;
       axios.get(`member/memberInfo/${id}`).then((e) => {
         vm.memberExp = e.data.memberExp;
         vm.memberRate = e.data.memberRate;
-        vm.a = vm.memberRate[0].rate;
+        vm.a = vm.memberRate.rate;
 
         // 圖片叫用
-        var memberPic = vm.memberData[0].m_profile;
-        vm.memberData[0].m_profile = `/static/img/memberPic/${memberPic}`;
+        var memberPic = vm.memberData.m_profile;
+        vm.memberData.m_profile = `/static/img/head/${memberPic}`;
         vm.memberMedals();
       });
     },

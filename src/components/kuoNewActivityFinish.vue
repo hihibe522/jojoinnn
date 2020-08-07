@@ -7,6 +7,8 @@
       <h5>可到JoJo小屋查看你目前開的團</h5>
       <h6>倒數{{secCount}}秒後回首頁</h6>
     </div>
+
+
   </div>
 
   <!-- ********************/content ******************** -->
@@ -33,6 +35,7 @@ export default {
 
       setTimeout(() => {
         clearInterval(Timer);
+        this.$router.push('/member/')
       }, 3000);
     },
   },

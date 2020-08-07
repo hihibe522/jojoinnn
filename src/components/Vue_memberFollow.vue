@@ -43,7 +43,12 @@
           </div>
 
           <div>
-            <input type="button" class="jo_btn jo_btnBlue jo_btn_s" value="取消關注" />
+            <input
+              type="button"
+              class="jo_btn jo_btnBlue jo_btn_s"
+              value="取消關注"
+              @click="cancelFollow(followItem.m_ID)"
+            />
           </div>
         </div>
       </div>
@@ -88,36 +93,37 @@ export default {
   },
   methods: {
     checkSession() {
-      var vm = this;
-      axios.get("checkSession").then((e) => {
-        vm.memberData = e.data;
-        vm.getMemberFollow();
-        vm.getMemberBanlist();
-      });
+      var meLog = JSON.parse(localStorage.getItem("myinfo"));
+      if (meLog) {
+        this.memberData = meLog;
+        this.getMemberFollow();
+        this.getMemberBanlist();
+      }
     },
+
     getMemberFollow() {
       var vm = this;
-      var id = vm.memberData[0].m_ID;
+      var id = vm.memberData.m_ID;
       axios.get(`member/memberFollow/${id}`).then((e) => {
         vm.followData = e.data;
 
-        console.log(vm.followData);
+        // console.log(vm.followData);
         // 圖片叫用
         vm.followData.forEach(function (e) {
-          e.m_profile = `/static/img/memberPic/${e.m_profile}`;
+          e.m_profile = `/static/img/head/${e.m_profile}`;
         });
       });
     },
 
     getMemberBanlist() {
       var vm = this;
-      var id = vm.memberData[0].m_ID;
+      var id = vm.memberData.m_ID;
       axios.get(`member/memberbanList/${id}`).then((e) => {
         vm.banListData = e.data;
-        console.log(vm.blackListData);
+        // console.log(vm.blackListData);
         // 圖片叫用
         vm.banListData.forEach(function (e) {
-          e.m_profile = `/static/img/memberPic/${e.m_profile}`;
+          e.m_profile = `/static/img/head/${e.m_profile}`;
         });
       });
     },
@@ -129,6 +135,16 @@ export default {
     banlistBookmark() {
       this.memberMark = false;
       this.getMemberBanlist();
+    },
+
+    cancelFollow(f_ID) {
+      const f_data = {};
+      f_data.f_ID = f_ID;
+      f_data.m_ID = this.memberData.m_ID;
+      console.log(f_data);
+      axios.put("modules/cancelFollow", { info: f_data }).then((e) => {
+        this.getMemberFollow();
+      });
     },
   },
 

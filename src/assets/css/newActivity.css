@@ -55,9 +55,11 @@ height: 50px;}
 #birdTalk{
 background-color: #F3F3F3;
 border-radius: 9px;
-border: 1px #454C53 solid
-}
 
+}
+.modal-dialog>.jomodal_title{
+    padding: 0px;
+}
 .form-group label {
     text-align: right;
     margin-top: auto;
@@ -104,17 +106,3 @@ body {
     font-size: 1.2rem;
 }
 
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-    display: none;
- }
- 
- /*----------用來移除上下箭頭----------*/
- input[type="date"]::-webkit-inner-spin-button {
-     display: none;
-     }
- 
- /*----------用來移除叉叉按鈕----------*/
- input[type="date"]::-webkit-clear-button{
-    display:none;
- }

@@ -1,11 +1,8 @@
 <template>
   <div id="chatRoomApp">
-    <div id="loginInput">
-        <!-- <input v-model="myInfo.myId" type="text" name="" id=""> -->
-    <favicon :liked="like.likeit" :aid="like.aid" ></favicon>
-        <!-- <button @click="login" class="btn btn-primary">登入</button>
-        <button @click="logout" class="btn btn-primary">登出</button> -->
-    </div>
+
+    <!-- <favicon :liked="like.likeit" :aid="like.aid" ></favicon> -->
+
     <div v-if="loginOK" @click="showChatBox = true" class="chat_icon">
         <img class="ld ld-bounceAlt" src="../assets/img/jo_images/jo_i_chat.svg" alt="">
     </div>
@@ -107,9 +104,9 @@ export default{
                 if(!has){
                      vm.$set(vm.onlineChatMsgs,vm.chatMsg.toId,[])
                 }
-                console.log(data);
-                console.log(vm.onlineChatMsgs)
-                console.log(vm.onlineChatMsgs[vm.chatMsg.toId])
+                // console.log(data);
+                // console.log(vm.onlineChatMsgs)
+                // console.log(vm.onlineChatMsgs[vm.chatMsg.toId])
                 // vm.onlineChatMsgs
                 
                 vm.onlineChatMsgs[vm.chatMsg.toId].push(data);
@@ -118,7 +115,7 @@ export default{
             },  
             checklogin(a){
                 var vm = this;
-                console.log(a);
+                // console.log(a);
                 vm.myInfo.myId = a.m_ID;
                 vm.myInfo.myName = a.m_name;
                 vm.loginOK = true;
@@ -145,14 +142,15 @@ export default{
                             myID : vm.myInfo.myId,
                             myName : vm.myInfo.myName
                             };
+                console.log(self);
                 this.$socket.emit("uInfo", self);
                 
             },
-            logout(){
-                 this.$socket.emit("leavechat",this.myInfo.sid);
-                 this.loginOK = false;
-                 this.showChatBox = false;
-            },
+            // logout(){
+            //      this.$socket.emit("leavechat",this.myInfo.sid);
+            //      this.loginOK = false;
+            //      this.showChatBox = false;
+            // },
             getChatList(){
                 var vm = this;
                 axios.get(`chat/${vm.myInfo.myId}`)
@@ -175,16 +173,16 @@ export default{
                     // vm.friendList = vm.friendList.filter(function(element, index, arr){
                     //     return arr.indexOf(element) === index;
                     // });
-                    console.log(vm.friendList)
+                    // console.log(vm.friendList)
                 })
                 .then(()=>{
                     let data = vm.friendList.map(item=>{
                         return item.friendId
                     })
-                    console.log(data);
+                    // console.log(data);
                     axios.post("chat/friendinfo",{info:data})
                     .then(e=>{
-                        console.log(e)
+                        // console.log(e)
                         vm.friendList = [... e.data];
 
                     })
@@ -192,12 +190,9 @@ export default{
             },
             goChatBox(e){
             this.showChatBox = true;
-             console.log(e)
-             console.log(e.a_host)
-             console.log(e.m_name)
                 this.chatMsg.toId = e.a_host;
                 this.chatMsg.toName = e.m_name;
-                console.log(this.chatMsg.toName)
+                // console.log(this.chatMsg.toName)
                 let friend = e;
                 // 判斷對象是否已存在對話列表
                 let isFriend = this.friendList.find(ele=>{
@@ -213,8 +208,8 @@ export default{
             },
             sendMsg(){
                 var vm = this;
-                console.log(vm.myInfo.myId);
-                console.log(vm.chatMsg.toId);
+                // console.log(vm.myInfo.myId);
+                // console.log(vm.chatMsg.toId);
                 this.$socket.emit("sendchat",vm.myInfo.myId,vm.chatMsg.toId,vm.chatMsg.msg);
                 vm.chatMsg.msg = "";
                 // console.log(vm.chatMsg);
@@ -254,28 +249,24 @@ export default{
 
             }
             this.$bus.$on('islogin', (myinfo) => {
-                console.log(myinfo)
                 vm.checklogin(myinfo);
+            });
+
+            this.$bus.$on('logout', () => {
+                this.$socket.emit("leavechat",this.myInfo.sid);
+                this.loginOK = false;
+                this.showChatBox = false;
             });
             
             this.$bus.$on('gogochat', (userinfo) => {
-                 console.log(userinfo);
-                 console.log(vm);
                  vm.goChatBox(userinfo);
                 // vm.updateMessage(message, status);
             });
 
-
-
-          setTimeout(function(){
-              vm.like.likeit = 1;
-              vm.like.aid = 50;
-
-
-          },3000)  
         },
         beforeDestroy() {
             this.$bus.$off("islogin");
+            this.$bus.$off("logout");
             this.$bus.$off("gogochat");
         },
         

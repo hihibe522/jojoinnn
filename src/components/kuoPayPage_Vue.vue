@@ -1,6 +1,6 @@
 
 <template>
-  <div id="payPage" class="position-relative">
+  <div id="payPage" class="position-relative" style="height:100vh">
     <div id="paymentContent" class="position-absolute">
       <div id="ldAnimation" class="position-relative ld ld-swim2">
         <img class="m-auto position-absolute" src="../assets/img/付款頁面/工作區域 1.svg" alt />
@@ -25,6 +25,8 @@
 
       <div class="position-absolute text-center" style="top:50vh;left: 12vw;">
         <input
+          data-toggle="modal"
+          data-target="#my_jomodal"
           type="button"
           @click="payAction"
           name
@@ -43,6 +45,40 @@
         />
       </div>
     </div>
+
+    <!-- MODAL -->
+    <!-- MODAL -->
+    <div
+      class="modal fade"
+      id="my_jomodal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="jo_modal">
+          <div class="jomodal_title">
+            <button
+              role="button"
+              type="button"
+              data-dismiss="modal"
+              class="modal_close jo_hover madalClose"
+              title="Close"
+            >
+              <span></span>
+            </button>
+          </div>
+          <div class="jomodal_content">
+            <h2 class="m-3 pb-3">訂單成立</h2>
+            <h2 class="m-3 pb-3">{{secCount}}秒後跳轉回首頁</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- *********** -->
+    <!-- MODAL -->
   </div>
 </template>
 
@@ -59,16 +95,16 @@ export default {
       a_price: "300",
       con_deposit: "9700",
       con_event: "活動消費",
-
+      secCount: 3,
     };
   },
 
   methods: {
     refreshPage() {
       axios.get("payPage").then((e) => {
-        // console.log(e);
+        console.log(e);
         // console.log(e.data.payment[0]);
-     
+
         var payment = e.data.payment[0];
         var member = e.data.member[0];
 
@@ -76,15 +112,24 @@ export default {
         this.joCoin = member.joCoin;
         this.a_price = payment.a_price;
         this.con_deposit = this.joCoin - this.a_price;
-     
       });
     },
     payAction() {
-  
+      this.reciprocal();
       axios.put("payPage").then((e) => {
         console.log(e);
-
       });
+    },
+    reciprocal: function () {
+      var Timer = setInterval(() => {
+        this.secCount = this.secCount - 1;
+      }, 1000);
+
+      setTimeout(() => {
+        clearInterval(Timer);
+        $('#my_jomodal').modal('hide')
+        this.$router.push('/member/')
+      }, 3000);
     },
   },
   mounted() {

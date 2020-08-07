@@ -25,6 +25,7 @@
     "socket.io": "^2.3.0",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.5",
+    "vue-chart.js": "^0.2.0",
     "vue-router": "^3.0.1",
     "vue-socket.io": "^3.0.7",
     "vue-toasted": "^1.1.28",
