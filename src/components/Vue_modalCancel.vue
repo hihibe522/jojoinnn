@@ -63,19 +63,21 @@ export default {
   },
   methods: {
     cancelOK() {
-      console.log(this.a_ID);
       var vm = this;
-      vm.$emit("cancelModalClose", "");
-      this.cancelData[0].a_cancellReason;
+
       $("#cancelHoding_modal").modal("hide");
+      vm.$bus.$emit("cancelOK");
+
       axios
         .post("cancelHost", {
           aId: vm.a_ID,
           aName: vm.a_name,
           cancelReason: vm.cancelData[0].a_cancellReason,
         })
-        .then((e) => {
-          console.log(e);
+        .then((array) => {
+          var meLog = JSON.parse(localStorage.getItem("myinfo"));
+          vm.$bus.$emit("NewMsg");
+          vm.$toasted.show(`活動「${vm.a_name}」已被取消`);
         });
     },
   },

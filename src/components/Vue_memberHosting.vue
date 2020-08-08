@@ -117,6 +117,12 @@ export default {
   },
   created() {
     this.checkSession();
+    this.$bus.$on("cancelOK", (event) => {
+      this.getMemberHosting();
+    });
+  },
+  beforeDestroy: function () {
+    this.$bus.$off("cancelOK");
   },
 };
 </script>

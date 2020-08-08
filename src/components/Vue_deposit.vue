@@ -66,26 +66,32 @@
                 <div id="writeCredit">
                   <div class="creditForm">
                     <h5>持卡人姓名：</h5>
-                    <input type="text" placeholder="請輸入姓名" />
+                    <input type="text" placeholder="請輸入姓名" v-model="info_name" />
+                    <input
+                      type="button"
+                      value="神奇小按鈕"
+                      style="padding:0;opacity:0"
+                      @click="creditInfo"
+                    />
                   </div>
                   <div id="depositCredit" class="creditForm">
                     <h5>信用卡卡號：</h5>
                     <br />
                     <div>
-                      <input type="text" placeholder=" " />
+                      <input type="text" placeholder=" " v-model="info_card[0]" />
                       <h5>&nbsp;-&nbsp;</h5>
-                      <input type="text" placeholder=" " />
+                      <input type="text" placeholder=" " v-model="info_card[1]" />
                       <h5>&nbsp;-&nbsp;</h5>
-                      <input type="text" placeholder=" " />
+                      <input type="text" placeholder=" " v-model="info_card[2]" />
                       <h5>&nbsp;-&nbsp;</h5>
-                      <input type="text" placeholder=" " />
+                      <input type="text" placeholder=" " v-model="info_card[3]" />
                     </div>
                   </div>
 
                   <div class="creditForm" id="depositExpired">
                     <h5>有效年月：</h5>
 
-                    <select name id>
+                    <select v-model="info_month">
                       <!-- 月份 -->
                       <option
                         v-bind:value="monthItem"
@@ -94,7 +100,7 @@
                       >{{monthItem}}</option>
                     </select>
                     <h5>月</h5>
-                    <select name id>
+                    <select v-model="info_year">
                       <!-- 年分 -->
                       <option
                         v-bind:value="yearItem"
@@ -107,7 +113,7 @@
 
                   <div class="creditForm" id="depositThree">
                     <h5>背面末三碼：</h5>
-                    <input type="text" value />
+                    <input type="text" v-model="info_pwd" />
                   </div>
                 </div>
               </li>
@@ -129,7 +135,7 @@
         </div>
 
         <div class="custom-control custom-checkbox creditForm" id="creditCheck">
-          <input type="checkbox" class="custom-control-input" id="cCheck" />
+          <input type="checkbox" class="custom-control-input" id="cCheck" v-model="toggle" />
           <label class="custom-control-label jo_hover" for="cCheck">
             <h5>
               我已詳細閱讀
@@ -169,13 +175,12 @@
               你目前持有的Jo幣
               <span>{{memberData.joCoin}}元</span>
             </h4>
-            <h5>{{minute}}秒後回到首頁</h5>
+            <h5>{{minute}}秒後回到上一頁</h5>
           </div>
           <!-- <div class="jomodal_footer"></div> -->
         </div>
       </div>
     </div>
-    
   </div>
 </template>
 
@@ -212,10 +217,17 @@ export default {
       ],
       creditYear: [],
       minute: 3,
+      info_name: "",
+      info_card: [],
+      info_month: "",
+      info_year: "",
+      info_pwd: "",
+      toggle: 0,
     };
   },
   methods: {
     checkSession() {
+      $("html, body").scrollTop(0);
       var meLog = JSON.parse(localStorage.getItem("myinfo"));
       if (meLog) {
         this.memberData = meLog;
@@ -237,8 +249,8 @@ export default {
           .then((e) => {
             this.successModal();
           });
-      }else{
-            this.$toasted.show("請輸入儲值金額🙆");
+      } else {
+        this.$toasted.show("請輸入儲值金額🙆");
       }
     },
 
@@ -262,7 +274,21 @@ export default {
 
       setTimeout(() => {
         window.location.replace("/");
+        // this.$router.back(-1);
+        // location.reload()
       }, 3000);
+    },
+
+    // 一鍵生成資料
+    creditInfo() {
+      this.info_name = "姍姍來了";
+      this.info_card = [8080, 1107, 3333, 1107];
+      this.info_month = this.creditMonth[10];
+      this.info_year = this.creditYear[5];
+      this.info_pwd = 333;
+      this.toggle = 1;
+
+      // console.log("ABC")
     },
   },
 
@@ -278,4 +304,7 @@ export default {
 
 <style>
 @import "../assets/css/desposit.css";
+#depositTitle {
+  border: 0px;
+}
 </style>

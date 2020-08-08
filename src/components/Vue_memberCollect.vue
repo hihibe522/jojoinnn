@@ -52,6 +52,7 @@ export default {
   },
   methods: {
     checkSession() {
+      console.log(this.memberData)
       var meLog = JSON.parse(localStorage.getItem("myinfo"));
       if (meLog) {
         this.memberData = meLog;

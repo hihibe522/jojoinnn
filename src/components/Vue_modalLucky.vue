@@ -11,7 +11,12 @@
     <div class="modal-dialog wheelModal-dialog modal-dialog-centered" role="document">
       <div class="jo_modal wheelModal_width">
         <div class="jomodal_title">
-          <button role="button" data-dismiss="modal" class="madalClose" title="Close">
+          <button
+            role="button"
+            data-dismiss="modal"
+            class="madalClose modal_close jo_hover"
+            title="Close"
+          >
             <span></span>
           </button>
         </div>
@@ -31,15 +36,20 @@
             </div>
           </div>
           <input
+            v-if="!hasClick"
             type="button"
             class="jo_btn jo_btnOrange"
             id="luckyClick"
             value="點我抽獎"
             @click="getGiftBtn"
           />
+          <input v-if="hasClick" type="button" class="jo_btnGrey" id="luckyClick" value="已抽獎" />
 
-          <!-- <img id="giftImage" class="giftShow" />
-          <div class="giftGetInfo giftShow"></div> -->
+          <img id="giftImage" class="giftShow" :src="getGiftPic" />
+          <div class="giftGetInfo giftShow">
+            <h4>恭喜你獲得{{getGiftName}}！</h4>
+            <h5>兌換期限：{{getGiftDeadline}}</h5>
+          </div>
         </div>
       </div>
     </div>
@@ -52,15 +62,21 @@ import axios from "axios";
 
 export default {
   name: "modallucky",
+  props: ["m_ID"],
   data() {
     return {
       giftList: [{}],
       ballNum: 15,
       wheelNum: 0,
       total: 0,
-      A: "",
+      bumpNum: "",
       wheelCount: 0,
       ring: 0,
+      intervalStop: function () {},
+      getGiftPic: "",
+      getGiftName: "",
+      getGiftDeadline: "",
+      hasClick: false,
     };
   },
   methods: {
@@ -68,12 +84,12 @@ export default {
       var vm = this;
       axios.get(`member/gift`).then((e) => {
         vm.giftList = e.data;
-        console.log(e.data);
+        // console.log(e.data);
         this.drawWheel();
       });
     },
 
-    ABC() {
+    drawBall() {
       // 球的總數
       for (var k = this.ballNum; k <= 360; k = k + this.ballNum) {
         $(".wheelOuter").after(
@@ -83,21 +99,23 @@ export default {
         // console.log(weelCount);
       }
       // 燈泡
-      this.changeLight();
     },
     changeLight() {
+      // console.log("燈泡")
       // 會抓到幾度的燈泡 //每15度一個燈泡
       this.wheelCount = (this.wheelCount + this.ballNum) % 360;
 
       // 燈泡索引值 = (目前角度/一個燈泡轉幾度)-1
-      this.wheelNum = this.wheelCount / this.ballNum - 1;
-      // console.log(weelCount)
+      this.bumpNum = this.wheelCount / this.ballNum - 1;
 
       $(".circle")
-        .eq(this.wheelNum - 360 / this.ballNum + 3)
+        .eq(this.bumpNum - 360 / this.ballNum + 3)
         .removeClass("wheelLightAni");
-      $(".circle").eq(this.wheelNum).addClass("wheelLightAni");
-      setInterval(function () {}, 80);
+      $(".circle").eq(this.bumpNum).addClass("wheelLightAni");
+
+      setTimeout(() => {
+        this.changeLight();
+      }, 80);
     },
 
     drawWheel() {
@@ -119,33 +137,100 @@ export default {
         if (j % 2 == 0) {
           $(".wheelBody").eq(j).addClass("wheelBody2");
         }
-
         $(".wheelBody").eq(j).css("transform", `rotateZ(${i}deg)`);
-        // console.log(wheelW);
       }
     },
 
     getGiftBtn() {
+      this.hasClick = true;
+      this.wheelNum = 0;
       this.ring = 360 * 10 + 45;
-      console.log("A");
+      console.log(this.wheelNum);
       this.wheelNum = Math.floor(Math.random() * 8);
+      console.log(this.wheelNum);
       this.total = this.ring - 45 * this.wheelNum;
       $(".wheelFrame").addClass("wheelAni");
       $(".wheelAni").css("transform", `rotateZ(${this.total}deg)`);
       $(".wheelPole").addClass("wheelPoleAni");
       $("#wheel").addClass("ld ld-tremble");
+      var getGift = 0;
+
+      // 被選中的孩子
+      var intervalGift = setTimeout(() => {
+        $(".wheelBody").eq(this.wheelNum).addClass("wheelFinish");
+        $("#wheel").removeClass("ld-tremble");
+        $("#wheel").addClass("ld-jingle");
+      }, 3500);
+
+      // 桿子停止
+      var intervalPole = setInterval(() => {
+        $(".wheelPole").removeClass("wheelPoleAni");
+      }, 4000);
+
+      // 圖片出現
+      var intervalPic = setInterval(() => {
+        this.getGiftPic = `/static/img/gift/${
+          this.giftList[this.wheelNum].gift_pic
+        }`;
+        this.getGiftName = this.giftList[this.wheelNum].gift_name;
+        this.getGiftDeadline = this.giftList[
+          this.wheelNum
+        ].gift_deadline.substring(0, 10);
+
+        $("#wheel").hide();
+        $("#luckyClick").hide();
+        $(".giftShow").show();
+      }, 6000);
+
+      $("#luckyClick").prop("disabled", true);
+      $(this).removeClass(" jo_btn");
+      $(this).removeClass(" jo_btnOrange");
+      $(this).addClass(" jo_btnGrey");
+      $(this).val("已抽獎");
+
+      this.intervalStop = function () {
+        clearInterval(intervalPic);
+        clearInterval(intervalPole);
+        clearInterval(intervalGift);
+        this.hasClick = false;
+      };
+
+      let vm = this;
+      let gift_ID = this.giftList[this.wheelNum].gift_ID;
+
+      // 抽中禮物;
+      axios
+        .post("member/memberGift", { id: this.m_ID, gift_ID: gift_ID })
+        .then((e) => {
+          setTimeout(function () {
+            vm.$bus.$emit("getGift");
+          }, 5000);
+        });
     },
   },
   created() {
     this.getGiftList();
+    this.$bus.$on("luckyinit", (event) => {
+      this.intervalStop();
+      console.log("BUS ON");
+    });
+  },
+
+  beforeDestroy: function () {
+    this.$bus.$off("luckyinit");
   },
 
   mounted() {
-    this.ABC();
+    this.drawBall();
+    this.changeLight();
   },
 };
 </script>
 
-<style >
-@import "../assets/css/jo_modal.css";
+<style>
+#giftImage {
+  height: 250px;
+  width: 250px;
+  object-fit: cover;
+}
 </style>

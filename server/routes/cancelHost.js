@@ -29,8 +29,8 @@ router.post('/', function (req, res, next) {
 
     conn.query('select * from transaction where a_ID=?', [req.body.aId], function (err, rows) {
 
-
         cancelAc.memberInfo = JSON.stringify(rows);
+
         // console.log(JSON.stringify(rows));
         next();
     });
@@ -41,14 +41,19 @@ router.post('/', function (req, res, next) {
 
 // 新增訊息
 router.post('/', function (req, res, next) {
+    // console.log("新增訊息");
+
     var reason = `您所參加的活動 <span>${req.body.aName}</span> 已被取消。`
     var memberInfo = JSON.parse(cancelAc.memberInfo);
-    var mamberID = memberInfo.forEach(function (e) {
-        conn.query('INSERT INTO  reminder set m_ID=? ,reminder_content=? ', [e.m_ID, reason], function (err, rows) {
+
+    memberInfo.forEach(function (e) {
+        conn.query('INSERT INTO  reminder set m_ID=? ,reminder_content=?,read_or_not=?', [e.m_ID, reason, 0], function (err, rows) {
+
         });
     })
-
-
+    // console.log(memberInfo);
+    // res.send("OK");
+    res.send(memberInfo);
 });
 
 
