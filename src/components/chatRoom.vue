@@ -83,6 +83,7 @@ export default{
         },
         sockInfo:function(sid){
             this.myInfo.sID = sid;
+            localStorage.setItem('sid',this.myInfo.sID);
         },
         getOnlineMan:function(list){
             // console.log(list);

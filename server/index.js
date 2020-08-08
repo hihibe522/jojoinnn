@@ -30,7 +30,7 @@ var consumption = require('./routes/consumption');
 var member = require('./routes/member');
 
 // 0805 Dan
-var register = require('./routes/register');
+// var register = require('./routes/register');
 //--------------router路徑_end-----------------------------------
 
 
@@ -69,7 +69,7 @@ app.use('/consumption', consumption);
 app.use('/member', member);
 
 // 0805 Dan
-app.use('/register', register);
+// app.use('/register', register);
 
 
 var server = http.createServer(app);

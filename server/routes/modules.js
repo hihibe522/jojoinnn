@@ -45,6 +45,16 @@ router.put('/cancelFollow', function (req, res, next) {
   })
 
 })
+router.put('/goFollow', function (req, res, next) {
+  let sql = `INSERT INTO follower (m_ID,follow_list) VALUES (?,?)`;
+  conn.query(sql, [req.body.info.m_ID, req.body.info.f_ID], function (err, rows) {
+    if (err) {
+      console.log(err);
+    }
+    res.send("insert ok");
+  })
+
+})
 
 
 module.exports = router;
