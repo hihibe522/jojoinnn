@@ -15,39 +15,45 @@
       </div>
     </div>
 
-    <!-- 正在主Jo區塊 -->
+    
+      <!-- 正在主Jo區塊 -->
     <div id="hostingSection" class="memberEvent">
-      <div class="joiningCard">
-        <div class="joiningPic hostingPic">
-          <img class="jo_hover pic_hover" src="@/assets/img/activityPic/A.jpg" alt />
-        </div>
-        <div class="joiningInfo hostingInfo">
-          <ul>
-            <li>
-              <h4 class="jo_hover title_hover">全世界妙蛙種子聚集大會</h4>
-            </li>
-            <li>
-              <h6>主Jo：妙蛙種子</h6>
-            </li>
-            <li>
-              <h6>活動日期：2020/10/20</h6>
-            </li>
-            <li>
-              <h6>活動地點：妙蛙種子不可思議森林</h6>
-            </li>
-          </ul>
-        </div>
-        <div class="joiningBtn">
-          <div>
-            <input
-              type="button"
-              class="jo_btn jo_btnOrange jo_btn_s cancelHoding_btn"
-              value="查看"
-            />
+          <div class="joiningCard" v-for="(hostItem,index) in hostData" :key="index">
+            <router-link active-class="nav_active" class="jo_hover" to="/deposit">
+              <div class="joiningPic hostingPic">
+                <img class="jo_hover pic_hover" :src="require(`../../../static/img/activityPic/${hostItem.a_pic}`)" alt />
+              </div>
+            </router-link>
+
+            <div class="joiningInfo hostingInfo">
+              <ul>
+                <router-link active-class="nav_active" class="jo_hover" to="/deposit">
+                  <li>
+                    <h4 class="jo_hover title_hover">{{hostItem.a_name}}</h4>
+                  </li>
+                </router-link>
+
+                <li>
+                  <h6>活動日期：{{hostItem.a_start}}</h6>
+                </li>
+                <li>
+                  <h6>活動地點：{{hostItem.a_address}}</h6>
+                </li>
+              </ul>
+            </div>
+            <div class="joiningBtn">
+              <div>
+                <router-link :to="{ name:'activity',query:{a_ID:hostItem.a_ID }}" >
+                <input
+                  type="button"
+                  class="jo_btn jo_btnOrange jo_btn_s cancelHoding_btn"
+                  value="查看"/>
+                </router-link>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
     </div>
+    
   </div>
   <!-- 標題區塊結束 -->
 </template>
@@ -57,11 +63,46 @@ import $ from "jquery";
 import axios from "axios";
 export default {
   name: "userhosting",
+  data() {
+    return {
+      hostData:{}
+      
+    }
+  },
+  methods: {
+    getUserHosting(userID){
+      var vm = this;
+       axios.get(`member/memberHosting/${userID}`)
+       .then(e=>{
+          vm.hostData = e.data;
+
+          // 日期裁剪
+          vm.hostData.forEach(function (e) {
+            e.a_start = e.a_start.substring(0, 10);
+          });
+
+
+       })
+    }
+  },
+  created() {
+    
+   let userID = this.$route.query.m_ID;
+    this.getUserHosting(userID);
+  },
 };
 </script>
 
 <style>
 @import "../../assets/css/member.css";
+
+.joiningBtn div{
+  align-items: center;
+
+}
+
+
+
 </style>
 
 

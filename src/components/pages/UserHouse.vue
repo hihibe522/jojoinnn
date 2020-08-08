@@ -57,7 +57,7 @@
           <router-link
             active-class="bookMarkClick"
             class="jo_hover bookMarkOriginal"
-            to="/userhouse/userhosting">
+            :to="{ name:'userhosting',query:{m_ID:userInfo.m_ID }}">
             <li>
               <h5>正在主Jo</h5>
             </li>

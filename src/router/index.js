@@ -140,7 +140,7 @@ export default new Router({
           
         },   
          {
-          path: '/activity/',
+          path: '/activity',
           name: 'activity',
           component: activity
     
