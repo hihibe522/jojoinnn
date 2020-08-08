@@ -4,27 +4,6 @@ var conn = require('../db');
 var navInfo = {};
 
 
-// 會員登入
-// router.get('/', function (req, res, next) {
-//     req.session.userName = "";
-//     // memberAccount.forEach(function(e){
-//     //     console.log(e.m_account)
-//     // });
-//     if (req.session.userName != "") {
-
-//         conn.query('SELECT * FROM member where m_account=?', [req.session.userName], function (err, rows) {
-//             navInfo.mamberInfo = JSON.stringify(rows);
-//             // 目前的會員ID
-//             memberID = JSON.parse(navInfo.mamberInfo)[0].m_ID;
-//             // console.log(req.session.userName);
-//             next();
-//         });
-
-//     } else {
-//         res.send(false);
-//     }
-
-// });
 
 // 目前主JO的活動
 router.get('/:id', function (req, res, next) {

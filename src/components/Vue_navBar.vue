@@ -191,7 +191,7 @@
     </div>
 
     <!-- 取消modal -->
-    <modalcancel v-on:cancelModalClose="navCheck"></modalcancel>
+    <modalcancel></modalcancel>
   </div>
 </template>
 
@@ -255,11 +255,21 @@ export default {
 
           // 訊息
           vm.msgData = e.data.msgData;
+          let today = new Date();
+          vm.msgData.forEach(function (e) {
+            console.log("現在時間", Date.parse(e.r_time));
+            console.log("現在時間", Date.parse(today));
+            if (
+              Date.parse(e.r_time) + 10000 >= Date.parse(today) &&
+              e.read_or_not == 0
+            ) {
+              vm.$toasted.show(`你有一則新訊息`);
+            }
+          });
 
           // 訊息提示
           var msgDataNum = vm.msgData.filter((e) => e.read_or_not == 0);
           vm.infoCount = msgDataNum.length;
-
 
           this.memberMedals();
 
@@ -389,10 +399,15 @@ export default {
     this.$bus.$on("islogin", (event) => {
       this.navCheck();
     });
+    this.$bus.$on("cancelOK", (event) => {
+      this.navCheck();
+    });
   },
 
   beforeDestroy: function () {
     this.$bus.$off("islogin");
+    this.$bus.$off("cancelOK");
+    // this.$bus.$off("NewMsg");
   },
 };
 </script>

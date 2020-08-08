@@ -125,7 +125,7 @@
       </div>
     </div>
 
-<modallucky></modallucky>
+    <modallucky :m_ID="memberData.m_ID"></modallucky>
   </div>
 </template>
 
@@ -152,6 +152,7 @@ export default {
   },
   methods: {
     checkSession() {
+      $("html, body").scrollTop(0);
       var meLog = JSON.parse(localStorage.getItem("myinfo"));
       if (meLog) {
         this.memberData = meLog;
