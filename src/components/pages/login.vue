@@ -105,7 +105,9 @@ export default {
       var vm = this;
       let account = vm.myInfo.myId;
       let pwd = vm.myInfo.myPwd;
-      axios.post("login", { account: account, pwd: pwd }).then((e) => {
+      axios.post("login", { account: account, pwd: pwd })
+      .then(e =>{
+        console.log(e);
         console.log(e.data);
         if(e.data == "登入失敗"){
           vm.$toasted.show('登入失敗😉');
@@ -117,7 +119,7 @@ export default {
 
         //控制JO聊啟動
         vm.$bus.$emit('islogin',me);
-        vm.$router.push('/');
+        // vm.$router.push('/');
       })
     },
     logout(){

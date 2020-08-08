@@ -6,6 +6,7 @@ import Router from 'vue-router'
 //0805 dan 
 import register from '@/components/pages/register'
 import Login from '@/components/pages/login'
+import home from '@/components/Home'
 
 import mainboard from '@/components/mainBoard'
 import socialhall from '@/components/socialhall'
@@ -43,6 +44,11 @@ export default new Router({
       name: 'mainBoard',
       component: mainboard,
       children:[
+        {
+          path:'',
+          name:'home',
+          component: home,
+        },
         {
           path:'register',
           name:'register',
