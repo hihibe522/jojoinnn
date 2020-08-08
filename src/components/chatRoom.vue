@@ -91,7 +91,10 @@ export default{
         },
         reply:function(data){
             console.log(data);
-            this.chatMsg.toId = data.id;
+            // if(data.self){
+            // this.chatMsg.toId = data.id;
+            // }
+            // this.chatMsg.toId = data.id;
             this.chatOnBox(data);
         }
     
@@ -199,11 +202,13 @@ export default{
                 let isFriend = this.friendList.find(ele=>{
                     return ele.m_ID == this.chatMsg.toId;
                 })
+                console.log(isFriend);
                 if(!isFriend){
                     // axios.get('')
                     this.friendList.push(friend);
                 }
                 else{
+                    console.log(this.chatMsg.toId);
                     this.selFriendToChat(this.chatMsg.toId,this.chatMsg.toName);
                 }
             },

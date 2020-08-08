@@ -36,6 +36,10 @@
         </div>
         <section class="mySection row no-gutters animateItem">
             <div class="catoContent">
+                <div v-if="serchPeoples ==''">
+                <p style="font-size: 2rem;">尚未有符合的資料唷🧐</p>
+                <img src="@/assets/img/jo_images/jo_footerBirdDark.svg" alt="">
+                </div>
                 <!-- <div v-if="serchPeoples"> -->
                     <div  v-for="item in serchPeoples" :key="item.m_ID" class="joManCard">
                         <div class="imgBox">  
@@ -53,7 +57,6 @@
                                 {{item.introduce}}
                             </div>
                             <div  v-if="me.m_ID != item.m_ID" class="btnBox">
-                               <!-- <router-link v-if="me.m_ID == item.m_ID" :to="{ name:'/member/memberJoing',query:{m_ID:item.m_ID }}"> -->
                                <router-link :to="{ name:'userhosting',query:{m_ID:item.m_ID }}" >
                                 <button class="jo_btn jo_btn_s jo_btnWater">
                                     查看
@@ -61,7 +64,6 @@
                                 </router-link>                  
                             </div>
                             <div v-else class="btnBox">
-                               <!-- <router-link v-if="me.m_ID == item.m_ID" :to="{ name:'/member/memberJoing',query:{m_ID:item.m_ID }}"> -->
                                <router-link to="/member/memberJoing">
                                 <button class="jo_btn jo_btn_s jo_btnWater">
                                     查看
