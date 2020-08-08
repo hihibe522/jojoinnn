@@ -245,10 +245,10 @@ export default{
                 inToMsgBoard(){
                   let room = "socialhall";
                   let name = this.me.m_name;
-                //   console.log(name)
+                //   let sid = localStorage.getItem('sid');
+
+                //   console.log(sid)
                   if(name){
-                    // console.log(this.$socket.id);
-                    // socket.emit("greet");
                     this.$socket.emit("group",room,name);
                   }
                 },
@@ -297,7 +297,7 @@ export default{
                     }
                     if(ok){
                         msgData['msg'] = msgIn;
-                        // console.log(msgData);
+                        console.log(msgData);
                         // console.log(this.$socket);
                         this.$socket.emit("send", msgData);
                         this.sendMsg = "";
@@ -320,6 +320,9 @@ export default{
                         }
                     });
                 },
+                // leaveGroup(){
+                //     this.$socket.emit("leaveGroup");
+                // }
             },
             mounted() {
                 var vm = this;
@@ -329,9 +332,13 @@ export default{
                 $(this).remove();
                 })
 
-                window.addEventListener("beforeunload",function(){
-                        vm.$socket.emit("leaveGroup");
-                }) 
+            // console.log(vm.$route);
+            // vm.router = vm.$route.name;
+
+                // window.addEventListener("beforeunload",function(){
+                //         vm.$socket.emit("leaveGroup");
+                // }) 
+                // window.addEventListener("beforeunload",e => this.leaveGroup(e))
             },
             updated() {
                 // 維持對話視窗置底
@@ -346,35 +353,37 @@ export default{
                      var data = this.masterPlayer.splice(1);
                     return data;
                 }
-            },
+            },         
             created() {
             // this.$toasted.show('hello billo😉');
             var vm = this;
-
             let islog = localStorage.getItem('myinfo')
-            // console.log(islog);
                 if(islog){
                     vm.me = JSON.parse(localStorage.getItem('myinfo'));
-                    console.log( vm.me)
+                    console.log(vm.me)
                     vm.inToMsgBoard();
                 }
-
-                vm.$bus.$on('islogin', (data) => {
-                   console.log(data);
-                   vm.inToMsgBoard();
-                });
+                // vm.$bus.$on('islogin', (data) => {
+                //    console.log(data);
+                //    vm.inToMsgBoard();
+                // });
                 axios.get('modules/category').then(e=>{
                     //console.log(e);
                     vm.category = e.data ;
-                    // vm.getChatList();
 
               })
                vm.SearchMasterHost("all");
                vm.searchMasterPlayer("all");
 
             },
+            beforeRouteLeave(to, from, next){
+                 this.$socket.emit("leaveGroup");
+                //   this.$socket.close();
+                 next();
+            },
             beforeDestroy() {
-               this.$bus.$off('islogin'); 
+                this.$bus.$off('islogin');   
+                // window.removeEventListener('beforeunload', e => this.leaveGroup(e))
             },
       }
 

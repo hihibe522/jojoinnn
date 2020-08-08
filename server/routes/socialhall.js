@@ -22,7 +22,7 @@ router.get('/:name', function(req, res, next) {
 });
 // 最佳主JO
 router.get('/searchHost/:category', function(req, res, next) {
-   console.log(req.params.category)
+  //  console.log(req.params.category)
    let sql ="";
    if(req.params.category == "all"){
 

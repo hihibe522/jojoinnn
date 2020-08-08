@@ -7,6 +7,7 @@ let onlineGroupCount = 0;
 let onlineGroupPeople = [];
 var num = 1;
 
+
 module.exports = (io) => {
 
   io.on('connection', (socket) => {
@@ -16,7 +17,7 @@ module.exports = (io) => {
         sockInfo.sID = socket.id;
         // console.log(uInfo);
         // console.log(socket.id);
-        console.log("uuuu",sockInfo);
+        // console.log("uuuu",sockInfo);
         const found = socket_List.findIndex(ele=> ele.myID == sockInfo.myID);
         if(found > -1){
           socket_List[found].sID = socket.id;
@@ -65,21 +66,25 @@ module.exports = (io) => {
       })
 
       // console.log("sockInfo socialll",sockInfo);
-    //  if(sockInfo !== "" ){
-      
+     
       //接收由socialhall 發出的請求
-      socket.on("group",(room,n)=>{
-        let name = n;
+      socket.on("group",(room,me)=>{
+        
+        let name = me;
+        console.log("first",socket.rooms);
+
         //加入前檢查是否已有所在房間
         const nowRoom = Object.keys(socket.rooms).find(room =>{
           return room !== socket.id
         })
+        console.log("group",nowRoom);
+        console.log("socket.rooms",socket.rooms);
         if(nowRoom){
           socket.leave(nowRoom);
         }
-        //再加入新的
+        // 再加入新的
         socket.join(room);
-        // console.log("socialhall",socket.rooms);
+        console.log("join後",socket.rooms);
         onlineGroupCount++;
         onlineGroupPeople.push(name);
     
@@ -89,18 +94,19 @@ module.exports = (io) => {
     
         // 發送紀錄
         socket.emit("chatRecord", records.get());
-    
+
+        socket.removeAllListeners("send");
         socket.on("send", (a) => {
           a["name"] = name;
-          // let d = new Date();
           let time = currTime();
           a["time"] = time;
-          // console.log(a);
+          // console.log("aaaa",a);
           if (Object.keys(a).length < 3) return;
           records.push(a);
         });
-    
+        
         socket.on('leaveGroup',()=>{
+          console.log('leaveGroup',socket.rooms);
           const room = Object.keys(socket.rooms).find(room => {
             return room !== socket.id
           })
@@ -108,20 +114,21 @@ module.exports = (io) => {
           // 有人離開群聊了，扣人
           onlineGroupCount = (onlineGroupCount < 0) ? 0 : onlineGroupCount -= 1;
           onlineGroupPeople = onlineGroupPeople.filter( item=> item != name);
+          console.log(onlineGroupPeople);
           io.sockets.in(room).emit('online', onlineGroupCount);
           io.sockets.in(room).emit('onlinePeople', onlineGroupPeople);
           socket.leave(room);
     
         })
+        
     
           // 當發生離線事件
         socket.on('disconnect', () => {
             
         });
       })
-    //  }
     });
-    
+   
     records.on("new_message", (re) => {
       // 廣播訊息到聊天室
       // console.log(re);
