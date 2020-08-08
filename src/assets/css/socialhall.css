@@ -303,7 +303,7 @@ img{
  .numberelse{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
  }
  .numberelse img{
      width: 80px;
@@ -323,9 +323,12 @@ img{
      clear: both;
      display: flex;
      position: relative;
-     margin-bottom: 25px;
+     margin-bottom: 15px;
      padding-left: 10px;
      line-height: 1.2rem;
+ }
+ .numbercard div{
+     margin:5px;
  }
  .numbercard h4{
      display: inline-block;

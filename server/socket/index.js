@@ -40,8 +40,8 @@ module.exports = (io) => {
         
         // var num = Math.random()*Math.random();
         // var num;
-        num++
         console.log("first",num)
+
         console.log(myid,uid,msg);
         // console.log("1111",socket_List);
         var user = socket_List.filter((ele) =>{
@@ -59,8 +59,9 @@ module.exports = (io) => {
             // console.log(user[0].sID);
             io.sockets.to(user[0].sID).emit('reply', {num:num, id: myid, self: false, date:currTime(), msg});
         }
-        num++;
+
         socket.emit('reply', {num:num,id:myid,self: true , date: currTime(),msg});
+        num++;
         console.log("sec",num)
       })
 
@@ -76,8 +77,8 @@ module.exports = (io) => {
         const nowRoom = Object.keys(socket.rooms).find(room =>{
           return room !== socket.id
         })
-        // console.log("group",nowRoom);
-        // console.log("socket.rooms",socket.rooms);
+        console.log("group",nowRoom);
+        console.log("socket.rooms",socket.rooms);
         if(nowRoom){
           socket.leave(nowRoom);
         }
