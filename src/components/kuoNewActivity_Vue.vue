@@ -41,18 +41,19 @@
             </div>
             <div class="form-group row col-12">
               <label for="activityName" class="col-3 col-form-label my-auto">活動圖片</label>
-              <div class="col-3">
+              <div class="col-3 position-relative">
                 <input
                   type="button"
-                  name
                   id="uploadBtn"
                   value="請上傳活動圖片"
                   class="jo_btn jo_btn_s jo_btnWater"
                 />
+                <input type="file"  id="myfile" name="myfile" class="position-absolute" style="top:2vh; opacity: 0;" accept="image/*" >
               </div>
             </div>
             <div class="form-group row col-12">
               <label class="col-3">室內或室外</label>
+           
               <div class="col-8">
                 <div class="custom-control custom-radio custom-control-inline">
                   <input
@@ -123,8 +124,8 @@
                   v-model="a_endTime"
                   required
                 />
-                <input type="text"  v-model="a_endTime">
-               {{a_endTime}}
+         
+
               </div>
             </div>
             <div class="form-group row col-12">
@@ -312,6 +313,7 @@ export default {
   name: "newActivity",
   data() {
     return {
+     memberData: {},
       activityName: "",
       inOrOut: "",
       category: "",
@@ -326,7 +328,25 @@ export default {
       a_explain: "",
     };
   },
+   created() {
+    this.checkSession();
+  },
+    mounted() {
+    this.statusSetting();
+    
+  },
   methods: {
+      checkSession() {
+      var meLog = JSON.parse(localStorage.getItem("myinfo"));
+      console.log(meLog);
+      if (meLog) {
+        this.memberData = meLog;
+        console.log(this.memberData);
+      } else {
+        this.$router.push("/login");
+        this.$toasted.show("請先登入🙇‍♀️");
+      }
+    },
     gainMsg: function () {
       this.activityName = "資策會成果發表";
       this.inOrOut = "indoor";
@@ -378,6 +398,7 @@ export default {
         a_price: this.a_price,
         a_deadlineTime: this.a_deadlineTime,
         a_explain: this.a_explain,
+        m_ID:this.memberData.m_ID
       };
       // console.log(newAcData);
 
@@ -387,9 +408,7 @@ export default {
       });
     },
   },
-  mounted() {
-    this.statusSetting();
-  },
+
 };
 </script>
 

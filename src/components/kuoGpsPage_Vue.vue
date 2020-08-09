@@ -30,7 +30,7 @@
         </div>
 
         <div class="ml-auto my-auto p-2" style=" width: 100px; height: 100px; ">
-          <img class="mapActivityPic" src="../../static/img/活動說明頁/活動封面.jpg" alt=" " />
+          <img class="mapActivityPic" :src="`../../static/img/activityPic/${item.a_pic}`" alt=" " />
         </div>
       </div>
     </div>
@@ -49,57 +49,12 @@ export default {
       geocoder: null,
       center: { lat: 24.151, lng: 120.651 },
       addressList: [
-        {
-          lat: "24.151",
-          lng: "120.651",
-          addr: "南屯區公益路二段51號B1樓",
-          text: "資策會成果發表",
-          sTime: "08-21 10:00:00",
-          eTIme: "08-21 14:30:00",
-          // event: show,
-        },
-        {
-          lat: "",
-          lng: "",
-          addr: "台中北區忠明南路561號",
-          text: "party",
-          sTime: "08-10 23:30:00",
-          eTIme: "08-11 05:00:00",
-          // event: show,
-        },
-        {
-          lat: "",
-          lng: "",
-          addr: "台中南屯區大業路201號",
-          text: "自然美欣賞藝術欣賞",
-          sTime: "08-12 12:30:00",
-          eTIme: "08-12 18:30:00",
-          // event: show,
-        },
-        {
-          lat: "",
-          lng: "",
-          addr: "台中南屯區大進街469號",
-          text: "鍋鍋拍賣展",
-          sTime: "08-15 10:30:00",
-          eTIme: "08-15 16:30:00",
-          // event: show,
-        },
-
-        {
-          lat: "",
-          lng: "",
-          addr: "台中南屯區文心南路289號6樓",
-          text: "音樂賞欣",
-          sTime: "08-13 18:30:00",
-          eTIme: "08-13 20:30:00",
-          // event: show,
-        },
+     
       ],
     };
   },
   created() {
-    // this.getData();
+    this.getData();
   },
   mounted() {
     // this.getCurrentPostion();

@@ -14,12 +14,19 @@
       <div id="jo_navBar_L">
         <div class="jo_navTitleYellow">
           <router-link exact active-class="nav_active" class="jo_hover" to="/">首頁</router-link>
-          <!-- <span class="jo_hover">首頁</span> -->
+          <hr />
+        </div>
+        <div class="jo_navTitleYellow">
+          <router-link exact active-class="nav_active" class="jo_hover" to="/actLocations">探索活動</router-link>
           <hr />
         </div>
 
         <div class="jo_navTitleYellow">
           <router-link active-class="nav_active" class="jo_hover" to="/socialhall">Jo誼廳</router-link>
+          <hr />
+        </div>
+        <div class="jo_navTitleYellow">
+           <router-link active-class="nav_active" class="jo_hover" to="/newActivity">我要Jo團</router-link>
           <hr />
         </div>
 
@@ -28,10 +35,6 @@
           <hr />
         </div>
 
-        <div class="jo_navTitleYellow">
-          <span class="jo_hover">我要Jo團</span>
-          <hr />
-        </div>
 
         <div class="jo_navTitleYellow">
           <!-- <span> -->

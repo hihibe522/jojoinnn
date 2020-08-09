@@ -6,7 +6,7 @@
   <router-view></router-view>
 
   <bgcanvas></bgcanvas>
-  <vfooter></vfooter>
+  <vfooter  v-show="$route.name!=='actLocations'"></vfooter>
 </div>
 </template>
 
