@@ -9,7 +9,7 @@
     .grid-container {
         display: flex;
         margin-top: 60px;
-        height: 100vh;
+        /* height: 100vh; */
         width: 100%;
     }
 
