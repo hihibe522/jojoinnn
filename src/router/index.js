@@ -8,6 +8,9 @@ import register from '@/components/pages/register'
 import Login from '@/components/pages/login'
 import home from '@/components/Home'
 
+import recommend from '@/components/recommend'
+import search from '@/components/search'
+
 import mainboard from '@/components/mainBoard'
 import socialhall from '@/components/socialhall'
 import UserHouse from '@/components/pages/UserHouse'
@@ -48,6 +51,19 @@ export default new Router({
           path:'',
           name:'home',
           component: home,
+          children:[
+            {
+              path:'',
+              name:'recommend',
+              component:recommend ,
+            },
+            {
+              path:'/search',
+              name:'search',
+              component: search,
+            },
+
+          ]
         },
         {
           path:'register',
