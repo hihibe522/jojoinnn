@@ -13,7 +13,8 @@
       <!-- 左邊選單 -->
       <div id="jo_navBar_L">
         <div class="jo_navTitleYellow">
-          <span class="jo_hover">首頁</span>
+          <router-link exact active-class="nav_active" class="jo_hover" to="/">首頁</router-link>
+          <!-- <span class="jo_hover">首頁</span> -->
           <hr />
         </div>
 

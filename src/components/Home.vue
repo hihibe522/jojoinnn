@@ -1,12 +1,11 @@
 <template>
     <div class="grid-container">
-        <div class="sidebar jo_scrollbar sidebar_scroll">
+        <div :class="{'sidebar_small':showSlideBox,'sidebar_scroll':showSlideBox}" class="sidebar jo_scrollbar sidebar_scroll">
 
-            <div class="slideBox jo_hover" id="mySlideBox" type="button">
-                <img id="slideIcon" class="rotate jo_hover" type="button" src="../assets/img/jo_icon/jo_i_slide.svg"
+            <div @click="showSlideBox =! showSlideBox" class="slideBox jo_hover" id="mySlideBox" type="button">
+                <img id="slideIcon" :class="{'down':showSlideBox}" class="rotate jo_hover" type="button" src="../assets/img/jo_icon/jo_i_slide.svg"
                     alt="">
             </div>
-
             <ul>
                 <div id="sideBarFilter">
                     <li>
@@ -14,12 +13,12 @@
                             <div class="sidebarImg"><img class="sidebarImg iconMargin hvr-pop joPic_hover"
                                     src="../assets/img/jo_icon/jo_i_area.svg" alt="">
                             </div>
-                            <div class="sidebarWord">
+                            <div :class="{'sidebarWord':showSlideBox}" :style="{ display: display}">
                                 <h5>地區</h5>
                             </div>
                         </div>
 
-                        <div class="sidebarTitle">
+                        <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
                             <select name="" id="">
                                 <option selected="selected" value="臺北市">臺北市</option>
                                 <option value="新北市">新北市</option>
@@ -45,20 +44,20 @@
                         </div>
                     </li>
 
-                    <div class="sidebarTitle">
+                    <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
                         <hr>
                     </div>
 
                     <li>
                         <div class="sidebarImgTitle">
-                            <div class="sidebarImg"><img class="sidebarImg joPic_hover" src="../assets/img/jo_icon/jo_i_price.svg"
+                            <div :class="{'sidebarImg':showSlideBox}"><img class="sidebarImg joPic_hover" src="../assets/img/jo_icon/jo_i_price.svg"
                                     alt="">
                             </div>
-                            <div class="sidebarWord">
+                            <div :class="{'sidebarWord':showSlideBox}" :style="{ display: display}">
                                 <h5>價位</h5>
                             </div>
                         </div>
-                        <div class="sidebarTitle">
+                        <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
                             <select name="" id="">
                                 <option value="">免收費</option>
                                 <option value="">$1-$100</option>
@@ -78,7 +77,7 @@
                         </div>
                     </li>
 
-                    <div class="sidebarTitle">
+                    <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
                         <hr>
                     </div>
 
@@ -87,11 +86,11 @@
                             <div class="sidebarImg"><img class="sidebarImg joPic_hover" src="../assets/img/jo_icon/jo_i_type.svg"
                                     alt="">
                             </div>
-                            <div class="sidebarWord">
+                            <div :class="{'sidebarWord':showSlideBox}" :style="{ display: display}">
                                 <h5>類型</h5>
                             </div>
                         </div>
-                        <div class="sidebarTitle">
+                        <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
                             <select name="" id="">
                                 <option value="">戶外休閒類</option>
                                 <option value="">運動類</option>
@@ -111,7 +110,7 @@
                         </div>
                     </li>
 
-                    <div class="sidebarTitle">
+                    <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
                         <hr>
                     </div>
 
@@ -120,12 +119,12 @@
                             <div class="sidebarImg"><img class="sidebarImg joPic_hover" src="../assets/img/jo_icon/jo_i_indoor.svg"
                                     alt="">
                             </div>
-                            <div class="sidebarWord">
+                            <div :class="{'sidebarWord':showSlideBox}" :style="{ display: display}">
                                 <h5>室內/室外</h5>
                             </div>
                         </div>
 
-                        <div class="sidebarTitle">
+                        <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
                             <div id="sideRadio">
                                 <div>
                                     <input id="indoor" type="radio" name="door" value="">
@@ -140,22 +139,22 @@
                         </div>
                     </li>
 
-                    <div class="sidebarTitle">
+                    <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
                         <hr>
                     </div>
 
                     <li>
-                        <div class="sidebarImgTitle">
+                        <div class="sidebarImgTitle" :style="{ display: display}">
                             <div class="sidebarImg">
                                 <img class="sidebarImg joPic_hover" src="../assets/img/jo_icon/jo_i_goodtogo.svg" alt="">
                             </div>
-                            <div class="sidebarWord">
+                            <div :class="{'sidebarWord':showSlideBox}" :style="{ display: display}">
                                 <h5>是否成團</h5>
                             </div>
                         </div>
 
 
-                        <div class="sidebarTitle">
+                        <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
                             <div id="sideRadio">
                                 <div>
                                     <input class="" type="radio" name="goodToGo" value="">
@@ -169,7 +168,7 @@
                         </div>
                     </li>
 
-                    <div class="sidebarTitle">
+                    <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
                         <hr>
                     </div>
 
@@ -177,16 +176,16 @@
                         <div class="sidebarImgTitle">
                             <div class="sidebarImg"><img class="sidebarImg joPic_hover"
                                     src="../assets/img/jo_icon/jo_i_calendar.svg" alt=""></div>
-                            <div class="sidebarWord">
+                            <div class="sidebarWord" :style="{ display: display}">
                                 <h5>活動日期</h5>
                             </div>
                         </div>
-                        <div class="sidebarWord actDateSelect">
+                        <div :class="{'sidebarWord':showSlideBox}" class="actDateSelect" :style="{ display: display}">
                             <input type="date">
                         </div>
                     </li>
 
-                    <div class="sidebarTitle">
+                    <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
                         <hr>
                     </div>
 
@@ -194,7 +193,7 @@
                         <div class="sidebarImgTitle">
                             <div class="sidebarImg"><img class="sidebarImg joPic_hover" 
                                     src="../assets/img/jo_icon/jo_i_explore.svg" alt=""></div>
-                            <div class="sidebarWord">
+                            <div :class="{'sidebarWord':showSlideBox}" :style="{ display: display}">
                                 <h5>探索</h5>
                             </div>
                         </div>
@@ -206,7 +205,7 @@
         <!-- 側邊欄(left)結束 -->
 
         <!-- 主畫面大區塊開始 -->
-        <div class="main-content">
+        <div class="main-content" :class="{'main-content_large':showSlideBox}">
             <div class="filterAreaPop">
                 <h3>熱門活動</h3>
             </div>
@@ -215,13 +214,13 @@
                 <div class="carousel">
 
                     <div class="carousel__nav">
-                        <span id="moveLeft" class="carousel__arrow jo_hover">
+                        <span @click="moveLeft" id="moveLeft" class="carousel__arrow jo_hover">
                             <svg class="carousel__icon jo_hover" width="20" height="20" viewBox="0 0 24 24">
                                 <path class="jo_hover"
                                     d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path>
                             </svg>
                         </span>
-                        <span id="moveRight" class="carousel__arrow jo_hover">
+                        <span @click="moveRight" id="moveRight" class="carousel__arrow jo_hover">
                             <svg class="carousel__icon jo_hover" width="20" height="20" viewBox="0 0 24 24">
                                 <path class="jo_hover"
                                     d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z">
@@ -229,81 +228,25 @@
                             </svg>
                         </span>
                     </div>
-                    <div class="carousel-item carousel-item--1">
-                        <div class="carousel-item__image"></div>
+                    <div v-for="(item,index) in carouselItem" :key="index" class="carousel-item">
+                        <div class="carousel-item__image" 
+                         :style="{'backgroundImage':'url(../../static/img/activityPic/'+item.a_pic+')'}">
+                        </div>
                         <div class="carousel-item__info">
                             <div class="carousel-item__container">
-                                <h2 class="carousel-item__subtitle">2020-09-05(六) 14:00 ~ 16:00 (GMT+8)</h2>
-                                <h1 class="carousel-item__title">過度呼吸首映會</h1>
-                                <p class="carousel-item__description">心跳加速，讓妳無法抵擋的首映會!!!!</p>
+                                <h2 class="carousel-item__subtitle">{{item.a_start}}-{{item.a_end}}</h2>
+                                <h1 class="carousel-item__title">{{item.a_name}}</h1>
+                                <p class="carousel-item__description">{{item.c_category}}</p>
                                 <div class="caButton">
-                                    <input type=" button" name="" id="" class="jo_btn jo_btnOrange jo_btn_s"
+                                <router-link :to="{ name:'activity',query:{a_ID:item.a_ID }}" >
+                                    <input type=" button" class="jo_btn jo_btnOrange jo_btn_s"
                                         value="活動詳情">
+                                </router-link>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="carousel-item carousel-item--2">
-                        <div class="carousel-item__image"></div>
-                        <div class="carousel-item__info">
-                            <div class="carousel-item__container">
-                                <h2 class="carousel-item__subtitle">2020-09-05(六) 14:00 ~ 16:00 (GMT+8)</h2>
-                                <h1 class="carousel-item__title">貓咪餐廳摸貓貓</h1>
-                                <p class="carousel-item__description">世界上最多貓貓的貓貓貓餐廳，快來一起喵喵喵! 世界上最多貓貓的貓貓貓餐廳，快來一起喵喵喵!</p>
-                                <div class="caButton">
-                                    <input type=" button" name="" id="" class="jo_btn jo_btnOrange jo_btn_s"
-                                        value="活動詳情">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item carousel-item--3">
-                        <div class="carousel-item__image"></div>
-                        <div class="carousel-item__info">
-                            <div class="carousel-item__container">
-                                <h2 class="carousel-item__subtitle">2020-09-05(六) 14:00 ~ 16:00 (GMT+8)</h2>
-                                <h1 class="carousel-item__title">日本京都賞楓Jo</h1>
-                                <p class="carousel-item__description">雖然不能出國，但可以用VR賞楓</p>
-                                <div class="caButton">
-                                    <input type=" button" name="" id="" class="jo_btn jo_btnOrange jo_btn_s"
-                                        value="活動詳情">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item carousel-item--4">
-                        <div class="carousel-item__image"></div>
-                        <div class="carousel-item__info">
-                            <div class="carousel-item__container">
-                                <h2 class="carousel-item__subtitle">2020-09-05(六) 14:00 ~ 16:00 (GMT+8)</h2>
-                                <h1 class="carousel-item__title">美國森林秘境大解密</h1>
-                                <p class="carousel-item__description">一起去森林探險去吧!可魯</p>
-                                <div class="caButton">
-                                    <input type="button" name="" id="" class="jo_btn jo_btnOrange jo_btn_s"
-                                        value="活動詳情">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item carousel-item--5">
-                        <div class="carousel-item__image"></div>
-                        <div class="carousel-item__info">
-                            <div class="carousel-item__container">
-                                <h2 class="carousel-item__subtitle">2020-09-05(六) 14:00 ~ 16:00 (GMT+8)</h2>
-                                <h1 class="carousel-item__title">狗狗的泳池派對!!</h1>
-                                <p class="carousel-item__description">保證一定可以洗乾淨狗狗</p>
-                                <div class="caButton">
-                                    <input type=" button" name="" id="" class="jo_btn jo_btnOrange jo_btn_s"
-                                        value="活動詳情">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
-
             </div>
             <!-- 旋轉木馬結束 -->
             <div>
@@ -988,12 +931,12 @@
                                 <!-- 幾人收藏+愛心結束 -->
                             </li>
                         </ul>
-
-
                     </div>
+                </div>
+                <!-- 8宮格活動區塊系列(您附近的活動)結束 -->
 
                     <!-- Banner開始 -->
-                    <div class="myBanner">
+                <div class="myBanner">
                         <div class="bannerFirst">
                             <div class="bannerPic hvr-pop"><img src="../assets/img/jo_images/jo_birdA.svg" alt=""></div>
                             <div class="bannerWord">
@@ -1015,20 +958,19 @@
                             </div>
                         </div>
 
-                    </div>
-                    <!-- Banner結束 -->
+                </div>
+                <!-- Banner結束 -->
 
                     <!-- 回到最上層開始 -->
-                    <div class="back-to-top-wrapper">
+                    <!-- <div class="back-to-top-wrapper">
                         <a href="#top" class="back-to-top-link ld ld-bounce" aria-label="Scroll to Top"
                             style="position:absolute; right: 20px; width:30px; height:30px">
                             <img class="jo_hover" src="../assets/img/jo_images/jo_birdA.svg" alt="">
                         </a>
-                    </div>
+                    </div> -->
                     <!-- 回到最上層結束 -->
 
-                </div>
-                <!-- 8宮格活動區塊系列(您附近的活動)結束 -->
+                
             </div>
         </div> 
     </div> 
@@ -1037,8 +979,78 @@
 
 
 <script>
+import $ from "jquery";
+import axios from "axios";
+// import '../assets/js/grid_modernizr.custom';
+// import { Modernizr } from '@/assets/js/grid_modernizr.custom.js'
+
 export default {
-    
+name:"home",
+data() {
+    return {
+        showSlideBox:false,
+        currentPic:0,
+        carouselItem:[],
+        totalCarouselItem:4
+    }
+},
+methods: {
+    getCarouselItem(){
+        var vm = this;
+        axios.get('home/carouse')
+        .then(e=>{
+            console.log(e.data);
+            vm.carouselItem = e.data;
+            vm.totalCarouselItem =  vm.carouselItem.length;
+        })
+
+    },
+    moveRight(){
+        var next = this.currentPic;
+        this.currentPic = this.currentPic + 1;
+        this.setSlide(next, this.currentPic);
+    },
+    moveLeft(){
+        var prev = this.currentPic;
+        this.currentPic = this.currentPic - 1;
+        this.setSlide(prev,this.currentPic);
+    },
+    setSlide(prev, next){
+        var slide = this.currentPic;
+        if (next > this.totalCarouselItem - 1) {
+            slide = 0;
+             this.currentPic = 0;
+        }
+        if (next < 0) {
+            slide = this.totalCarouselItem - 1;
+             this.currentPic = this.totalCarouselItem - 1;
+        }
+
+        $('.carousel-item').eq(prev).removeClass('active');
+        $('.carousel-item').eq(slide).addClass('active');
+      
+    }
+
+        
+    },
+    computed: {
+        display:function(){
+            if(!this.showSlideBox){
+                return "none";
+            }
+        }
+    },
+    mounted() {
+        var vm = this;
+        setTimeout(function () {
+            vm.setSlide()
+            }, 1000);
+    },
+    created() {
+        this.getCarouselItem();
+
+        // this.setSlide();
+    },
 }
 </script>
 
@@ -1047,12 +1059,12 @@ export default {
 @import '../assets/css/da_index.css';
 /* Carousel引用  */
 @import '../assets/css/da_indexCarousel.css';
-/* 活動區塊引用  */
-@import '../assets/css/da_grid_component.css';
-@import '../assets/css/da_grid_default.css';
 /* hover css引用  */
 @import '../assets/css/hover.css';
 @import '../assets/css/da_indexFooter.css';
+/* 活動區塊引用  */
+@import '../assets/css/da_grid_default.css';
+@import '../assets/css/da_grid_component.css';
 
 
 

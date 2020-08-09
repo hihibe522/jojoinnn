@@ -41,7 +41,7 @@ module.exports = (io) => {
         // var num = Math.random()*Math.random();
         // var num;
         num++
-        console.log("first",num)
+        // console.log("first",num)
         console.log(myid,uid,msg);
         // console.log("1111",socket_List);
         var user = socket_List.filter((ele) =>{
@@ -61,7 +61,7 @@ module.exports = (io) => {
         }
         num++;
         socket.emit('reply', {num:num,id:myid,self: true , date: currTime(),msg});
-        console.log("sec",num)
+        // console.log("sec",num)
       })
 
       // console.log("sockInfo socialll",sockInfo);
@@ -70,7 +70,7 @@ module.exports = (io) => {
       socket.on("group",(room,me)=>{
         
         let name = me;
-        console.log("first",socket.rooms);
+        // console.log("first",socket.rooms);
 
         //加入前檢查是否已有所在房間
         const nowRoom = Object.keys(socket.rooms).find(room =>{
@@ -83,7 +83,7 @@ module.exports = (io) => {
         }
         // 再加入新的
         socket.join(room);
-        console.log("join後",socket.rooms);
+        // console.log("join後",socket.rooms);
         onlineGroupCount++;
         onlineGroupPeople.push(name);
     
@@ -105,7 +105,7 @@ module.exports = (io) => {
         });
         
         socket.on('leaveGroup',()=>{
-          console.log('leaveGroup',socket.rooms);
+          // console.log('leaveGroup',socket.rooms);
           const room = Object.keys(socket.rooms).find(room => {
             return room !== socket.id
           })
@@ -113,7 +113,7 @@ module.exports = (io) => {
           // 有人離開群聊了，扣人
           onlineGroupCount = (onlineGroupCount < 0) ? 0 : onlineGroupCount -= 1;
           onlineGroupPeople = onlineGroupPeople.filter( item=> item != name);
-          console.log(onlineGroupPeople);
+          // console.log(onlineGroupPeople);
           io.sockets.in(room).emit('online', onlineGroupCount);
           io.sockets.in(room).emit('onlinePeople', onlineGroupPeople);
           socket.leave(room);
