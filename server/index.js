@@ -14,6 +14,7 @@ var socialhallRouter = require('./routes/socialhall');
 var modules = require('./routes/modules');
 var elseuser = require('./routes/elseUser');
 var login = require('./routes/login');
+var homePage = require('./routes/homePage');
 
 //0805 kuo
 var newActivity = require('./routes/newActivity');
@@ -70,6 +71,7 @@ app.use('/member', member);
 
 // 0805 Dan
 // app.use('/register', register);
+app.use('/home', homePage);
 
 
 var server = http.createServer(app);

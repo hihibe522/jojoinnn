@@ -38,9 +38,9 @@
         box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
     }
 
-    .sidebar_scroll {
+    /* .sidebar_scroll {
         overflow: hidden;
-    }
+    } */
 
     /* 控制側邊欄縮放的button開始*/
 
@@ -57,9 +57,9 @@
         /* box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, .3); */
     }
 
-    .slideBox:hover {
-        /* background-color: #AFB6BC; */
-    }
+    /* .slideBox:hover {
+         background-color: #AFB6BC; 
+    } */
 
     /* 控制側邊欄縮放的button結束*/
 
@@ -85,7 +85,7 @@
     }
 
     .sidebar_small {
-        width: 15%;
+        width: 16%;
     }
 
     /* 旋轉sidebar箭頭結束 */
@@ -109,7 +109,7 @@
         justify-content: center;
         margin: auto;
         text-align: center;
-        padding: 11rem 20px;
+        padding: 11rem 20px 4rem 20px;
     }
 
     .sidebar ul {
@@ -199,6 +199,7 @@
 
     .caButton {
         padding-left: 1rem;
+        margin-top: 5rem;
         bottom: 2rem;
         left: 0px;
         width: 100%;
@@ -233,7 +234,7 @@
         display: flexbox;
         flex-direction: column;
         align-items: baseline;
-        padding: 0px 1rem;
+        padding: 0px 2rem;
     }
 
     .filterAreaPop h3{
@@ -256,7 +257,7 @@
         display: flexbox;
         flex-direction: column;
         align-items: baseline;
-        padding: 0px 1.5rem;
+        padding: 0px 3.8rem;
     }
 
     .filterArea h3 {
@@ -277,7 +278,7 @@
         justify-content: space-between;
         margin: auto;
         width: 1300px;
-        padding: 0px 1.5rem
+        padding: 0px 3.8rem
     }
 
     .filterAreaRe h3 {

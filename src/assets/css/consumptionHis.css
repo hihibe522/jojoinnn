@@ -63,10 +63,10 @@
     vertical-align: middle;
 }
 
-#consumptionBody th{
-    /* border-radius: 25px 25px 0 0 ; */
-    /* background-color: royalblue; */
-}
+/* #consumptionBody th{
+    border-radius: 25px 25px 0 0 ;
+    background-color: royalblue;
+} */
 
 #consumptionBody tr th:first-child{
    
