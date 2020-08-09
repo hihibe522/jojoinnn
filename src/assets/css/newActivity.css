@@ -11,7 +11,7 @@ img {
     object-fit: cover;
 }
 
-div {
+form div {
     padding: 5px;
     object-fit: contain;
 }

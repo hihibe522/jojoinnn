@@ -9,7 +9,19 @@ body {
 }
 
 img {
-  object-fit: contain;
+  object-fit: cover;
+}
+img:hover{
+  cursor: url("../img/jo_images/cursorPoint.png"), auto;
+}
+.headIcon{
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+}
+#morePerson{
+  background-color: var(--jo_dGrey1);
+  z-index: 999;
 }
 #activityTitle {
   margin: 11rem auto auto auto;
@@ -83,13 +95,18 @@ img {
 
 #collectBtnArea {
   position: absolute;
-  left: 19%;
-  top: 8%;
+  left: 13%;
+  top: 10%;
   /* visibility: hidden; */
   transform: translate(-50%, -50%) scale(0.5);
   /* color: white; */
   font-weight: 600;
 }
+
+#colectText {
+  padding-left: 10px;
+}
+
 
 .textRed {
   color: rgb(255, 152, 170);
@@ -106,9 +123,6 @@ img {
   padding-left: 10px;
 }
 
-#colectText {
-  padding-left: 10px;
-}
 
 #canvas {
   background-color: #29383d;
