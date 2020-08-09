@@ -1,17 +1,16 @@
 /* 外面 */
 
-.gridAct {
-	display: grid;
-	/* grid-template-columns: 1fr 1fr 1fr 1fr; */
+/* .gridAct {
+	display: flex;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
 	grid-gap: 1rem;
-	/* background-color: seagreen; */
-	/* width: 200px; */
-	/* height: 520px;
+	background-color: seagreen;
+	width: 200px;
+	height: 520px;
 	margin: 5rem auto;
 	border-radius: 25px;
-	box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2)  */
-}
-
+	box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2) 
+} */
 
 .container div::before {
 	content: "";
@@ -20,15 +19,14 @@
 	vertical-align: top;
 }
 
-
-
 /* 裡面 */
+
 .grid {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	grid-gap: 0rem;
-	padding: 10px 10px 10px 10px;
-	max-width:100%;
+	padding: 16px 10px 10px 10px;
+	max-width: 100%;
 	/* margin: 0 0 0 80px; */
 	list-style: none;
 	text-align: center;
@@ -37,9 +35,8 @@
 .grid li {
 	display: inline-block;
 	width: 300px;
-	height: 300px;
-	margin: 0;
-	padding: 10px;
+	height: 330px;
+	margin: 10px;
 	text-align: left;
 	position: relative;
 }
@@ -47,9 +44,12 @@
 .grid figure {
 	margin: 0;
 	position: relative;
-	width: 100%;
-	height: 100%;
-	background-color: #f5b2b2;
+	width: 300px;
+	height: 300px;
+	/* background-color: #942525; */
+	/* box-shadow: 0 0 10px rgba(222, 222, 222, 0.8); */
+	border-radius: 0px;
+	overflow: hidden;
 }
 
 .grid figure img {
@@ -62,12 +62,15 @@
 }
 
 .grid figcaption {
-	height: 100%;
-	width: 100%;
+	width: 300px;
+	height: 300px;
 	position: absolute;
 	padding: 20px;
-	background: var(--jo_dark_water);
+	background: linear-gradient(220deg, #616E7D 35%, #81C7D4 60%);
 	color: white;
+	opacity: 1;
+	/* box-shadow: 0 0 10px rgba(222, 222, 222, 0.8); */
+
 }
 
 .grid figcaption h3 {
@@ -76,53 +79,42 @@
 	color: #fff;
 }
 
-/* .grid figcaption span:before {
-	content: '2020/07/30 ';
-} */
-
 .grid figcaption p:before {
-	content: '地點:  台中市姍姍區姍姍路28號 \A 主辦人: 姍姍';  
-	white-space: pre;                     
-	
+	content: '地點:  台中市姍姍區姍姍路28號\A主辦人: 姍姍';
+	white-space: pre;
 }
 
-
-
-/* .grid figcaption a {
+.grid figcaption a {
 	text-align: center;
 	padding: 5px 10px;
 	display: inline-block;
 	text-decoration: none;
-} */
+}
 
 /* Individual Caption Styles */
 
 /* Caption Style 3 */
 
+/* .cs-style-3 figure {
+	overflow: hidden;
+} */
 
-.cs-style-3 figure {
-	overflow: hidden; 
-}
-
-.cs-style-3 figure img {
-	
+/* .cs-style-3 figure img {
 	-webkit-transition: -webkit-transform 0.4s;
 	-moz-transition: -moz-transform 0.4s;
 	transition: transform 0.4s;
-}
+} */
 
-.no-touch .cs-style-3 figure:hover img,
-.cs-style-3 figure .cs-hover img {
+/* .no-touch .cs-style-3 figure:hover .innerPic, .cs-style-3 figure .cs-hover .innerPic {
 	-webkit-transform: translateY(-50px);
 	-moz-transform: translateY(-50px);
 	-ms-transform: translateY(-50px);
 	transform: translateY(-50px);
-}
-
+} */
 
 /* 活動資訊 */
+
 .cs-style-3 figcaption {
-	
 	/* 活動資訊移動 */
 	transform: translateY(70%);
 	-webkit-transition: -webkit-transform 0.4s, opacity 0.1s 0.3s;
@@ -130,8 +122,7 @@
 	transition: transform 0.4s, opacity 0.1s 0.3s;
 }
 
-.no-touch .cs-style-3 figure:hover figcaption,
-.cs-style-3 figure.cs-hover figcaption {
+/* .no-touch .cs-style-3 figure:hover figcaption, .cs-style-3 figure.cs-hover figcaption {
 	opacity: 1;
 	-webkit-transform: translateY(0px);
 	-moz-transform: translateY(0px);
@@ -146,4 +137,22 @@
 	position: absolute;
 	bottom: 20px;
 	right: 20px;
+} */
+
+/* hover test */
+
+/* .outer {
+	width: 300px;
+	height: 300px;
+	overflow: hidden;
+} */
+
+/* .inner {
+	transition: all 0.3s;
+	width: 100%;
+	height: 70%;
+} */
+
+figure:hover>figcaption {
+	transform: translateY(0%);
 }

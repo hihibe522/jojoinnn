@@ -11,9 +11,6 @@
 </template>
 
 <script>
-// import navbar from './navbar';
-// import sidebar from './sidebar';
-// import alertmsg from './alertMsg';
 import navbar from './Vue_navBar'
 import bgcanvas from './StarBgCanvas';
 import chatroom from './chatRoom';
