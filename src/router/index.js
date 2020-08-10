@@ -5,9 +5,12 @@ import Router from 'vue-router'
 
 //0805 dan 
 import register from '@/components/pages/register'
+import registerWelcome from '@/components/pages/registerWelcome'
 import Login from '@/components/pages/login'
-import home from '@/components/Home'
 
+
+
+import home from '@/components/Home'
 import recommend from '@/components/recommend'
 import search from '@/components/search'
 
@@ -70,6 +73,11 @@ export default new Router({
           path:'register',
           name:'register',
           component: register,
+        },
+        {
+          path:'registerWelcome',
+          name:'registerWelcome',
+          component: registerWelcome,
         },
         {
           path:'socialhall',

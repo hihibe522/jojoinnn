@@ -4,7 +4,7 @@ body{
 .leaderboard button{
     outline: none;
 }
-h1{
+#socialhall h1{
     color: var(--jo_water);
     text-align: center;
     padding: 20px;

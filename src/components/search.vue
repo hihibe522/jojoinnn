@@ -21,8 +21,8 @@
                         <div class="detal timeSelect ">
                             <select name="" id="">
                                 <option value="">依時間前後排序</option>
-                                <option value="">時間:由新到舊</option>
-                                <option value="">時間:由舊到新</option>
+                                <option value="new">時間:由新到舊</option>
+                                <option value="old">時間:由舊到新</option>
                             </select>
                         </div>
                     </div>
@@ -64,14 +64,14 @@
                             <img class="innerPic" :src="require(`../../static/img/activityPic/${item.a_pic}`)" alt="">
                             <figcaption>
                                 <div class="d-flex innerPicSlide">
-                                    <div>
-                                        <h3>{{item.a_name}}</h3>
+                                    <div class="actDes">
+                                        <h3 class="ellipsis">{{item.a_name}}</h3>
                                         <span>{{item.a_start}}</span>
                                     </div>
-                                    <div>
+                                    <!-- <div>
                                         <img class="joPic_hover" id="innerFlag"
                                             src="../assets/img/jo_icon/jo_i_flag.svg" alt="">
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <hr id="actArea">
                                 <p>{{item.a_address}}</p>
@@ -91,10 +91,12 @@
                             <div class="">
                                 <h6>{{item.collect}}人收藏</h6>
                             </div>
-                            <div class="jo_heartDiv" style="zoom: .3">
+                            <favicon @refreachLike="getSearchData" :liked="item.like" :aid="item.a_ID" ></favicon>
+                            <!-- <favicon></favicon> -->
+                            <!-- <div class="jo_heartDiv" style="zoom: .3">
                                 <img class="jo_heart " src="../assets/img/jo_images/jo_heart.svg" alt="">
                                 <img class="jo_heart jo_hover" src="../assets/img/jo_images/jo_heart.svg" alt="">
-                            </div>
+                            </div> -->
                         </div>
                         <!-- 幾人收藏+愛心結束 -->
                     </li>
@@ -109,11 +111,16 @@
 <script>
 import $ from "jquery";
 import axios from "axios";
+import favicon from "./Favicon";
 export default {
     name:'search',
-    // props: ['searchData'],
+    components:{
+        favicon,
+    },
     data() {
         return {
+           me:{},
+           myFavList:[],
            area:"",
            cost:"",
            category:"",
@@ -127,12 +134,28 @@ export default {
             var vm = this;
             axios.get(`/home/search/${this.area}/${this.cost}/${this.category}/${this.doorType}/${this.activityTime}`)
             .then(e=>{
-                console.log(e.data)
-                vm.searchDataList = e.data;
-                
+                var search = e.data
+                search.forEach((item,index)=>{
+                    // console.log( vm.myFavList);
+                    if( vm.myFavList.indexOf(item.a_ID)> -1 ){
+                        search[index].like = 1
+                    }
+                    else{
+                       search[index].like = 0
+                    } 
+                })
+                vm.searchDataList = search;
+                // console.log(search);
             })
-
-
+        },
+        getMyFavList(){
+            var vm = this;
+            axios.get(`/home/myfavList/${vm.me.m_ID}`)
+            .then(e=>{
+                    // console.log(e.data);
+                const List = e.data.map(item => Object.values(item)[0])
+                vm.myFavList = List;
+            })
         }
         
     },
@@ -147,12 +170,22 @@ export default {
           } 
     },
     created() {
+        let islog = localStorage.getItem('myinfo')
+        if(islog){
+            this.me = JSON.parse(localStorage.getItem('myinfo'));
+             this.getMyFavList(); 
+        }
+
         this.area = this.$route.query.area;
         this.cost = this.$route.query.cost;
         this.category = this.$route.query.category;
         this.doorType = this.$route.query.doorType;
         this.activityTime = this.$route.query.activityTime;
         this.getSearchData();
+
+
+
+
 
     },
     
@@ -175,6 +208,9 @@ export default {
     margin-left: 145px;
     flex-wrap: wrap;
 }
+.grid li{
+    margin: 15px;
+}
 .filterAreaRe{
   width: 1360px;
   padding: 0 0 1rem 1rem;
@@ -182,11 +218,14 @@ export default {
   margin-left: 7rem;
 
 }
-/* .grid figcaption p:before {
-	content: '地點:  台中市姍姍區姍姍路28號 \A 主辦人: 姍姍';  
-	white-space: pre;                     
-	
-} */
+ li .jo_heartDiv {
+    width: 40px;
+}
+.collectAndLike{
+    align-items: flex-start;
+}
+
+
 
 
 

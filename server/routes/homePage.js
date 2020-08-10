@@ -31,9 +31,20 @@ router.get('/search/:area/:cost/:category/:doorType/:activityTime',function(req,
             res.send(rows);
     
         })
-
 })
 
+router.get('/myfavList/:m_ID',function(req,res,next){
+        console.log( req.params.m_ID);
+        if(!req.params.m_ID){
+            return;
+        }
+        let sql =`SELECT a_ID FROM member_collect WHERE m_ID = ?`;
+
+        conn.query(sql,[req.params.m_ID],function(err,rows){
+
+            res.send(rows);
+        })
+})
 
 
 

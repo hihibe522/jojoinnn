@@ -29,29 +29,27 @@ export default {
   },
   methods: {
     likeit(aid) {
-      console.log("----in----", aid);
       var myID = JSON.parse(localStorage.getItem("myinfo"));
-      console.log(this.like);
-      // 收藏活動 ajax
+      if(!myID){
+        this.$toasted.show('請先登入😉');
+        return;
+      }
       const data = {};
       data.m_ID = myID.m_ID; //localStorage.getItem("m_ID");
       data.a_ID = aid;
-      console.log(data);
       if (!this.like) {
-        console.log("post");
+        // 收藏活動 ajax
         axios.post("modules/collect", { info: data }).then((e) => {
-          console.log(e);
+          // console.log(e);
           this.like = !this.like;
         });
       } else {
-        console.log("delete");
         axios.post("modules/delcollect", { info: data }).then((e) => {
-          console.log(e);
           this.like = !this.like;
         });
       }
-
-    //   vm.$emit("addLike", "");
+      this.$emit("refreachLike");
+      //vm.$emit("addLike", "");
       // 樣式改變
       // this.like = !this.like;
     },
@@ -71,6 +69,9 @@ export default {
       this.inaid = newdata;
     },
   },
+  created() {
+    // console.log(this.like);
+  },
 };
 </script>
 
@@ -83,7 +84,7 @@ export default {
 
 .jo_heart {
   position: absolute;
-  width: 100px;
+  /* width: 100px; */
 }
 
 .jo_heart:hover {

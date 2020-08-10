@@ -66,13 +66,8 @@
 	height: 300px;
 	position: absolute;
 	padding: 20px;
-	background-color: rgba(149, 186, 207 , 0.7);
-	
-
+	background-color: rgba(149, 186, 207 , 0.9);
 	color: white;
-	/* opacity: 1; */
-	/* box-shadow: 0 0 10px rgba(222, 222, 222, 0.8); */
-
 }
 
 .grid figcaption h3 {
