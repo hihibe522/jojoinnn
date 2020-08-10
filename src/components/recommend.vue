@@ -1,6 +1,7 @@
 <template>
     <!-- 主畫面大區塊開始 -->
-        <div class="main-content" :class="{'main-content_large':showSlideBox}">
+        <!-- <div class="main-content" :class="{'main-content_large':showSlideBox}"> -->
+        <div class="main-content">
             <div class="filterAreaPop">
                 <h3>熱門活動</h3>
             </div>

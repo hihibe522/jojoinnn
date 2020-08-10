@@ -10,6 +10,19 @@
                 <div id="sideBarFilter">
                     <li>
                         <div class="sidebarImgTitle">
+                            <div class="sidebarImg"><img class="sidebarImg joPic_hover" 
+                                    src="../assets/img/jo_icon/jo_i_explore.svg" alt=""></div>
+                            <div :class="{'sidebarWord':showSlideBox}" :style="{ display: display}">
+                                <!-- <router-link to="/search"><h5>出發探索</h5></router-link> -->
+                            <h5 class="jo_hover">設定條件探索</h5>
+                            </div>
+                        </div>
+                    </li>
+                    <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
+                        <hr>
+                    </div>
+                    <li>
+                        <div class="sidebarImgTitle">
                             <div class="sidebarImg"><img class="sidebarImg iconMargin hvr-pop joPic_hover"
                                     src="../assets/img/jo_icon/jo_i_area.svg" alt="">
                             </div>
@@ -19,8 +32,9 @@
                         </div>
 
                         <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
-                            <select name="" id="">
-                                <option selected="selected" value="臺北市">臺北市</option>
+                            <select @change="searchActivity" v-model="area">
+                                <option selected value="all">全部</option>
+                                <option value="臺北市">臺北市</option>
                                 <option value="新北市">新北市</option>
                                 <option value="桃園市">桃園市</option>
                                 <option value="臺中市">臺中市</option>
@@ -54,26 +68,21 @@
                                     alt="">
                             </div>
                             <div :class="{'sidebarWord':showSlideBox}" :style="{ display: display}">
-                                <h5>價位</h5>
+                                <h5>收費</h5>
                             </div>
                         </div>
                         <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
-                            <select name="" id="">
-                                <option value="">免收費</option>
-                                <option value="">$1-$100</option>
-                                <option value="">$100-$500</option>
-                                <option value="">$500-$1000</option>
-                                <option value="">$1000-$1500</option>
-                                <option value="">$1500-$2000</option>
-                                <option value="">$2000-$2500</option>
-                                <option value="">$2500-$3000</option>
-                                <option value="">$3000-$3500</option>
-                                <option value="">$3500-$4000</option>
-                                <option value="">$4000-$4500</option>
-                                <option value="">$4500-$5000</option>
-                                <option value="">$5000-$5500</option>
-                                <option value="">$5500-$6000</option>
-                            </select>
+                            <div id="sideRadio">
+                                <div>
+                                    <input @change="searchActivity" v-model="cost" id="free" type="radio" name="cost" value="0">
+                                    <label for="free">免費</label>
+                                </div>
+
+                                <div>
+                                    <input @change="searchActivity" v-model="cost" id="paid" type="radio" name="cost" value="1">
+                                    <label for="paid">付費</label>
+                                </div>
+                            </div>
                         </div>
                     </li>
 
@@ -91,21 +100,10 @@
                             </div>
                         </div>
                         <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
-                            <select name="" id="">
-                                <option value="">戶外休閒類</option>
-                                <option value="">運動類</option>
-                                <option value="">音樂類</option>
-                                <option value="">藝文類</option>
-                                <option value="">益智類</option>
-                                <option value="">視聽類</option>
-                                <option value="">飲食類</option>
-                                <option value="">社交聯誼類</option>
-                                <option value="">學術類</option>
-                                <option value="">旅遊類</option>
-                                <option value="">社會服務類</option>
-                                <option value="">宅文化類</option>
-                                <option value="">科技類</option>
-                                <option value="">手做類</option>
+                            <select @change="searchActivity" v-model="category">
+                                <option selected value="all">全部</option>
+                                <option v-for="item in categoryList" :key="item.c_ID" :value="item.c_ID">{{item.c_category}}</option>
+                                
                             </select>
                         </div>
                     </li>
@@ -127,12 +125,12 @@
                         <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
                             <div id="sideRadio">
                                 <div>
-                                    <input id="indoor" type="radio" name="door" value="">
+                                    <input  @change="searchActivity" v-model="doorType" id="indoor" type="radio" name="door" value="indoor">
                                     <label for="indoor">室內</label>
                                 </div>
 
                                 <div>
-                                    <input id="outdoor" type="radio" name="door" value="">
+                                    <input  @change="searchActivity" v-model="doorType" id="outdoor" type="radio" name="door" value="outdoor">
                                     <label for="outdoor">室外</label>
                                 </div>
                             </div>
@@ -143,7 +141,7 @@
                         <hr>
                     </div>
 
-                    <li>
+                    <!-- <li>
                         <div class="sidebarImgTitle" :style="{ display: display}">
                             <div class="sidebarImg">
                                 <img class="sidebarImg joPic_hover" src="../assets/img/jo_icon/jo_i_goodtogo.svg" alt="">
@@ -152,25 +150,23 @@
                                 <h5>是否成團</h5>
                             </div>
                         </div>
-
-
                         <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
                             <div id="sideRadio">
                                 <div>
-                                    <input class="" type="radio" name="goodToGo" value="">
-                                    <label for="indoor">成團</label>
+                                    <input v-model="doorType" id="goodToGo" type="radio" name="goodToGo">
+                                    <label for="goodToGo">成團</label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="goodToGo" value="">
-                                    <label for="indoor">尚未</label>
+                                    <input id="notToGo" type="radio" name="goodToGo" value="">
+                                    <label for="notToGo">尚未</label>
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </li> -->
 
-                    <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
+                    <!-- <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
                         <hr>
-                    </div>
+                    </div> -->
 
                     <li>
                         <div class="sidebarImgTitle">
@@ -181,7 +177,7 @@
                             </div>
                         </div>
                         <div :class="{'sidebarWord':showSlideBox}" class="actDateSelect" :style="{ display: display}">
-                            <input type="date">
+                            <input @change="searchActivity" v-model="activityTime" type="date">
                         </div>
                     </li>
 
@@ -189,16 +185,7 @@
                         <hr>
                     </div>
 
-                    <li>
-                        <div class="sidebarImgTitle">
-                            <div class="sidebarImg"><img class="sidebarImg joPic_hover" 
-                                    src="../assets/img/jo_icon/jo_i_explore.svg" alt=""></div>
-                            <div :class="{'sidebarWord':showSlideBox}" :style="{ display: display}">
-                                <router-link to="/search"><h5>出發探索</h5></router-link>
-                                
-                            </div>
-                        </div>
-                    </li>
+                    
                 </div>
 
             </ul>
@@ -216,56 +203,42 @@
 <script>
 import $ from "jquery";
 import axios from "axios";
-// import '../assets/js/grid_modernizr.custom';
-// import { Modernizr } from '@/assets/js/grid_modernizr.custom.js'
 
 export default {
 name:"home",
 data() {
     return {
         showSlideBox:false,
-        // currentPic:0,
-        // carouselItem:[],
-        // totalCarouselItem:4
+        categoryList:[],
+        area:"all",
+        cost:"0",
+        category:"all", 
+        doorType:"indoor",
+        activityTime:""
     }
 },
 methods: {
-    // getCarouselItem(){
-    //     var vm = this;
-    //     axios.get('home/carouse')
-    //     .then(e=>{
-    //         console.log(e.data);
-    //         vm.carouselItem = e.data;
-    //         vm.totalCarouselItem =  vm.carouselItem.length;
-    //     })
+    searchActivity(){
 
-    // },
-    // moveRight(){
-    //     var next = this.currentPic;
-    //     this.currentPic = this.currentPic + 1;
-    //     this.setSlide(next, this.currentPic);
-    // },
-    // moveLeft(){
-    //     var prev = this.currentPic;
-    //     this.currentPic = this.currentPic - 1;
-    //     this.setSlide(prev,this.currentPic);
-    // },
-    // setSlide(prev, next){
-    //     var slide = this.currentPic;
-    //     if (next > this.totalCarouselItem - 1) {
-    //         slide = 0;
-    //          this.currentPic = 0;
-    //     }
-    //     if (next < 0) {
-    //         slide = this.totalCarouselItem - 1;
-    //          this.currentPic = this.totalCarouselItem - 1;
-    //     }
-
-    //     $('.carousel-item').eq(prev).removeClass('active');
-    //     $('.carousel-item').eq(slide).addClass('active');
-      
-    // }
-
+      this.$router.push({path: '/search',
+                        query: {area:this.area,
+                                cost:this.cost,
+                                category:this.category,
+                                doorType:this.doorType,
+                                activityTime:this.activityTime
+                                }})
+    },
+    getNowday(){
+        var now = new Date();
+        //格式化日，如果小於9，前面補0
+        var day = ("0" + now.getDate()).slice(-2);
+        //格式化月，如果小於9，前面補0
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+        //拼裝完整日期格式
+        var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+        //完成賦值
+        this.activityTime = today;
+    }
         
     },
     computed: {
@@ -276,15 +249,16 @@ methods: {
         }
     },
     mounted() {
-        // var vm = this;
-        // setTimeout(function () {
-        //     vm.setSlide()
-        //     }, 1000);
+
     },
     created() {
-        // this.getCarouselItem();
+        var vm = this;
+        axios.get('modules/category').then(e=>{
+                    //console.log(e);
+            vm.categoryList = e.data ;
 
-        // this.setSlide();
+        })
+        this.getNowday();
     },
 }
 </script>

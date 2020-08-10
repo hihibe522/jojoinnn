@@ -32,6 +32,7 @@ axios.defaults.withCredentials = true;
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 
+
 const Options={
   theme: "bubble", 
   position: "top-center", 

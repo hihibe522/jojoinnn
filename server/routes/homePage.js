@@ -12,6 +12,29 @@ router.get('/carouse',function(req,res,next){
         })
 })
 
+router.get('/search/:area/:cost/:category/:doorType/:activityTime',function(req,res,next){
+
+    let area = (req.params.area == "all") ? `` : req.params.area ;
+    let category = (req.params.category == "all") ? ``: req.params.category ;
+    let str = (req.params.cost == 1) ? `a_price != 0`: `a_price = 0` ;
+
+    let sql = `SELECT ifnull(b.collect,0) collect,a.* FROM current_activity AS a 
+               LEFT JOIN (SELECT COUNT(a_ID) AS collect ,a_ID 
+               FROM member_collect GROUP BY a_ID) as b 
+               ON a.a_ID = b.a_ID WHERE ${str} AND c_in_out = ? AND a_start > ? AND c_ID LIKE ? AND a_city LIKE ? 
+               ORDER BY a_creatTime DESC`
+
+        conn.query(sql,[req.params.doorType,req.params.activityTime,`%${category}`,`%${area}`],function(err,rows){
+            if(err){
+                console.log(err);
+            }
+            res.send(rows);
+    
+        })
+
+})
+
+
 
 
 
