@@ -92,11 +92,11 @@ export default {
   data() {
     return {
       memberData: {},
-      a_name: "FK party",
-      joCoin: "10000",
-      a_price: "300",
-      con_deposit: "9700",
-      con_event: "活動消費",
+      a_name: "",
+      joCoin: "",
+      a_price: "",
+      con_deposit: "",
+      con_event: "",
       secCount: 3,
       a_pic: "",
     };
@@ -134,13 +134,20 @@ export default {
       });
     },
     payAction() {
+      var deposit = {
+        m_ID: this.memberData.m_ID,
+        con_deposit: this.con_deposit,
+        joCoin: this.joCoin,
+        a_price: this.a_price,
+     
+      };
       if (this.con_deposit > 0) {
         this.reciprocal();
-        axios.put("payPage", { m_ID: this.memberData.m_ID }).then((e) => {
+        axios.put("payPage", { deposit: deposit }).then((e) => {
           console.log(e);
         });
-      }else{
-          this.$router.push("/deposit");
+      } else {
+        this.$router.push("/deposit");
       }
     },
     reciprocal: function () {

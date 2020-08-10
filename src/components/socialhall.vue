@@ -10,6 +10,10 @@
                   </div>
                   <!-- 多人聊天大廳 -->
                   <div class="mainBoard">
+                      <div v-if="(me.m_name == '')">
+                          <img :src ="require(`../assets/img/jo_images/jo_spaceShip.svg`)" alt="">
+                          <p class="loginTips">快登入加入聊天😉</p>
+                      </div>
                       <div :style="item.color" v-for="(item,index) in msgArray" :key="index" class="chatMsg">
                           <p><span class="chatName">{{item.name}}</span>{{item.msg}}</p>
                       </div>
@@ -393,6 +397,11 @@ export default{
 <style scoped>
 @import '../assets/css/socialhall.css';
 
+.loginTips{
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+}
 
 
 </style>

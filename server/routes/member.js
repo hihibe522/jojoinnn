@@ -17,7 +17,7 @@ router.get('/memberInfo/:id', function (req, res, next) {
 
 // 獲得平均
 router.get('/memberInfo/:id', function (req, res, next) {
-    conn.query('SELECT AVG(rate) as rate,COUNT(m_ID) as count from transaction where a_host = ?', [req.params.id], function (err, rows) {
+    conn.query('SELECT AVG(rate) as rate,COUNT(m_ID) as count from transaction where a_host = ? and rate>0', [req.params.id], function (err, rows) {
         getmemberInfo.memberRate = rows
         // console.log(getmemberInfo);
         res.send(getmemberInfo);
@@ -41,25 +41,66 @@ router.get('/memberCollect/:id', function (req, res, next) {
 // 正在參加的活動
 router.get('/memberJoing/:id', function (req, res, next) {
 
-    conn.query('select * from (transaction join member ON transaction.a_host=member.m_ID )INNER JOIN current_activity on transaction.a_ID = current_activity.a_ID WHERE transaction.m_ID=? and current_activity.a_avalible<=?', [req.params.id, 2], function (err, rows) {
+    conn.query('select * from (transaction join member ON transaction.a_host=member.m_ID )INNER JOIN current_activity on transaction.a_ID = current_activity.a_ID WHERE transaction.m_ID=? and (current_activity.a_avalible<=1 or current_activity.a_avalible=4)', [req.params.id], function (err, rows) {
         res.send(rows);
         // next();
     });
 
 
 });
+
+
+// 參加歷史
+router.get('/memberJoinHis/:id', function (req, res, next) {
+
+    conn.query('select * from (transaction join member ON transaction.a_host=member.m_ID )INNER JOIN current_activity on transaction.a_ID = current_activity.a_ID WHERE transaction.m_ID=? and current_activity.a_avalible>=5', [req.params.id], function (err, rows) {
+        res.send(rows);
+        // next();
+    });
+
+
+});
+
+
+// 評價揪主
+router.get('/hostMemberData/:aid', function (req, res, next) {
+
+    conn.query('select member.*,current_activity.*  from member INNER JOIN current_activity on member.m_ID = current_activity.a_host WHERE current_activity.a_ID=?', [req.params.aid], function (err, rows) {
+        res.send(rows);
+        // console.log(rows)
+        // next();
+    });
+
+
+});
+
 
 
 // 正在舉辦的活動
 router.get('/memberHosting/:id', function (req, res, next) {
 
-    conn.query('select * from current_activity where a_host=? and a_avalible<=?', [req.params.id, 2], function (err, rows) {
+    conn.query('select * from current_activity where (a_avalible<=1 or a_avalible=4) and a_host=? ', [req.params.id], function (err, rows) {
         res.send(rows);
         // next();
     });
 
-
 });
+
+
+// 舉辦歷史
+router.get('/memberHostHis/:id', function (req, res, next) {
+
+    conn.query('select * from current_activity where a_avalible>=5 and a_host=?', [req.params.id], function (err, rows) {
+        res.send(rows);
+        // next();
+    });
+});
+
+
+
+
+
+
 
 // 追蹤的成員
 router.get('/memberFollow/:id', function (req, res, next) {
@@ -141,6 +182,30 @@ router.put('/memberGift', function (req, res, next) {
         // next();
     });
 
+
+});
+
+
+// 查看評價
+router.get('/memberCommand/:aid', function (req, res, next) {
+
+    conn.query('SELECT * FROM transaction where a_ID =? order by t_D desc', [req.params.aid], function (err, rows) {
+        res.send(rows);
+        // console.log(rows)
+        // next();
+    });
+
+
+});
+
+// 給評價
+router.put('/giveStar', function (req, res, next) {
+    // console.log(this.a_ID, this.me_ID, this.commandText, this.a_starCount);
+    conn.query("update transaction set rate=? ,a_text=? where a_ID=? and m_ID=?", [req.body.star, req.body.commandInfo, req.body.aid, req.body.id], function (err, rows) {
+        res.send(rows);
+        console.log(rows);
+        // next();
+    });
 
 });
 

@@ -78,7 +78,7 @@
                                 <p>{{item.c_category}}</p>
                                 <div class="ActButton">
                                     <router-link :to="{ name:'activity',query:{a_ID:item.a_ID }}" >
-                                    <input type=" button" name="" id="" class="jo_btn jo_btnWater jo_btn_s"
+                                    <input type=" button" name="" id="" class="jo_btn jo_btnRed jo_btn_s"
                                         value="活動詳情">
                                     </router-link>
                                     <!-- <input type=" button" name="" id="" class="jo_btn jo_btnWater jo_btn_s"

@@ -46,6 +46,10 @@ body {
     background-color: #29383d;
     overflow-x: hidden;
 }
+.toasted.bubble{
+    font-size: 1.3rem;
+    padding: 1rem;
+}
 
 /* 格線 */
 

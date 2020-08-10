@@ -244,14 +244,26 @@ select {
 .joiningBtn {
     /* width: 17.5rem; */
     display: flex;
-    padding-right: 1rem;
+    padding-right: .5rem;
     margin-left: auto;
 }
 
 .joiningBtn div {
     padding: 0px;
     margin-left: auto;
+    /* background-color: aqua; */
 }
+
+.joiningBtn .unpayBtn,.joiningBtn .paidBtn{
+    padding-left: 0px;
+}
+
+.joiningBtn div div{
+    padding-right: .3px;
+    
+}
+
+
 
 .joiningInfo ul {
     margin: auto;
@@ -348,7 +360,7 @@ select {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    width: 20rem;
+    width: 19rem;
 }
 
 /* #joiningCardSection {
