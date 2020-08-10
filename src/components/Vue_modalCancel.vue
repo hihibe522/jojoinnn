@@ -27,8 +27,7 @@
             <br />我們會將取消的原因發布給參加者：
           </h5>
           <textarea
-            name
-            id
+
             rows="6"
             placeholder="請填寫原因"
             class="jo_scrollbar"

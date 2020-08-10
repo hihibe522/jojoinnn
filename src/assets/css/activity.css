@@ -11,9 +11,6 @@ body {
 img {
   object-fit: cover;
 }
-img:hover{
-  cursor: url("../img/jo_images/cursorPoint.png"), auto;
-}
 .headIcon{
   height: 70px;
   width: 70px;

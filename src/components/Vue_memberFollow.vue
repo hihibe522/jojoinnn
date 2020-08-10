@@ -1,22 +1,8 @@
 <template>
   <div>
     <!-- 標題區塊 -->
-    <div class="title">
-      <div class="followSelectDiv">
-        <div
-          :class=" [memberMark?'jo_navTitleYellow followSelect hisSelected' :'jo_navTitleYellow followSelect']"
-        >
-          <span class="jo_hover" @click="followBookmark">我關注的會員</span>
-          <hr />
-        </div>
-
-        <div
-          :class=" [!memberMark?'jo_navTitleYellow followSelect hisSelected' :'jo_navTitleYellow followSelect']"
-        >
-          <span class="jo_hover" @click="banlistBookmark">我的黑名單</span>
-          <hr />
-        </div>
-      </div>
+      <div class="title">
+      <h2>我關注的會員</h2>
 
       <!-- 篩選區塊 -->
       <div class="memberFilter">

@@ -18,7 +18,7 @@
     <!-- 正在主Jo區塊 -->
     <div id="hostingSection" class="memberEvent">
       <div class="joiningCard" v-for="(hostItem,index) in hostData" :key="index">
-        <router-link active-class="nav_active" class="jo_hover" to="/deposit">
+        <router-link active-class="nav_active" class="jo_hover" :to="`/activity/?a_ID=${hostItem.a_ID}`">
           <div class="joiningPic hostingPic">
             <img class="jo_hover pic_hover" :src="hostItem.a_pic" alt />
           </div>
@@ -103,9 +103,6 @@ export default {
       });
     },
 
-    abc() {
-      console.log("AAA");
-    },
 
     // 取消鳩團
     getCancelNumber(e, f) {

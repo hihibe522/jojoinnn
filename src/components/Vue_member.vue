@@ -9,9 +9,24 @@
           <h4 class="memberName">{{memberData.m_name}}</h4>
         </div>
         <div class="memberIcon">
-          <img class="medalsImg_m" src="@/assets/img/jo_images/jo_medalsCopper.svg" alt />
-          <img class="medalsImg_m" src="@/assets/img/jo_images/jo_medalsSilver.svg" alt />
-          <img class="medalsImg_m" src="@/assets/img/jo_images/jo_medalsGold.svg" alt />
+          <img
+            v-if="memberExp>5"
+            class="medalsImg_m"
+            src="@/assets/img/jo_images/jo_medalsCopper.svg"
+            alt
+          />
+          <img
+            v-if="memberExp>200"
+            class="medalsImg_m"
+            src="@/assets/img/jo_images/jo_medalsSilver.svg"
+            alt
+          />
+          <img
+            v-if="memberExp>600"
+            class="medalsImg_m"
+            src="@/assets/img/jo_images/jo_medalsGold.svg"
+            alt
+          />
         </div>
 
         <div>
@@ -43,7 +58,7 @@
       <div class="hrDIv"></div>
 
       <div id="memberChart">
-        <canvas id="chartCanvas" width="1px" height="1px"></canvas>
+        <chart :width="300" :height="300" :chart-data="chartdataloaded" />
       </div>
     </div>
 
@@ -126,6 +141,8 @@
     </div>
 
     <modallucky :m_ID="memberData.m_ID"></modallucky>
+    <modalcommand></modalcommand>
+    <modalgiverate></modalgiverate>
   </div>
 </template>
 
@@ -135,6 +152,9 @@ import axios from "axios";
 import memberjoing from "./Vue_memberJoing";
 import starrate from "./StarRate";
 import modallucky from "./Vue_modalLucky";
+import modalcommand from "./Vue_modalCommand";
+import modalgiverate from "./Vue_modalGiveRate";
+import chart from "./Radar";
 
 export default {
   name: "member",
@@ -142,12 +162,18 @@ export default {
     memberjoing,
     starrate,
     modallucky,
+    chart,
+    modalcommand,
+    modalgiverate,
   },
   data() {
     return {
       memberData: {},
       memberRate: [{}],
       a: 0,
+      memberExp: 0,
+      labels: [],
+      radarData: [],
     };
   },
   methods: {
@@ -160,6 +186,7 @@ export default {
           m_data: this.memberData,
         });
         this.getMemberData();
+        this.getRadar();
       } else {
         this.$router.push("/login");
         this.$toasted.show("請先登入🙇‍♀️");
@@ -169,35 +196,51 @@ export default {
       var vm = this;
       var id = vm.memberData.m_ID;
       axios.get(`member/memberInfo/${id}`).then((e) => {
-        vm.memberExp = e.data.memberExp;
+        // 經驗值
+        vm.memberExp = e.data.memberExp[0].expSum;
         vm.memberRate = e.data.memberRate;
         vm.a = vm.memberRate.rate;
 
         // 圖片叫用
         var memberPic = vm.memberData.m_profile;
         vm.memberData.m_profile = `/static/img/head/${memberPic}`;
-        vm.memberMedals();
+        // console.log(e.data);
+        // vm.memberMedals();
       });
     },
-    // 獎牌顯示
-    memberMedals: function () {
-      $(".medalsImg_m").hide();
-      let exp = this.memberExp[0].expSum;
-      // console.log(exp);
-      switch (true) {
-        case exp >= 5 && exp < 200:
-          $(".medalsImg_m").eq(0).show();
-          break;
 
-        case exp >= 200 && exp < 600:
-          $(".medalsImg_m").eq(0).show();
-          $(".medalsImg_m").eq(1).show();
-          break;
+    getRadar() {
+      var vm = this;
+      axios.get(`user/exp/${vm.memberData.m_ID}`).then((e) => {
+        // console.log(e.data);
+        vm.labels = e.data[0].map((item) => {
+          return Object.values(item)[1];
+        });
+        vm.radarData = e.data[0].map((item) => {
+          return Object.values(item)[2];
+        });
 
-        case exp >= 600:
-          $(".medalsImg_m").show();
-          break;
-      }
+        // console.log(vm.radarData);
+      });
+    },
+  },
+
+  computed: {
+    chartdataloaded: function () {
+      return {
+        labels: this.labels,
+        datasets: [
+          {
+            data: this.radarData,
+            backgroundColor: "rgba(255, 203, 5, .4)",
+            borderWidth: 2,
+            borderColor: "rgba(255, 203, 5)",
+            pointRadius: 0,
+            borderJoinStyle: "round",
+            label: "",
+          },
+        ],
+      };
     },
   },
   created() {

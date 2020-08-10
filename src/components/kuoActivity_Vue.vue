@@ -12,9 +12,9 @@
           name
           v-model="a_availible"
           class="jo_btnGrey jo_btn_s"
-          style="background-color: #FFCB05;color: var(--jo_text);
-         box-shadow: 0 3px 0px var(--jo_orange), 0px 2px 0px 0px rgba(255, 255, 255, 0.5) inset;"
+          :style="(a_avaStaID==2 ||a_avaStaID==3  ||a_avaStaID==5)?{'color':'var(--jo_text)'}:{'color': 'var(--jo_text)','background-color': '#FFCB05','box-shadow':' 0 3px 0px var(--jo_orange), 0px 2px 0px 0px rgba(255, 255, 255, 0.5) inset'}"
         />
+
         <input
           type="button"
           name
@@ -109,7 +109,7 @@
                   class="headIcon d-flex"
                   :style="[(a_attendPer.length<5)? {'visibility':'hidden'}:{'visibility':'visible'}]"
                 >
-                  <h3 class="text-white m-auto" >+{{a_attendPer.length-4}}</h3>
+                  <h3 class="text-white m-auto">+{{a_attendPer.length-4}}</h3>
                 </div>
               </div>
             </div>
@@ -121,6 +121,7 @@
                 name
                 id
                 :value="btnStatus"
+                :style="(new Date()-Date.parse(a_end)>0)?{'display':'none'}:{'display':'block'}"
                 @click="attendActivity"
                 class="jo_btn jo_btnOrange jo_btn_m m-auto"
               />
@@ -188,6 +189,7 @@
       role="dialog"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
+
     >
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="jo_modal">
@@ -203,7 +205,7 @@
             </button>
           </div>
           <div class="jomodal_content">
-            <h2 class="m-3 pb-3">{{(a_hostID==memberData.m_ID)? "請填寫原因":"已報名參Jo"}}</h2>
+            <h2 class="m-3 pb-3">{{(a_hostID==memberData.m_ID)? "請填寫原因":(attendOrNot==1)?"完成取消":"已報名參Jo"}}</h2>
             <textarea
               :style="[(a_hostID==memberData.m_ID)? {'display':'block'}:{'display':'none'}]"
               cols="40"
@@ -220,6 +222,7 @@
               class="jo_btn jo_btn_m jo_btnOrange"
               :value="[(a_hostID==memberData.m_ID)? '考慮一下':'搜尋其他活動']"
               @click="function() {hideModal()}"
+             :style="[(attendOrNot!=1)? {'display':'block'}:{'display':'none'}]"
             />
             <router-link :to="(a_hostID!=memberData.m_ID)?`/payPage?a_ID=${activity_ID}`:''">
               <input
@@ -228,6 +231,7 @@
                 data-dismiss="modal"
                 :value="[(a_hostID==memberData.m_ID)? '確定取消':'付款去']"
                 @click="postReason"
+                 :style="[(attendOrNot!=1)? {'display':'block'}:{'display':'none'}]"
               />
             </router-link>
           </div>
@@ -256,13 +260,16 @@ export default {
   },
   data() {
     return {
-      activity_ID:"",
+      attendOrNot: "", //參加?
+      activity_ID: "",
       cancelReason: "",
+      hashtagStyle: "",
       memberData: {},
       a_hostID: "",
-      btnStatus: "我要參Jo",
+      btnStatus: "",
       a_name: "FK party",
-      a_availible: "#已成團",
+      a_availible: "  #已成團",
+      a_avaStaID: "",
       c_category: "#運動",
       c_in_out: "#室內",
       collectID: "收藏",
@@ -278,10 +285,10 @@ export default {
       a_price: 1000,
       attendPeople: 20,
       a_attendPer: [
-      //   { m_profile: "大頭4.png" },
-      //   { m_profile: "大頭5.png" },
-      //   { m_profile: "大頭6.png" },
-      //   { m_profile: "" },
+        //   { m_profile: "大頭4.png" },
+        //   { m_profile: "大頭5.png" },
+        //   { m_profile: "大頭6.png" },
+        //   { m_profile: "" },
       ],
       a_explain:
         "開太往下情理品於陸指強排都的母後地中育子於海公女我藝到人點好……期要劇的本保兩的天馬要人媽，也合院於小樹同新備故會的。生元長深小品們共用未象什辦了，山面家：際體展已張負了沒作文走間球戲成……想這倒內開那我只爸路切明車進總個現參比神合！阿眾人。知會接市做如是發市當一企不學爸後的清準原是，多因出後陽元上專來、害好禮，校根竟著程間。可我道、法庭發際其價事知統現病起日般？詩公說。太平這們經面。請領畫無關自保。考省有沒很看有！的傳影怎以笑說表士日作華不強的家朋因之會機華初地時書力部英面命期起能：任理發可定房被的車向在大。華小到中未但題政在調校性天好朋是權：者園告老心在覺好起和驗條隨為人解許！服臺國高政樣家，以道軍面出。法想制沒適起戰，國是觀笑生間間，媽外間科子題、始時境馬快注因利現的開世農政氣至父，服金的得中太：馬那。問舉麼裝不經；是去地決了期自研也速能達景出示樂年平考路，過價大星，失走財只不沒體？期營題位一地構法的有常時。動史者，了料那語市文早士車輕車放是只黨臺家。",
@@ -318,10 +325,10 @@ export default {
   methods: {
     checkSession() {
       var meLog = JSON.parse(localStorage.getItem("myinfo"));
-      console.log(meLog);
+      // console.log(meLog);
       if (meLog) {
         this.memberData = meLog;
-        console.log(this.memberData);
+        // console.log(this.memberData);
       } else {
         this.$router.push("/login");
         this.$toasted.show("請先登入🙇‍♀️");
@@ -329,14 +336,16 @@ export default {
     },
 
     refreshPage() {
-      console.log("flag");
-   this.activity_ID=this.$route.query.a_ID;
+      // console.log("flag");
+      this.activity_ID = this.$route.query.a_ID;
       var actID = this.$route.query.a_ID;
-      console.log(actID);
+      // console.log(actID);
 
       // console.log(this);
       axios.get(`activity/${actID}`).then((e) => {
-        console.log(e.data);
+        // judge if attend
+
+        // console.log(e.data);
         // console.log(e.data.a_data);
         // console.log(e.data.a_data[0]);
         var vm = this;
@@ -344,12 +353,14 @@ export default {
         var a_attendNo = e.data.a_attendNo[0];
         var msg_ContentList = e.data.msg_ContentList;
         var a_attendPer = e.data.a_attendPer;
-        console.log(a_data.m_profile);
+        // console.log(a_data.m_profile);
         // console.log(a_attendPer[0].m_ID);
         console.log(a_attendPer);
-        console.log(a_data.a_avalible);
-        this.btnStatus =
-          a_data.m_ID == this.memberData.m_ID ? "取消Jo團" : "我要參Jo";
+        // console.log(a_data.a_avalible);
+        console.log(this.attendOrNot);
+        console.log(a_data.m_ID);
+
+        this.memberData.m_ID;
         this.a_name = a_data.a_name;
         this.c_category = "#" + a_data.c_category;
         // this.a_availible =
@@ -360,21 +371,27 @@ export default {
         switch (a_data.a_avalible) {
           case "0":
             vm.a_availible = "#熱烈招收";
+            vm.a_avaStaID = 0;
             break;
           case "1":
             vm.a_availible = "#活動額滿";
+            vm.a_avaStaID = 1;
             break;
           case "2":
             vm.a_availible = "#活動流團";
+            vm.a_avaStaID = 2;
             break;
           case "3":
             vm.a_availible = "#活動取消";
+            vm.a_avaStaID = 3;
             break;
           case "4":
             vm.a_availible = "#報名截止";
+            vm.a_avaStaID = 4;
             break;
           case "5":
             vm.a_availible = "#活動結束";
+            vm.a_avaStaID = 5;
             break;
         }
 
@@ -404,13 +421,40 @@ export default {
 
         c_ID = a_data.c_ID;
         aHostID = a_data.a_host;
+        var testArray = this.a_attendPer.filter(
+          (item) => item.m_ID == this.memberData.m_ID
+        );
+        if (testArray != "") {
+          this.attendOrNot = 1;
+        } else {
+          this.attendOrNot = 0;
+        }
+        this.btnStatus =
+          a_data.m_ID == this.memberData.m_ID
+            ? "取消Jo團"
+            : this.attendOrNot == 1
+            ? "取消參Jo"
+            : "我要參Jo";
       });
     },
 
     attendActivity: function () {
       // console.log("OK");
-      if (this.a_hostID == memberData.m_ID) {
+
+      if (this.a_hostID == this.memberData.m_ID) {
         return;
+      }
+      if (this.attendOrNot == 1) {
+        var cancelAct = {
+
+          m_ID: this.memberData.m_ID,
+          a_ID: this.activity_ID,
+          joCoin: this.memberData.joCoin,
+          a_price: this.a_price,
+        };
+        axios.post("activity/cancel", { cancelAct: cancelAct }).then((e) => {
+          console.log(e);
+        });
       }
       var attData = {
         c_ID: c_ID,
@@ -419,8 +463,10 @@ export default {
         m_free: this.a_price ? 0 : 1,
         m_ID: this.memberData.m_ID,
         m_name: this.memberData.m_name,
+        c_category: this.c_category.substr(1),
+        a_ID: this.activity_ID,
       };
-
+      console.log(attData);
       axios.post("activity", { data: attData }).then((e) => {
         // console.log(e);
       });
@@ -445,18 +491,23 @@ export default {
       }, 1580);
     },
     hideModal: function () {
-      console.log("OK");
+      // console.log("OK");
       $("#my_jomodal").modal("hide");
     },
     postReason: function () {
       var reasonContent = {
-        a_ID: activity_ID,
+        a_ID: this.activity_ID,
         cancellReason: this.cancelReason,
       };
       if (this.a_hostID == this.memberData.m_ID) {
         axios.post("activity/reason", { reason: reasonContent }).then((e) => {
-          console.log(e);
+          // console.log(e);
         });
+
+        axios
+          .put("activity", { activity_ID: this.activity_ID })
+          .then((e) => {});
+        return;
       }
     },
   },

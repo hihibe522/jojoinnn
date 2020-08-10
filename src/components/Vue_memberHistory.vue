@@ -3,13 +3,17 @@
     <!-- 標題區塊 -->
     <div class="title">
       <div class="hisSelectDiv">
-        <div class="jo_navTitleYellow hisSelect">
-          <span class="jo_hover">主Jo歷史</span>
+        <div
+          :class=" [!memberMark?'jo_navTitleYellow followSelect hisSelected' :'jo_navTitleYellow followSelect']"
+        >
+          <span class="jo_hover" @click="hostHis">主Jo歷史</span>
           <hr />
         </div>
 
-        <div class="jo_navTitleYellow hisSelect">
-          <span class="jo_hover">參Jo歷史</span>
+        <div
+          :class=" [memberMark?'jo_navTitleYellow followSelect hisSelected' :'jo_navTitleYellow followSelect']"
+        >
+          <span class="jo_hover" @click="joingHis">參Jo歷史</span>
           <hr />
         </div>
       </div>
@@ -26,24 +30,22 @@
     </div>
     <!-- 標題區塊結束 -->
 
-    <div class="memberEvent hisHostSection">
-      <div class="joiningCard">
+    <!-- 主糾歷史 -->
+    <div class="memberEvent hisHostSection" v-if="!memberMark">
+      <div class="joiningCard" v-for="(hostingHisItem,index) in hostHistory" :key="index">
         <div class="joiningPic hisHostPic">
-          <img class="jo_hover pic_hover" src="../assets/img/activityPic/BTS.png" alt />
+          <img class="jo_hover pic_hover" :src="hostingHisItem.a_pic" alt />
         </div>
         <div class="joiningInfo hisHostInfo">
           <ul>
             <li>
-              <h4 class="jo_hover title_hover">BTS演唱會</h4>
+              <h4 class="jo_hover title_hover">{{hostingHisItem.a_name}}</h4>
             </li>
             <li>
-              <h6>主Jo：妙蛙種子</h6>
+              <h6>活動日期：{{hostingHisItem.a_start}}</h6>
             </li>
             <li>
-              <h6>活動日期：2018/12/9</h6>
-            </li>
-            <li>
-              <h6>活動地點：桃園棒球場</h6>
+              <h6>活動地點：{{hostingHisItem.a_address}}</h6>
             </li>
           </ul>
         </div>
@@ -55,6 +57,7 @@
               value="查看評價"
               data-toggle="modal"
               data-target="#seeRaking_modal"
+              @click="getCommandNumber(hostingHisItem.a_ID,hostingHisItem.a_name)"
             />
           </div>
         </div>
@@ -62,66 +65,45 @@
     </div>
 
     <!-- 參加歷史 -->
-    <div class="memberEvent hisHostSection">
+    <div class="memberEvent hisHostSection" v-if="memberMark">
       <!-- 卡片 -->
-      <div class="joiningCard">
+      <div class="joiningCard" v-for="(joinHisItem,index) in joinHistory" :key="index">
         <div class="joiningPic hisJoinPic">
-          <img class="jo_hover pic_hover" src="../assets/img/activityPic/digital.jpg" alt />
+          <img class="jo_hover pic_hover" :src="joinHisItem.a_pic" alt />
         </div>
         <div class="joiningInfo hisJoinInfo">
           <ul>
             <li>
-              <h4 class="jo_hover title_hover">數碼寶貝 LAST EVOLUTION 絆</h4>
+              <h4 class="jo_hover title_hover">{{joinHisItem.a_name}}</h4>
             </li>
             <li>
-              <h6>主Jo：姍姍來了</h6>
+              <h6>主Jo：{{joinHisItem.m_name}}</h6>
             </li>
             <li>
-              <h6>活動日期：2020/05/20</h6>
+              <h6>活動日期：{{joinHisItem.a_start}}</h6>
             </li>
             <li>
-              <h6>活動地點：台中市西屯區河南路三段120號 TigerCity</h6>
+              <h6>活動地點：{{joinHisItem.a_address}}</h6>
             </li>
           </ul>
         </div>
         <div class="joiningBtn">
           <div>
             <input
+              v-if="joinHisItem.rate"
+              type="button"
+              class="jo_btnGrey jo_btn_s"
+              value="已評價"
+            />
+            <input
+              v-if="!joinHisItem.rate"
               type="button"
               class="jo_btn jo_btnOrange jo_btn_s"
               value="留下評價"
               data-toggle="modal"
               data-target="#giveStar_modal"
+              @click="doCommandNumber(joinHisItem.a_ID,joinHisItem.a_name)"
             />
-          </div>
-        </div>
-      </div>
-
-      <!-- 卡片 -->
-      <div class="joiningCard">
-        <div class="joiningPic hisJoinPic">
-          <img class="jo_hover pic_hover" src="../assets/img/activityPic/onePunchMan.jpg" alt />
-        </div>
-        <div class="joiningInfo hisJoinInfo">
-          <ul>
-            <li>
-              <h4 class="jo_hover title_hover">一拳超人見面會</h4>
-            </li>
-            <li>
-              <h6>主Jo：Be好神</h6>
-            </li>
-            <li>
-              <h6>活動日期：2019/01/01</h6>
-            </li>
-            <li>
-              <h6>活動地點：台中市北區三民路三段161號 中友百貨</h6>
-            </li>
-          </ul>
-        </div>
-        <div class="joiningBtn">
-          <div></div>
-          <div>
-            <input type="button" class="jo_btnGrey jo_btn_s" value="已評價" />
           </div>
         </div>
       </div>
@@ -134,6 +116,92 @@ import $ from "jquery";
 import axios from "axios";
 export default {
   name: "memberHistory",
+  data() {
+    return {
+      memberMark: 0,
+      hostHistory: [{}],
+      joinHistory: [{}],
+      memberData: [{}],
+    };
+  },
+
+  methods: {
+    checkSession() {
+      var meLog = JSON.parse(localStorage.getItem("myinfo"));
+      if (meLog) {
+        this.memberData = meLog;
+        this.getMemberHostHis();
+        this.getMemberJoinHis();
+      }
+    },
+
+    hostHis() {
+      this.memberMark = 0;
+    },
+    joingHis() {
+      this.memberMark = 1;
+    },
+
+    // 主鳩歷史
+    getMemberHostHis() {
+      var vm = this;
+      var id = vm.memberData.m_ID;
+      axios.get(`member/memberHostHis/${id}`).then((e) => {
+        vm.hostHistory = e.data;
+        // console.log(vm.hostHistory);
+
+        // 日期裁剪
+        vm.hostHistory.forEach(function (e) {
+          e.a_start = e.a_start.substring(0, 10);
+        });
+
+        // 圖片叫用
+        vm.hostHistory.forEach(function (e) {
+          e.a_pic = `/static/img/activityPic/${e.a_pic}`;
+        });
+      });
+    },
+
+    // 參加歷史
+    getMemberJoinHis() {
+      var vm = this;
+      var id = vm.memberData.m_ID;
+      axios.get(`member/memberJoinHis/${id}`).then((e) => {
+        vm.joinHistory = e.data;
+        console.log(vm.joinHistory);
+
+        // 日期裁剪
+        vm.joinHistory.forEach(function (e) {
+          e.a_start = e.a_start.substring(0, 10);
+        });
+
+        // 圖片叫用
+        vm.joinHistory.forEach(function (e) {
+          e.a_pic = `/static/img/activityPic/${e.a_pic}`;
+        });
+      });
+    },
+
+    // 查看評價
+    getCommandNumber(e, f) {
+      this.$bus.$emit("getCommand", {
+        a_ID: e,
+        a_name: f,
+      });
+    },
+
+    // 給評價
+    doCommandNumber(e, f) {
+      this.$bus.$emit("giveRate", {
+        m_ID:this.memberData.m_ID,
+        a_ID: e,
+        a_name: f,
+      });
+    },
+  },
+  created() {
+    this.checkSession();
+  },
 };
 </script>
 

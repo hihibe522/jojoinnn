@@ -146,12 +146,15 @@ export default {
       var id = vm.memberData.m_ID;
 
       axios.get(`member/memberInfo/${id}`).then((e) => {
-        vm.totalExp = e.data.memberExp[0].expSum;
-        // console.log(vm.totalExp);
+        if (e.data.memberExp[0].expSum == null) {
+          vm.totalExp = 0;
+        } else {
+          vm.totalExp = e.data.memberExp[0].expSum;
+        }
+
         vm.needexpPercent = 100 - (vm.totalExp % 100);
         vm.expPercent = vm.totalExp % 100;
         vm.barWidth = `width: ${vm.expPercent}%`;
-        // console.log("ABC");
         vm.getMemberGift();
       });
     },
@@ -202,7 +205,7 @@ export default {
     this.checkSession();
     this.$bus.$on("getGift", (event) => {
       this.getMemberExp();
-      console.log("bus")
+      console.log("bus");
     });
   },
   beforeDestroy: function () {
