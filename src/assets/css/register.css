@@ -12,11 +12,17 @@ img {
     object-fit: cover;
 }
 
-div {
-    /* padding: 5px; */
+#myRegisterForm div {
+    padding: 5px;
     object-fit: contain;
     box-sizing: border-box;
 }
+
+.custom-control-input {
+    position: relative;
+
+}
+
 
 #uploadBtnR {
     border-radius: 12px;

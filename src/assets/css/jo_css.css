@@ -272,13 +272,13 @@ button[class*="btn"]:active {
 
 .jo_heartDiv {
     width: 100px;
-    height: 85px;
+    /* height: 85px; */
     position: relative;
 }
 
 .jo_heart {
     position: absolute;
-    width: 100px;
+    /* width: 100px; */
 }
 
 .jo_heart:hover {

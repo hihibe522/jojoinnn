@@ -270,6 +270,16 @@
     }
 
     /* 為您推薦文字區塊開始 */
+    .actDes{
+        width: 220px;
+        height: 40px;
+    }
+
+    .ellipsis {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
 
     .filterAreaRe {
         /* background-color: tomato; */
@@ -278,7 +288,7 @@
         justify-content: space-between;
         margin: auto;
         width: 1300px;
-        padding: 0px 3.8rem
+        padding: 0px 2rem
     }
 
     .filterAreaRe h3 {

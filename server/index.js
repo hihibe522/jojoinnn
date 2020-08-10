@@ -31,7 +31,7 @@ var consumption = require('./routes/consumption');
 var member = require('./routes/member');
 
 // 0805 Dan
-// var register = require('./routes/register');
+var register = require('./routes/register');
 //--------------router路徑_end-----------------------------------
 
 
@@ -49,6 +49,7 @@ app.use(sessionMiddleware);
 
 //----------------------router----------------------------
 
+// -------------Be---------------------------
 app.use('/modules', modules);
 app.use('/login',login);
 app.use('/socialhall', socialhallRouter);
@@ -56,27 +57,27 @@ app.use('/chat', chatRouter);
 app.use('/user', elseuser);
 app.use('/login', login);
 
-//0805 kuo
+//-------------kuo----------------------
 app.use('/newActivity', newActivity);
 app.use('/activity', activity);
 app.use('/payPage', payPage);
 app.use('/actLocations', actLocations); 
 
-//0805姍姍新增
+// ------------------姍姍-------------------
 app.use('/navCheck', navCheck);
 app.use('/cancelHost', cancelHost);
 app.use('/deposit', deposit);
 app.use('/consumption', consumption);
 app.use('/member', member);
 
-// 0805 Dan
-// app.use('/register', register);
+//-------------------- Dan---------------------
+app.use('/register', register);
 app.use('/home', homePage);
 
 
-var server = http.createServer(app);
-// ------------------------router_end---------------------------
+// ------------------------router_end----------------------
 
+var server = http.createServer(app);
 var port = normalizePort(process.env.PORT || '5000');
 app.set('port', port);
 

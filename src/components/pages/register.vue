@@ -121,7 +121,6 @@
                       class="jo_hover jo_btn jo_btnOrange"
                       value="請上傳個人圖像"
                       accept="image/jpg"
-                      @change="changeAvatar"
                     />
                   </label>
                 </div>
@@ -266,7 +265,7 @@
                   <div class="custom-control custom-checkbox custom-control-inline">
                     <input
                       v-model="checkName"
-                      value="運動類"
+                      value="sport"
                       name="favCat"
                       id="favCat_1"
                       type="checkbox"
@@ -277,7 +276,7 @@
                   <div class="custom-control custom-checkbox custom-control-inline">
                     <input
                       v-model="checkName"
-                      value="音樂類"
+                      value="music"
                       name="favCat"
                       id="favCat_2"
                       type="checkbox"
@@ -292,7 +291,7 @@
                   <div class="custom-control custom-checkbox custom-control-inline">
                     <input
                       v-model="checkName"
-                      value="社交聯誼"
+                      value="social"
                       name="favCat"
                       id="favCat_3"
                       type="checkbox"
@@ -303,7 +302,7 @@
                   <div class="custom-control custom-checkbox custom-control-inline">
                     <input
                       v-model="checkName"
-                      value="藝文類"
+                      value="art"
                       name="favCat"
                       id="favCat_4"
                       type="checkbox"
@@ -314,7 +313,7 @@
                   <div class="custom-control custom-checkbox custom-control-inline">
                     <input
                       v-model="checkName"
-                      value="益智類"
+                      value="brainstorming"
                       name="favCat"
                       id="favCat_5"
                       type="checkbox"
@@ -329,7 +328,7 @@
                   <div class="custom-control custom-checkbox custom-control-inline">
                     <input
                       v-model="checkName"
-                      value="社會服務類"
+                      value="charity"
                       name="favCat"
                       id="favCat_6"
                       type="checkbox"
@@ -340,7 +339,7 @@
                   <div class="custom-control custom-checkbox custom-control-inline">
                     <input
                       v-model="checkName"
-                      value="視聽類"
+                      value="audio"
                       name="favCat"
                       id="favCat_7"
                       type="checkbox"
@@ -351,7 +350,7 @@
                   <div class="custom-control custom-checkbox custom-control-inline">
                     <input
                       v-model="checkName"
-                      value="飲食類"
+                      value="food"
                       name="favCat"
                       id="favCat_8"
                       type="checkbox"
@@ -366,7 +365,7 @@
                   <div class="custom-control custom-checkbox custom-control-inline">
                     <input
                       v-model="checkName"
-                      value="學術類"
+                      value="academic"
                       name="favCat"
                       id="favCat_9"
                       type="checkbox"
@@ -377,7 +376,7 @@
                   <div class="custom-control custom-checkbox custom-control-inline">
                     <input
                       v-model="checkName"
-                      value="旅遊類"
+                      value="tourism"
                       name="favCat"
                       id="favCat_10"
                       type="checkbox"
@@ -388,7 +387,7 @@
                   <div class="custom-control custom-checkbox custom-control-inline">
                     <input
                       v-model="checkName"
-                      value="宅文化"
+                      value="otaku"
                       name="favCat"
                       id="favCat_11"
                       type="checkbox"
@@ -403,7 +402,7 @@
                   <div class="custom-control custom-checkbox custom-control-inline">
                     <input
                       v-model="checkName"
-                      value="戶外休閒"
+                      value="outdoor"
                       name="favCat"
                       id="favCat_12"
                       type="checkbox"
@@ -414,7 +413,7 @@
                   <div class="custom-control custom-checkbox custom-control-inline">
                     <input
                       v-model="checkName"
-                      value="科技類"
+                      value="tech"
                       name="favCat"
                       id="favCat_13"
                       type="checkbox"
@@ -425,7 +424,7 @@
                   <div class="custom-control custom-checkbox custom-control-inline">
                     <input
                       v-model="checkName"
-                      value="手做"
+                      value="handmake"
                       name="favCat"
                       id="favCat_14"
                       type="checkbox"
@@ -635,20 +634,20 @@ export default {
       ifAll: 0,
       selectAll: [
         "all",
-        "戶外休閒",
-        "運動類",
-        "音樂類",
-        "藝文類",
-        "益智類",
-        "視聽類",
-        "飲食類",
-        "社交聯誼",
-        "學術類",
-        "旅遊類",
-        "社會服務類",
-        "宅文化",
-        "科技類",
-        "手做",
+        "outdoor",
+        "sport",
+        "music",
+        "art",
+        "brainstorming",
+        "audio",
+        "food",
+        "social",
+        "academic",
+        "tourism",
+        "charity",
+        "otaku",
+        "tech",
+        "handmake",
       ],
       //全選鈕結束
 
@@ -686,15 +685,15 @@ export default {
     },
 
     autoMsg: function () {
-      this.accountName = "shanshan no.1";
-      this.passwordName = "1234";
-      this.rePasswordName = "1234";
-      this.memberName = "泡泡";
+      this.accountName = "aaaa";
+      this.passwordName = "1111";
+      this.rePasswordName = "1111";
+      this.memberName = "口香糖公主";
       this.memberMail = "bubble@gmail.com";
-      this.memberPhone = "0999999999";
-      this.m_intro = "泡泡第一名";
+      this.memberPhone = "0953435999";
+      this.m_intro = "口香糖公主第一名";
       this.sex = "female";
-      this.m_city = "彰化縣";
+      this.m_city = "臺中市";
       this.memberBirthday = "2020-08-21";
     },
 
@@ -723,7 +722,8 @@ export default {
       // console.log("OKRE");
       console.log(this.sex);
       axios.post("register", { data: memberData }).then((response) => {
-        console.log(response);
+        console.log(response.data);
+        this.$router.push('/registerWelcome');
         //todo 檢查 reponse 是否異常
         //todo alert 註冊成功請重新登入
         //todo 頁面導到登入畫面

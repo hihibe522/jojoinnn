@@ -73,9 +73,7 @@
               <div class="m-auto">
                 <div id="confirmBtn" class="m-5 text-center">
                   <div class="m-auto">
-                    <a href="">
                       <input @click="login" id="btnOK" value="登入" class="jo_btn jo_btnWater" />
-                    </a>
                   </div>
                 </div>
               </div>
@@ -119,7 +117,7 @@ export default {
 
         //控制JO聊啟動
         vm.$bus.$emit('islogin',me);
-        // vm.$router.push('/');
+        vm.$router.push('/');
       })
     },
     logout(){

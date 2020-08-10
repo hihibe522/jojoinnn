@@ -49,7 +49,7 @@
         <!-- 未登入 -->
         <div id="jo_notLogged" v-if="!ifLog">
           <div class="jo_navTitleYellow">
-            <span class="jo_hover">註冊</span>
+            <router-link active-class="nav_active" class="jo_hover" to="/register">註冊</router-link>
             <hr />
           </div>
 

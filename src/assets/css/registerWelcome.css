@@ -12,7 +12,7 @@ img {
 }
 
 div {
-    padding: 5px;
+    /* padding: 5px; */
     object-fit: contain;
 }
 
@@ -21,7 +21,7 @@ div {
 /* 太空鳥 */
 
 #myBirdSpace{
-    background-image: url(/img/jo_images/jo_birdSPace.svg);
+    background-image: url(../img/jo_images/jo_birdSPace.svg);
     background-repeat: no-repeat;
     background-size: 100% 100%;
     height: 150px;
@@ -29,9 +29,8 @@ div {
 }
 
 /* 打勾 */
-
 #checkedBox{
-    background-image: url(/img/jo_images/Jo_checked\ _icon.svg);
+    background-image: url(../img/jo_images/Jo_checked\ _icon.svg);
     background-repeat: no-repeat;
     background-size: 100% 100%;
     width: 100px;
