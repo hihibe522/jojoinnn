@@ -32,9 +32,24 @@ router.get('/search/:area/:cost/:category/:doorType/:activityTime',function(req,
     
         })
 })
+router.get('/searchText/:text',function(req,res,next){
+
+    let sql = `SELECT ifnull(b.collect,0) collect,a.* FROM current_activity AS a 
+               LEFT JOIN (SELECT COUNT(a_ID) AS collect ,a_ID 
+               FROM member_collect GROUP BY a_ID) as b 
+               ON a.a_ID = b.a_ID  WHERE a.a_name like '%${req.params.text}%'
+               ORDER BY a_creatTime DESC `;
+    conn.query(sql,function(err,rows){
+
+        // console.log(rows);
+        res.send(rows);
+
+    })
+    // console.log( req.params.text);
+})
 
 router.get('/myfavList/:m_ID',function(req,res,next){
-        console.log( req.params.m_ID);
+        // console.log( req.params.m_ID);
         if(!req.params.m_ID){
             return;
         }

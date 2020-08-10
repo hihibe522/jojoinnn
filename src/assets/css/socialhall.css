@@ -222,7 +222,7 @@ img{
 }
 .joManCard{
     display: flex;
-    width: 500px;
+    width: 80%;
     height: max-content;
     background-color: var(--jo_lGrey1);
     padding: 20px;
@@ -264,6 +264,7 @@ img{
 .contentText{
     line-height: 1.4rem;
     margin: 20px 0px;
+    font-size: 1.2rem;
 }
 /* 排行榜 */
  .number1{
@@ -349,6 +350,7 @@ img{
  }
  .num_content{
      width: 80%;
+     margin-left: 10px;
  }
  .num_content div{
     display: flex;

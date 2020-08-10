@@ -14,7 +14,7 @@
                                     src="../assets/img/jo_icon/jo_i_explore.svg" alt=""></div>
                             <div :class="{'sidebarWord':showSlideBox}" :style="{ display: display}">
                                 <!-- <router-link to="/search"><h5>出發探索</h5></router-link> -->
-                            <h5 class="jo_hover">設定條件探索</h5>
+                            <h5>設定條件探索</h5>
                             </div>
                         </div>
                     </li>
@@ -32,7 +32,7 @@
                         </div>
 
                         <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
-                            <select @change="searchActivity" v-model="area">
+                            <select class="jo_hover" @change="searchActivity" v-model="area">
                                 <option selected value="all">全部</option>
                                 <option value="臺北市">臺北市</option>
                                 <option value="新北市">新北市</option>
@@ -75,12 +75,12 @@
                             <div id="sideRadio">
                                 <div>
                                     <input @change="searchActivity" v-model="cost" id="free" type="radio" name="cost" value="0">
-                                    <label for="free">免費</label>
+                                    <label class="jo_hover" for="free">免費</label>
                                 </div>
 
                                 <div>
                                     <input @change="searchActivity" v-model="cost" id="paid" type="radio" name="cost" value="1">
-                                    <label for="paid">付費</label>
+                                    <label class="jo_hover" for="paid">付費</label>
                                 </div>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                             </div>
                         </div>
                         <div :class="{'sidebarTitle':showSlideBox}" :style="{ display: display}">
-                            <select @change="searchActivity" v-model="category">
+                            <select class="jo_hover" @change="searchActivity" v-model="category">
                                 <option selected value="all">全部</option>
                                 <option v-for="item in categoryList" :key="item.c_ID" :value="item.c_ID">{{item.c_category}}</option>
                                 
@@ -126,12 +126,12 @@
                             <div id="sideRadio">
                                 <div>
                                     <input  @change="searchActivity" v-model="doorType" id="indoor" type="radio" name="door" value="indoor">
-                                    <label for="indoor">室內</label>
+                                    <label class="jo_hover" for="indoor">室內</label>
                                 </div>
 
                                 <div>
                                     <input  @change="searchActivity" v-model="doorType" id="outdoor" type="radio" name="door" value="outdoor">
-                                    <label for="outdoor">室外</label>
+                                    <label class="jo_hover" for="outdoor">室外</label>
                                 </div>
                             </div>
                         </div>
@@ -177,7 +177,7 @@
                             </div>
                         </div>
                         <div :class="{'sidebarWord':showSlideBox}" class="actDateSelect" :style="{ display: display}">
-                            <input @change="searchActivity" v-model="activityTime" type="date">
+                            <input class="jo_hover" @change="searchActivity" v-model="activityTime" type="date">
                         </div>
                     </li>
 

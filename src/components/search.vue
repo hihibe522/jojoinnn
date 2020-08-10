@@ -19,38 +19,38 @@
                 <div class="areaTime">
                     <div class="areaItem1">
                         <div class="detal timeSelect ">
-                            <select name="" id="">
-                                <option value="">依時間前後排序</option>
-                                <option value="new">時間:由新到舊</option>
-                                <option value="old">時間:由舊到新</option>
+                            <select class="jo_hover" v-model="byTime"  @change="sortByTime">
+                                <option disabled>依時間前後排序</option>
+                                <option selected value="new">時間:由近到遠</option>
+                                <option value="old">時間:由遠到近</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="areaItem2">
                         <div class="detal timeSelect">
-                            <select name="" id="">
-                                <option value="">依價位高低排序</option>
-                                <option value="">價位:由新到舊</option>
-                                <option value="">價位:由舊到新</option>
+                            <select class="jo_hover" v-model="byCost"  @change="sortByCost">
+                                <option disabled>依價位高低排序</option>
+                                <option selected value="low">價位:由低到高</option>
+                                <option value="high">價位:由高到低</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="areaItem3">
                         <div class="detal timeSelect ">
-                            <select name="" id="">
-                                <option value="">依收藏人數排序</option>
-                                <option value="">收藏人數:多到少</option>
-                                <option value="">收藏人數:少到多</option>
+                            <select class="jo_hover" v-model="byCollect"  @change="sortByCollect">
+                                <option disabled>依收藏人數排序</option>
+                                <option selected value="many">收藏人數:多到少</option>
+                                <option value="less">收藏人數:少到多</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="areaItem4">
                         <div class="searchBox">
-                            <input type="search" name="" id="" placeholder="搜尋">
-                            <button class="jo_btn jo_btn_s jo_btnWater jo_hover"><i
+                            <input class="jo_hover" @keyup.enter="searchByText" v-model="searchText" type="search" placeholder="輸入名稱搜尋">
+                            <button @click="searchByText" class="jo_btn jo_btn_s jo_btnWater jo_hover"><i
                                     class="fa fa-search jo_hover"></i>
                             </button>
                         </div>
@@ -58,6 +58,10 @@
                 </div>
         </div>
             <div class="yourArea">
+                <div class="notFound" v-if="searchDataList == ''">
+                     <p>尚未有符合的資料唷🧐</p>
+                    <img src="@/assets/img/jo_images/jo_notFind.svg" alt="">
+                </div>
                 <ul class="grid gridAct cs-style-3 ">
                     <li v-for="(item,index) in searchDataList" :key="index">
                         <figure>
@@ -81,8 +85,6 @@
                                     <input type=" button" name="" id="" class="jo_btn jo_btnRed jo_btn_s"
                                         value="活動詳情">
                                     </router-link>
-                                    <!-- <input type=" button" name="" id="" class="jo_btn jo_btnWater jo_btn_s"
-                                        value="活動詳情"> -->
                                 </div>
                             </figcaption>
                         </figure>
@@ -91,12 +93,7 @@
                             <div class="">
                                 <h6>{{item.collect}}人收藏</h6>
                             </div>
-                            <favicon @refreachLike="getSearchData" :liked="item.like" :aid="item.a_ID" ></favicon>
-                            <!-- <favicon></favicon> -->
-                            <!-- <div class="jo_heartDiv" style="zoom: .3">
-                                <img class="jo_heart " src="../assets/img/jo_images/jo_heart.svg" alt="">
-                                <img class="jo_heart jo_hover" src="../assets/img/jo_images/jo_heart.svg" alt="">
-                            </div> -->
+                            <favicon @refreachLike="collectActivity" :liked="item.like" :aid="item.a_ID" ></favicon>
                         </div>
                         <!-- 幾人收藏+愛心結束 -->
                     </li>
@@ -127,26 +124,113 @@ export default {
            doorType:"",
            activityTime:"",
            searchDataList:[],
+           byTime:"new",
+           byCost:"low",
+           byCollect:"many",
+           searchText:""
         }
     },
     methods: {
+        collectActivity(aid,like){
+
+            this.searchDataList.forEach((item,index)=>{
+                if(item.a_ID == aid && like){
+                    this.searchDataList[index].collect ++ ; 
+                }
+                if(item.a_ID == aid && like == false){
+                    this.searchDataList[index].collect -- ;
+                }              
+            })
+
+        },
+        searchByText(){
+            var vm = this;
+            console.log(vm.searchText);
+            axios.get(`home/searchText/${vm.searchText}`)
+            .then(e=>{
+                console.log(e.data)
+                vm.searchDataList = e.data;
+            })
+        },
+        // 收藏排序
+        sortByCollect(){
+            console.log(this.byCollect);
+            let type = this.byCollect;
+            switch (type){
+                case "many": //大至小
+                    this.searchDataList.sort(function (a, b) {
+                        return a.collect < b.collect ? 1 : -1;
+                    });    
+                break; 
+                
+                case "less": //小至大
+                    this.searchDataList.sort(function (a, b) {
+                    return a.collect > b.collect ? 1 : -1;
+                }); 
+                break;
+            }
+
+            console.log(this.searchDataList);
+        },
+        // 金額排序
+        sortByCost(){
+            console.log(this.byCost);
+            let type = this.byCost;
+            switch (type){
+                case "high": //大至小
+                    this.searchDataList.sort(function (a, b) {
+                        return a.a_price < b.a_price ? 1 : -1;
+                    });    
+                break; 
+                
+                case "low": //小至大
+                    this.searchDataList.sort(function (a, b) {
+                    return a.a_price > b.a_price ? 1 : -1;
+                }); 
+                break;
+            }
+            console.log(this.searchDataList);
+        },
+        // 時間排序
+        sortByTime(){
+            console.log(this.byTime);
+            let type = this.byTime;
+            switch (type){
+                case "new":
+                    this.searchDataList.sort(function (a, b) {
+                        return a.a_ID < b.a_ID ? 1 : -1;
+                    });    
+                break; 
+                
+                case "old":
+                    this.searchDataList.sort(function (a, b) {
+                    return a.a_ID > b.a_ID ? 1 : -1;
+                }); 
+                break;
+            }
+            console.log(this.searchDataList);
+        },
         getSearchData(){
             var vm = this;
             axios.get(`/home/search/${this.area}/${this.cost}/${this.category}/${this.doorType}/${this.activityTime}`)
             .then(e=>{
-                var search = e.data
-                search.forEach((item,index)=>{
+                // var search = e.data
+                vm.getMyFavList();
+                vm.bindFavList(e.data);
+            })
+        },
+        bindFavList(search){
+             search.forEach((item,index)=>{
                     // console.log( vm.myFavList);
-                    if( vm.myFavList.indexOf(item.a_ID)> -1 ){
+                    if( this.myFavList.indexOf(item.a_ID)> -1 ){
                         search[index].like = 1
                     }
                     else{
                        search[index].like = 0
                     } 
                 })
-                vm.searchDataList = search;
-                // console.log(search);
-            })
+            this.searchDataList = search;
+
         },
         getMyFavList(){
             var vm = this;
@@ -223,6 +307,11 @@ export default {
 }
 .collectAndLike{
     align-items: flex-start;
+}
+.notFound{
+    margin: 6rem 0 10rem 22rem;
+    font-size: 1.8rem;
+    color: white;
 }
 
 

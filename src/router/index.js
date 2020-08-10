@@ -52,7 +52,7 @@ export default new Router({
       children:[
         {
           path:'',
-          name:'home',
+          // name:'home',
           component: home,
           children:[
             {

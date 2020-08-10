@@ -48,7 +48,7 @@
         display: flex;
         position: absolute;
         z-index: 2;
-        top: 40px;
+        top: 75px;
         height: 42px;
         width: 2rem;
         border-radius: 5px 0 0 5px;
@@ -109,7 +109,7 @@
         justify-content: center;
         margin: auto;
         text-align: center;
-        padding: 6rem 20px 4rem 20px;
+        padding: 8rem 20px 4rem 20px;
     }
 
     .sidebar ul {

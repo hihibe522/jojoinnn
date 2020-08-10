@@ -40,16 +40,17 @@ export default {
       if (!this.like) {
         // 收藏活動 ajax
         axios.post("modules/collect", { info: data }).then((e) => {
-          // console.log(e);
           this.like = !this.like;
+          this.$emit("refreachLike",this.inaid,this.like);
         });
       } else {
         axios.post("modules/delcollect", { info: data }).then((e) => {
           this.like = !this.like;
+          this.$emit("refreachLike",this.inaid,this.like);
         });
       }
-      this.$emit("refreachLike");
-      //vm.$emit("addLike", "");
+      // this.$emit("refreachLike",this.inaid,this.like);
+
       // 樣式改變
       // this.like = !this.like;
     },

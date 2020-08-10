@@ -227,7 +227,6 @@ export default {
   },
   methods: {
     checkSession() {
-      $("html, body").scrollTop(0);
       var meLog = JSON.parse(localStorage.getItem("myinfo"));
       if (meLog) {
         this.memberData = meLog;
