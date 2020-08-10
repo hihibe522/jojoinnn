@@ -4,7 +4,7 @@
     <!-- <favicon :liked="like.likeit" :aid="like.aid" ></favicon> -->
 
     <div v-if="loginOK" @click="showChatBox = true" class="chat_icon">
-        <img class="ld ld-bounceAlt" src="../assets/img/jo_images/jo_i_chat.svg" alt="">
+        <img class="ld ld-bounceAlt jo_hover" src="../assets/img/jo_images/jo_i_chat.svg" alt="">
     </div>
     <div class="chatRoom" :class="{'chat_avtive': showChatBox}">
         <div class="chatTitle">
@@ -24,14 +24,14 @@
                       </section>
                   </div>
                   <div class="inputMsg">
-                      <input v-model="chatMsg.msg" @keyup.13="sendMsg" type="text" placeholder="請輸入訊息">
+                      <input class="jo_hover" v-model="chatMsg.msg" @keyup.13="sendMsg" type="text" placeholder="請輸入訊息">
                   </div>
           </div>
           <div class="chatRightbox">
                 <ul>
-                    <li @click="selFriendToChat(item.m_ID,item.m_name)" v-for="item in friendList" :key="item.m_ID">
-                        <img v-if="item.m_ID" :src="require(`../../static/img/head/${item.m_profile}`)" alt="">
-                        <h5 :id="item.m_ID">{{item.m_name}}</h5>
+                    <li :class="[(item.m_name == chatMsg.toName)? chatAct :'']" class="jo_hover" @click="selFriendToChat(item.m_ID,item.m_name)" v-for="item in friendList" :key="item.m_ID">
+                        <img class="jo_hover" v-if="item.m_ID" :src="require(`../../static/img/head/${item.m_profile}`)" alt="">
+                        <h5 class="jo_hover" :id="item.m_ID">{{item.m_name}}</h5>
                     </li>
                 </ul>
           </div>
@@ -54,6 +54,7 @@ export default{
   },
   data() {
     return {
+      chatAct:'chatAct',
       localStorage:"",
       loginOK:false,
       myInfo:{
@@ -292,6 +293,9 @@ export default{
 
   #loginInput{
    margin-top: 100px;
+  }
+  .chatAct{
+    background-color: var(--jo_lGrey2);
   }
 
 </style>

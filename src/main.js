@@ -22,6 +22,10 @@ import socketio from "socket.io-client"
 
 const url = `http://localhost:5000`;
 
+router.afterEach((to, from) => {
+  window.scrollTo(0,0);
+})
+
 Vue.use(new VueSocketIO({
     debug: true,
     connection: socketio(url),

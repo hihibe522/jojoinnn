@@ -39,9 +39,6 @@ export default {
                 
             }
         },
-        created() {
-          $("html, body").scrollTop(0);
-        },
     }
 
 </script>

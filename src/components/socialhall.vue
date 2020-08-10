@@ -10,7 +10,7 @@
                   </div>
                   <!-- 多人聊天大廳 -->
                   <div class="mainBoard">
-                      <div v-if="(me.m_name == '')">
+                      <div style="margin-top: 3.5rem;" v-if="(me.m_name == '')">
                           <img :src ="require(`../assets/img/jo_images/jo_spaceShip.svg`)" alt="">
                           <p class="loginTips">快登入加入聊天😉</p>
                       </div>
@@ -19,7 +19,7 @@
                       </div>
                   </div>
                   <div class="footerBoard">
-                      <input @keyup.13="msgBoardTextIn" v-model="sendMsg" id="msgText" type="text" name="chatMsg">
+                      <input @keyup.13="msgBoardTextIn" v-model="sendMsg" id="msgText" class="jo_hover" type="text" placeholder="輸入聊天訊息">
                       <input @click="msgBoardTextIn" id="msgSend" class="jo_btn jo_btn_s jo_btnWater" type="submit" value="送出">
                   </div>
               </div>
@@ -40,9 +40,9 @@
         </div>
         <section class="mySection row no-gutters animateItem">
             <div class="catoContent">
-                <div v-if="serchPeoples ==''">
-                <p style="font-size: 2rem;">尚未有符合的資料唷🧐</p>
-                <img src="@/assets/img/jo_images/jo_footerBirdDark.svg" alt="">
+                <div style="margin-top: 5rem;" v-if="serchPeoples ==''">
+                    <p style="font-size: 1.5rem;">尚未有符合的資料唷🧐</p>
+                    <img src="@/assets/img/jo_images/jo_notFind.svg" alt="">
                 </div>
                 <!-- <div v-if="serchPeoples"> -->
                     <div  v-for="item in serchPeoples" :key="item.m_ID" class="joManCard">
@@ -53,9 +53,10 @@
                             <div class="joManTitle">
                                 <span v-if="item.m_name" class="joManName">{{item.m_name}}</span>
                                 <!-- 星星評價元件 -->
-                                <StarRate :m_rate="item.rate"></StarRate>
-
-                                <span>({{item.counts}}人評價)</span>
+                                <div>
+                                    <StarRate :m_rate="item.rate"></StarRate>
+                                    <span>({{item.counts}}人評價)</span>
+                                </div>
                             </div>
                             <div class="contentText">
                                 {{item.introduce}}
@@ -144,7 +145,7 @@
                                   <img class="head" v-if="masterPlayer[0].m_profile" :src="require(`../../static/img/head/${masterPlayer[0].m_profile}`)" alt="">
                                   <div class="num1Name" v-if="masterPlayer[0].m_name">{{masterPlayer[0].m_name}}</div>
                                   <div class="expPoint">
-                                      <span>{{selPlayerCategory}}</span>經驗值<span>{{masterPlayer[0].points}}</span>exp
+                                      <span>{{categoryTrans}}</span>經驗值<span>{{masterPlayer[0].points}}</span>exp
                                   </div>
 
                                   <div class="num1text">
@@ -204,7 +205,7 @@ export default{
                 sendMsg:"",
                 selHostCategory:"all",
                 selPlayerCategory:"all",
-                category:[],
+                category:[{c_category:""}],
                 msgArray:[],
                 connectPeople:[],
                 serchText:"",
@@ -358,6 +359,15 @@ export default{
                 playerTo4:function(){
                      var data = this.masterPlayer.splice(1);
                     return data;
+                },
+                categoryTrans:function(){
+                    let selCate = ""
+                    this.category.forEach((item,index)=>{
+                        if(item.c_ID == this.selPlayerCategory){
+                            selCate = item.c_category
+                        }
+                    })
+                    return selCate ;
                 }
             },         
             created() {
