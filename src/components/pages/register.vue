@@ -10,9 +10,10 @@
               <h1>註冊成為Jo星人</h1>
               <h5>
                 已經有帳號嗎?
-                <a href="/login.html">
+
+                 <router-link to="login" >
                   <span class="jo_hover">來這登入</span>
-                </a>
+                </router-link>
               </h5>
             </div>
           </div>
@@ -23,22 +24,20 @@
             <div class="m-auto w-100">
               <!-- 設定帳號開始 -->
               <div class="form-group row qTitle">
-                <span class="jo_formSmallTitle">
-                  <h5>建立帳號</h5>
-                </span>
-
                 <!-- 一鍵生成開始 -->
-                <div class="m-auto w-100">
+                <div class="m-auto w-100 h-100">
                   <button
                     class="jo_hover btn btn-outline-warning"
                     type="button"
                     id="autoMsg"
                     @click="autoMsg"
-                    style="position: absolute; opacity:0; z-index:1"
+                    style="position: absolute; z-index:1; opacity:0"
                   >點擊生成</button>
                 </div>
                 <!-- 一鍵生成結束 -->
-
+                <span class="jo_formSmallTitle">
+                  <h5>建立帳號</h5>
+                </span>
                 <label for="accountName" class="align-items-center col-4 col-form-label">設定帳號</label>
                 <div class="col-4">
                   <input
@@ -737,5 +736,9 @@ export default {
 <style>
 @import "../../assets/css/register.css";
 @import "../../assets/css/clause.css";
+
+#myRegisterForm{
+  margin-top: 6rem;
+}
 </style>
  
