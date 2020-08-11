@@ -109,37 +109,18 @@ export default{
                 if(!has){
                      vm.$set(vm.onlineChatMsgs,vm.chatMsg.toId,[])
                 }
-                // console.log(data);
-                // console.log(vm.onlineChatMsgs)
-                // console.log(vm.onlineChatMsgs[vm.chatMsg.toId])
-                // vm.onlineChatMsgs
-                
+
                 vm.onlineChatMsgs[vm.chatMsg.toId].push(data);
                 console.log( vm.onlineChatMsgs[vm.chatMsg.toId]);
 
             },  
             checklogin(a){
                 var vm = this;
-                // console.log(a);
                 vm.myInfo.myId = a.m_ID;
                 vm.myInfo.myName = a.m_name;
                 vm.loginOK = true;
                 vm.getChatList();
                 vm.selfInfo();
-                // vm.loginOK = true;
-                // vm.getChatList();
-                // vm.selfInfo();
-                // vm.$bus.$emit('islogin',myInfo);
-                // axios.post('login',{id:name}).then(
-                //   e=>{
-                //     // console.log(e)
-                //     // console.log(e.data);
-                //     vm.loginOK = true;
-                //     vm.getChatList();
-                //     vm.selfInfo();
-                //     vm.$bus.$emit('islogin',e.data);
-                //   }
-                // )
             },
             selfInfo(){
                 var vm = this;
@@ -151,11 +132,6 @@ export default{
                 this.$socket.emit("uInfo", self);
                 
             },
-            // logout(){
-            //      this.$socket.emit("leavechat",this.myInfo.sid);
-            //      this.loginOK = false;
-            //      this.showChatBox = false;
-            // },
             getChatList(){
                 var vm = this;
                 axios.get(`chat/${vm.myInfo.myId}`)

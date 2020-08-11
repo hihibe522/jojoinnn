@@ -1,15 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import HelloWorld from '@/components/HelloWorld'
-// import chatRoom from '@/components/chatRoom'
 
-//0805 dan 
+
+//------------- dan---------------------------------------------- 
 import register from '@/components/pages/register'
 import registerWelcome from '@/components/pages/registerWelcome'
 import Login from '@/components/pages/login'
 
 
-
+// ---------------Be------------------------------------
 import home from '@/components/Home'
 import recommend from '@/components/recommend'
 import search from '@/components/search'
@@ -30,15 +29,15 @@ import memberHosting from '@/components/Vue_memberHosting'
 import memberHistory from '@/components/Vue_memberHistory'
 import memberFollow from '@/components/Vue_memberFollow'
 import memberLucky from '@/components/Vue_memberLuck'
-//-------------------33-------------------------------------
-//------------------------ kk------------------------
+
+//------------------------ kk------------------------------
 import newActivity from '@/components/kuoNewActivity_Vue'
 import activity from '@/components/kuoActivity_Vue'
 import payPage from '@/components/kuoPayPage_Vue'
 import actLocations from '@/components/kuoGpsPage_Vue'
 import newActFinish from '@/components/kuoNewActivityFinish'
 
-//------------------------ kk------------------------
+//------------------------ kk--------------------------------
 
 
 Vue.use(Router)
