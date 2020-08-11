@@ -35,7 +35,7 @@ export default {
 
       setTimeout(() => {
         clearInterval(Timer);
-        this.$router.push('/member/')
+        this.$router.push('/member/memberHosting');
       }, 3000);
     },
   },

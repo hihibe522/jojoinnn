@@ -125,9 +125,7 @@ export default {
       axios.get(`payPage/${actID}`).then((e) => {
         // console.log(e);
         console.log(e.data.payment[0]);
-
         var payment = e.data.payment[0];
-
         this.a_name = payment.a_name;
         this.joCoin = this.memberData.joCoin;
         this.a_price = payment.a_price;
@@ -143,11 +141,11 @@ export default {
         a_price: this.a_price,
       };
       if (this.con_deposit > 0) {
-          this.$bus.$emit("changeJoCoin", {
-      });
+  
         this.reciprocal();
         axios.put("payPage", { deposit: deposit }).then((e) => {
-          console.log(e);
+            this.$bus.$emit("changeJoCoin", {
+      });
         });
       } else {
         this.$router.push("/deposit");
