@@ -143,6 +143,13 @@ export default {
             })
 
         },
+        // 取出的data時間格式整理
+        timeSubstr(){
+            this.searchDataList.forEach((item,index) => {
+                this.searchDataList[index].a_start = item.a_start.substr(0,16);
+                this.searchDataList[index].a_end = item.a_end.substr(0,16);
+            });
+        },
         searchByText(){
             var vm = this;
             console.log(vm.searchText);
@@ -150,6 +157,7 @@ export default {
             .then(e=>{
                 console.log(e.data)
                 vm.searchDataList = e.data;
+                this.timeSubstr();
             })
         },
         // 收藏排序
@@ -214,7 +222,6 @@ export default {
             var vm = this;
             axios.get(`/home/search/${this.area}/${this.cost}/${this.category}/${this.doorType}/${this.activityTime}`)
             .then(e=>{
-                // var search = e.data
                 vm.getMyFavList();
                 vm.bindFavList(e.data);
             })
@@ -230,6 +237,7 @@ export default {
                     } 
                 })
             this.searchDataList = search;
+            this.timeSubstr();
 
         },
         getMyFavList(){
@@ -312,6 +320,12 @@ export default {
     margin: 6rem 0 10rem 22rem;
     font-size: 1.8rem;
     color: white;
+}
+figcaption p:first-of-type{
+    font-size: 1.3rem;
+}
+figcaption p:nth-of-type(2){
+    font-size: 1.2rem;
 }
 
 
