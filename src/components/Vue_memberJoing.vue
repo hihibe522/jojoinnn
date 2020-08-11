@@ -18,7 +18,11 @@
     <!-- 正在主Jo區塊 -->
     <div id="hostingSection" class="memberEvent">
       <div class="joiningCard" v-for="(joingItem,index) in joingData" :key="index">
-        <router-link active-class="nav_active" class="jo_hover" to="/deposit">
+        <router-link
+          active-class="nav_active"
+          class="jo_hover"
+          :to="`/activity/?a_ID=${joingItem.a_ID}`"
+        >
           <div class="joiningPic hostingPic">
             <img class="jo_hover pic_hover" :src="joingItem.a_pic" alt />
           </div>
@@ -26,7 +30,11 @@
 
         <div class="joiningInfo hostingInfo">
           <ul>
-            <router-link active-class="nav_active" class="jo_hover" to="/deposit">
+            <router-link
+              active-class="nav_active"
+              class="jo_hover"
+              :to="`/activity/?a_ID=${joingItem.a_ID}`"
+            >
               <li>
                 <h4 class="jo_hover title_hover">{{joingItem.a_name}}</h4>
               </li>
@@ -48,7 +56,9 @@
             class="unpayBtn"
             :style="{'display':(joingItem.m_pay==0&&joingItem.m_free==0)? 'flex':'none'}"
           >
-            <input type="button" class="jo_btn jo_btnRed jo_btn_s" value="付款去" />
+            <router-link class="payBtn" :to="`/payPage/?a_ID=${joingItem.a_ID}`">
+              <input type="button" class="jo_btn jo_btnRed jo_btn_s" value="付款去" />
+            </router-link>
             <div>
               <input
                 type="button"
@@ -123,6 +133,10 @@ export default {
 @import "../assets/css/member.css";
 
 .m_joingBtn_unPaid a {
+  display: flex;
+}
+
+.payBtn {
   display: flex;
 }
 </style>

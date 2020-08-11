@@ -41,7 +41,7 @@ router.get('/memberCollect/:id', function (req, res, next) {
 // 正在參加的活動
 router.get('/memberJoing/:id', function (req, res, next) {
 
-    conn.query('select * from (transaction join member ON transaction.a_host=member.m_ID )INNER JOIN current_activity on transaction.a_ID = current_activity.a_ID WHERE transaction.m_ID=? and (current_activity.a_avalible<=1 or current_activity.a_avalible=4)', [req.params.id], function (err, rows) {
+    conn.query('select * from (transaction join member ON transaction.a_host=member.m_ID )INNER JOIN current_activity on transaction.a_ID = current_activity.a_ID WHERE transaction.m_ID=? and (current_activity.a_avalible<=1 or current_activity.a_avalible=4) order by t_D desc', [req.params.id], function (err, rows) {
         res.send(rows);
         // next();
     });
@@ -53,7 +53,7 @@ router.get('/memberJoing/:id', function (req, res, next) {
 // 參加歷史
 router.get('/memberJoinHis/:id', function (req, res, next) {
 
-    conn.query('select * from (transaction join member ON transaction.a_host=member.m_ID )INNER JOIN current_activity on transaction.a_ID = current_activity.a_ID WHERE transaction.m_ID=? and current_activity.a_avalible>=5', [req.params.id], function (err, rows) {
+    conn.query('select * from (transaction join member ON transaction.a_host=member.m_ID )INNER JOIN current_activity on transaction.a_ID = current_activity.a_ID WHERE transaction.m_ID=? and current_activity.a_avalible>=5 order by t_D desc', [req.params.id], function (err, rows) {
         res.send(rows);
         // next();
     });
@@ -79,7 +79,7 @@ router.get('/hostMemberData/:aid', function (req, res, next) {
 // 正在舉辦的活動
 router.get('/memberHosting/:id', function (req, res, next) {
 
-    conn.query('select * from current_activity where (a_avalible<=1 or a_avalible=4) and a_host=? ', [req.params.id], function (err, rows) {
+    conn.query('select * from current_activity where (a_avalible<=1 or a_avalible=4) and a_host=? order by a_ID desc', [req.params.id], function (err, rows) {
         res.send(rows);
         // next();
     });
@@ -90,7 +90,7 @@ router.get('/memberHosting/:id', function (req, res, next) {
 // 舉辦歷史
 router.get('/memberHostHis/:id', function (req, res, next) {
 
-    conn.query('select * from current_activity where a_avalible>=5 and a_host=?', [req.params.id], function (err, rows) {
+    conn.query('select * from current_activity where a_avalible>=5 and a_host=? order by a_ID desc', [req.params.id], function (err, rows) {
         res.send(rows);
         // next();
     });

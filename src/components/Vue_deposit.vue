@@ -264,6 +264,11 @@ export default {
 
     successModal() {
       var tm = this;
+
+      this.$bus.$emit("changeJoCoin", {
+        joCoin: tm.memberData.joCoin,
+      });
+
       $("#payModal").modal("show");
 
       setInterval(() => {
@@ -272,15 +277,14 @@ export default {
       }, 1000);
 
       setTimeout(() => {
-        window.location.replace("/");
-        // this.$router.back(-1);
-        // location.reload()
+        window.history.go(-1);
+        $("#payModal").modal("hide");
       }, 3000);
     },
 
     // 一鍵生成資料
     creditInfo() {
-      this.info_name = "姍姍來了";
+      this.info_name = "口香糖公主";
       this.info_card = [8080, 1107, 3333, 1107];
       this.info_month = this.creditMonth[10];
       this.info_year = this.creditYear[5];

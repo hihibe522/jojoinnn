@@ -45,7 +45,6 @@ router.get('/searchText/:text',function(req,res,next){
         res.send(rows);
 
     })
-    // console.log( req.params.text);
 })
 
 router.get('/myfavList/:m_ID',function(req,res,next){

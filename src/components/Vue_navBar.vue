@@ -26,7 +26,7 @@
           <hr />
         </div>
         <div class="jo_navTitleYellow">
-           <router-link active-class="nav_active" class="jo_hover" to="/newActivity">我要Jo團</router-link>
+          <router-link active-class="nav_active" class="jo_hover" to="/newActivity">我要Jo團</router-link>
           <hr />
         </div>
 
@@ -34,7 +34,6 @@
           <router-link active-class="nav_active" class="jo_hover" to="/deposit">Jo幣儲值</router-link>
           <hr />
         </div>
-
 
         <div class="jo_navTitleYellow">
           <!-- <span> -->
@@ -177,7 +176,13 @@
                     class="joingBtn_unPaid"
                     :style="[(joingItem.m_pay==0&&joingItem.m_free==0)? {'dispaly':'flex'} : {'display':'none'} ]"
                   >
-                    <input type="button" value="付款去" class="jo_btn jo_btnRed jo_btn_s" />
+                    <router-link
+                      active-class="nav_active"
+                      class="jo_hover"
+                      :to="`/payPage/?a_ID=${joingItem.a_ID}`"
+                    >
+                      <input type="button" value="付款去" class="jo_btn jo_btnRed jo_btn_s" />
+                    </router-link>
                     <input type="button" value="取消參Jo" class="jo_btn jo_btnBlue jo_btn_s" />
                   </div>
                   <div
@@ -406,11 +411,15 @@ export default {
     this.$bus.$on("cancelOK", (event) => {
       this.navCheck();
     });
+    this.$bus.$on("changeJoCoin", (event) => {
+      this.navCheck();
+    });
   },
 
   beforeDestroy: function () {
     this.$bus.$off("islogin");
     this.$bus.$off("cancelOK");
+    this.$bus.$off("changeJoCoin");
     // this.$bus.$off("NewMsg");
   },
 };
