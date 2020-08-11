@@ -415,5 +415,8 @@ export default {
 @import "../assets/css/da_grid_default.css";
 @import "../assets/css/da_grid_component.css";
 
+.filterArea{
+  padding: 0px 1.8rem;
+}
 
 </style>
