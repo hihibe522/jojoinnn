@@ -11,6 +11,40 @@ router.get('/carouse',function(req,res,next){
 
         })
 })
+// 未登入，隨機在推薦跟附近的活動show各8筆資料
+router.get('/recommend',function(req,res,next){
+    let sql = `SELECT * FROM current_activity WHERE a_avalible<=1 ORDER BY rand() LIMIT 8`;
+    conn.query(sql,function(err,rows){
+            res.send(rows);
+
+        })
+})
+
+// 登入後，在您附近的活動show 8筆資料
+router.get('/memberNearby/:m_ID',function(req,res,next){
+    let sql = `SELECT * from current_activity where a_city in (SELECT m_address FROM member where m_ID= ?)  LIMIT 8`;
+    conn.query(sql,[req.params.m_ID],function(err,rows){
+        if(err){
+            console.log(err);
+        }
+        console.log(rows);
+        res.send(rows);
+    })
+})
+
+
+// 登入後，在推薦的活動show 8筆資料
+router.get('/memberRecommend/:m_ID',function(req,res,next){
+    let sql = `SELECT * from current_activity where c_ID in (SELECT fav_category FROM member_fav where m_ID= ?) LIMIT 8 `;
+    conn.query(sql,[req.params.m_ID],function(err,rows){
+        if(err){
+            console.log(err);
+        }
+        console.log(rows);
+        res.send(rows);
+    })
+})
+
 
 router.get('/search/:area/:cost/:category/:doorType/:activityTime',function(req,res,next){
 
