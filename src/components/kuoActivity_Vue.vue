@@ -211,7 +211,7 @@
             </button>
           </div>
           <div class="jomodal_content">
-            <h2 class="m-3 pb-3">{{(a_hostID==memberData.m_ID)? "請填寫原因":(a_price>0)?"請盡速繳交金額報名":"完成報名"}}</h2>
+            <h2 class="m-3 pb-3">{{(a_hostID==memberData.m_ID)? "請填寫原因":(a_price>0)?"請進行付款完成參加":"完成報名"}}</h2>
             <textarea
               :style="[(a_hostID==memberData.m_ID)? {'display':'block'}:{'display':'none'}]"
               cols="40" rows="5" class="form-control jo_scrollbar mx-auto mb-2"
@@ -225,7 +225,7 @@
           <div class="d-flex">
 
             <input type="button" data-dismiss="modal"
-                :class="(a_hostID==memberData.m_ID)?'jo_btn jo_btnBlue jo_btn_m mx-3':'d-none'"
+                :class="(a_hostID==memberData.m_ID)?'jo_btn jo_btnRed jo_btn_m mx-3':'d-none'"
                 value="確定取消"
                 @click="function(){postReason();hideModal()}"
             />
@@ -457,6 +457,8 @@ export default {
            // console.log(e);
          });
       }
+       this.refreshPage()
+        $("#my_jomodal").modal("hide");
     },
 
     // 取消參Jo
@@ -472,6 +474,8 @@ export default {
         };
         axios.post("activity/cancel", { cancelAct: cancelAct }).then((e) => {
           console.log(e);
+          this.refreshPage()
+           $("#my_jomodal").modal("hide");
         });
     
     },
@@ -485,12 +489,16 @@ export default {
       if (this.a_hostID == this.memberData.m_ID) {
         axios.post("activity/reason", { reason: reasonContent }).then((e) => {
           // console.log(e);
+      
         });
-        axios
-          .put("activity", { activity_ID: this.activity_ID })
-          .then((e) => {});
-        return;
+        axios.put("activity", { activity_ID: this.activity_ID })
+          .then((e) => {
+       
+          });
+        this.refreshPage()
+         $("#my_jomodal").modal("hide");
       }
+    
     },
 
     statusSetting: function () {

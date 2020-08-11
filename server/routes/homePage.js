@@ -3,7 +3,7 @@ var router = express.Router();
 var conn = require("../db");
 
 router.get('/carouse',function(req,res,next){
-    let sql = `SELECT * FROM current_activity  
+    let sql = `SELECT * FROM current_activity WHERE a_avalible <=1 
                ORDER BY current_activity.a_creatTime  DESC LIMIT 5`;
     
         conn.query(sql,function(err,rows){
@@ -27,7 +27,7 @@ router.get('/memberNearby/:m_ID',function(req,res,next){
         if(err){
             console.log(err);
         }
-        console.log(rows);
+        // console.log(rows);
         res.send(rows);
     })
 })
@@ -40,7 +40,7 @@ router.get('/memberRecommend/:m_ID',function(req,res,next){
         if(err){
             console.log(err);
         }
-        console.log(rows);
+        // console.log(rows);
         res.send(rows);
     })
 })
@@ -56,7 +56,7 @@ router.get('/search/:area/:cost/:category/:doorType/:activityTime',function(req,
                LEFT JOIN (SELECT COUNT(a_ID) AS collect ,a_ID 
                FROM member_collect GROUP BY a_ID) as b 
                ON a.a_ID = b.a_ID WHERE ${str} AND c_in_out = ? AND a_start > ? AND c_ID LIKE ? AND a_city LIKE ? 
-               ORDER BY a_creatTime DESC`
+               AND a_avalible <=1 ORDER BY a_creatTime DESC`
 
         conn.query(sql,[req.params.doorType,req.params.activityTime,`%${category}`,`%${area}`],function(err,rows){
             if(err){
@@ -71,7 +71,7 @@ router.get('/searchText/:text',function(req,res,next){
     let sql = `SELECT ifnull(b.collect,0) collect,a.* FROM current_activity AS a 
                LEFT JOIN (SELECT COUNT(a_ID) AS collect ,a_ID 
                FROM member_collect GROUP BY a_ID) as b 
-               ON a.a_ID = b.a_ID  WHERE a.a_name like '%${req.params.text}%'
+               ON a.a_ID = b.a_ID  WHERE a.a_name like '%${req.params.text}%' AND a_avalible <=1
                ORDER BY a_creatTime DESC `;
     conn.query(sql,function(err,rows){
 

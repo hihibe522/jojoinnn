@@ -12,9 +12,8 @@
                         <div class="sidebarImgTitle">
                             <div class="sidebarImg"><img class="sidebarImg joPic_hover" 
                                     src="../assets/img/jo_icon/jo_i_explore.svg" alt=""></div>
-                            <div :class="{'sidebarWord':showSlideBox}" :style="{ display: display}">
-                                <!-- <router-link to="/search"><h5>出發探索</h5></router-link> -->
-                            <h5>設定條件探索</h5>
+                            <div :class="{'sidebarWord':showSlideBox}" :style="{ display: display}">                
+                            <h5><router-link class="jo_hover" to="/search">設定條件探索</router-link></h5>
                             </div>
                         </div>
                     </li>
@@ -275,7 +274,9 @@ methods: {
 @import '../assets/css/da_grid_default.css';
 @import '../assets/css/da_grid_component.css';
 
-
+a{
+    color: #333;
+}
 
 
 </style>

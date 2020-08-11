@@ -211,8 +211,8 @@
                     </div>
                   </div>
                   <hr id="actArea" />
-                  <p>{{item.a_address}}</p>
-                  <p>{{item.c_category}}</p>
+                  <p class="ad">{{item.a_address}}</p>
+                  <p class="ac">{{item.c_category}}</p>
                   <div class="ActButton">
                     <router-link :to="{ name:'activity',query:{a_ID:item.a_ID }}">
                       <input type="button" name id class="jo_btn jo_btnRed jo_btn_s" value="活動詳情" />
@@ -224,7 +224,7 @@
 
               <!-- 幾人收藏 + 愛心開始 -->
               <div class="row mx-0 collectAndLike">
-                <div class>
+                <div>
                   <h6>25人收藏</h6>
                 </div>
 
@@ -417,6 +417,25 @@ export default {
 
 .filterArea{
   padding: 0px 1.8rem;
+}
+.collectAndLike {
+  justify-content: space-between;
+  margin-top: 0.3rem;
+  align-items: flex-start;
+}
+
+.collectAndLike div h6 {
+  color: white;
+  margin-bottom: 0;
+  font-size: 1.2rem;
+}
+
+.ad {
+  font-size: 1.2rem;
+}
+
+.ac {
+  font-size: 1.2rem;
 }
 
 </style>
