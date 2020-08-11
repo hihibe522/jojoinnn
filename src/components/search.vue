@@ -152,17 +152,17 @@ export default {
         },
         searchByText(){
             var vm = this;
-            console.log(vm.searchText);
+            // console.log(vm.searchText);
             axios.get(`home/searchText/${vm.searchText}`)
             .then(e=>{
-                console.log(e.data)
+                // console.log(e.data)
                 vm.searchDataList = e.data;
                 this.timeSubstr();
             })
         },
         // 收藏排序
         sortByCollect(){
-            console.log(this.byCollect);
+            // console.log(this.byCollect);
             let type = this.byCollect;
             switch (type){
                 case "many": //大至小
@@ -178,11 +178,11 @@ export default {
                 break;
             }
 
-            console.log(this.searchDataList);
+            // console.log(this.searchDataList);
         },
         // 金額排序
         sortByCost(){
-            console.log(this.byCost);
+            // console.log(this.byCost);
             let type = this.byCost;
             switch (type){
                 case "high": //大至小
@@ -197,11 +197,11 @@ export default {
                 }); 
                 break;
             }
-            console.log(this.searchDataList);
+            // console.log(this.searchDataList);
         },
         // 時間排序
         sortByTime(){
-            console.log(this.byTime);
+            // console.log(this.byTime);
             let type = this.byTime;
             switch (type){
                 case "new":
@@ -216,7 +216,7 @@ export default {
                 }); 
                 break;
             }
-            console.log(this.searchDataList);
+            // console.log(this.searchDataList);
         },
         getSearchData(){
             var vm = this;

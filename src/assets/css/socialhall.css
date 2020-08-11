@@ -17,7 +17,7 @@ body{
     text-align: center;
     color: var(--jo_lGrey2);
  }
-img{
+#socialhall img{
     object-fit: cover;
 }
 .section1{
