@@ -11,9 +11,9 @@
             <div id="birdPostion">
               <h5 id="birdTalk" class="text-center bg-white">好想出去玩喔~</h5>
               <div class="d-flex">
-                <img id="birdA" src="../assets/img/活動註冊/jo_birdA.svg" alt />
-                <img id="birdB" src="../assets/img/活動註冊/jo_birdB.svg" alt />
-                <img id="birdC" src="../assets/img/活動註冊/jo_birdC.svg" alt />
+                <img class="birdPic" id="birdA" src="../assets/img/活動註冊/jo_birdA.svg" alt />
+                <img class="birdPic" id="birdB" src="../assets/img/活動註冊/jo_birdB.svg" alt />
+                <img class="birdPic" id="birdC" src="../assets/img/活動註冊/jo_birdC.svg" alt />
               </div>
             </div>
           </div>
@@ -23,7 +23,7 @@
                 type="button"
                 id="gainMsg"
                 @click="gainMsg"
-                style="position: absolute; width:200px;opacity:0; height:50px; top:80px"
+                style="position: absolute; width:200px;opacity:0; height:200px; top:10px"
               >一鍵生成</button>
             </div>
             <div class="form-group row col-12">
@@ -48,12 +48,19 @@
                   value="請上傳活動圖片"
                   class="jo_btn jo_btn_s jo_btnWater"
                 />
-                <input type="file"  id="myfile" name="myfile" class="position-absolute" style="top:2vh; opacity: 0;" accept="image/*" >
+                <input
+                  type="file"
+                  id="myfile"
+                  name="myfile"
+                  class="position-absolute"
+                  style="top:2vh; opacity: 0;"
+                  accept="image/*"
+                />
               </div>
             </div>
             <div class="form-group row col-12">
               <label class="col-3">室內或室外</label>
-           
+
               <div class="col-8">
                 <div class="custom-control custom-radio custom-control-inline">
                   <input
@@ -124,8 +131,6 @@
                   v-model="a_endTime"
                   required
                 />
-         
-
               </div>
             </div>
             <div class="form-group row col-12">
@@ -277,17 +282,17 @@
             <h5>活動創建後不能更改資料，確定要Jo團嗎？</h5>
           </div>
           <div class="jomodal_footer">
-<!-- &&&&& -->
- <router-link to="/newActFinish">
-           <input
-              type="button"
-              class="jo_btn jo_btn_m jo_btnOrange"
-              value="確認開團"
-              @click="function() {hideModal();postData()}"
-            />
-              </router-link>
+            <!-- &&&&& -->
+            <router-link to="/newActFinish">
+              <input
+                type="button"
+                class="jo_btn jo_btn_m jo_btnRed"
+                value="確認開團"
+                @click="function() {hideModal();postData()}"
+              />
+            </router-link>
 
-<!-- &&&&& -->
+            <!-- &&&&& -->
 
             <input
               type="button"
@@ -307,13 +312,11 @@
 import $ from "jquery";
 import axios from "axios";
 
-
 export default {
-
   name: "newActivity",
   data() {
     return {
-     memberData: {},
+      memberData: {},
       activityName: "",
       inOrOut: "",
       category: "",
@@ -328,15 +331,14 @@ export default {
       a_explain: "",
     };
   },
-   created() {
+  created() {
     this.checkSession();
   },
-    mounted() {
+  mounted() {
     this.statusSetting();
-    
   },
   methods: {
-      checkSession() {
+    checkSession() {
       var meLog = JSON.parse(localStorage.getItem("myinfo"));
       console.log(meLog);
       if (meLog) {
@@ -398,7 +400,7 @@ export default {
         a_price: this.a_price,
         a_deadlineTime: this.a_deadlineTime,
         a_explain: this.a_explain,
-        m_ID:this.memberData.m_ID
+        m_ID: this.memberData.m_ID,
       };
       // console.log(newAcData);
 
@@ -408,11 +410,10 @@ export default {
       });
     },
   },
-
 };
 </script>
 
 
-<style>
+<style scoped>
 @import "../assets/css/newActivity.css";
 </style>
