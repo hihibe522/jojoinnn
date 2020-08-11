@@ -21,17 +21,23 @@
       <div v-for="(item,index) in addressList" :key="index" class="activityContent d-flex bg-white">
         <div class="p-2" style="width: 70%; line-height: 1.2;">
           <h5>
-            <b>{{item.text}}</b>
+      
+              <b>{{item.text}}</b>
+          
             <br />
-          </h5>活動開始:{{item.sTime}}
-          <br />活動地點:{{item.addr}}
+          </h5>活動開始:
+          <br />
+          {{item.a_start}}
+          <br />
+          活動地點:{{item.addr}}
           <br />
           <!-- <span>收藏人數: 100+</span> -->
         </div>
-
+      <router-link :to="`/activity?a_ID=${item.a_ID}`">
         <div class="ml-auto my-auto p-2" style=" width: 100px; height: 100px; ">
           <img class="mapActivityPic" :src="`../../static/img/activityPic/${item.a_pic}`" alt=" " />
         </div>
+          </router-link>
       </div>
     </div>
   </div>
@@ -48,9 +54,7 @@ export default {
       map: {},
       geocoder: null,
       center: { lat: 24.151, lng: 120.651 },
-      addressList: [
-     
-      ],
+      addressList: [],
     };
   },
   created() {
@@ -65,6 +69,7 @@ export default {
     this.setSelfMarker();
     this.setMarker();
     // console.log(this.addressList)
+    console.log("add", this.addressList);
   },
   methods: {
     getData: function () {
@@ -233,13 +238,10 @@ export default {
 <style scoped>
 #actMap {
   height: 100vh;
-
-
 }
 .google-map {
   /* width: 100%; */
   height: 100vh;
-  
 }
 
 .map {

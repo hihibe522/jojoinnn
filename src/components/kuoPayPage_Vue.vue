@@ -36,6 +36,7 @@
           class="jo_btn jo_btnRed mx-2 my-4 btn-sm"
           style="width:120px; height: 40px;"
         />
+        <router-link class="m-auto" :to="`/activity?a_ID=${$route.query.a_ID}`">
         <input
           type="button"
           name
@@ -44,6 +45,7 @@
           class="jo_btn jo_btnBlue mx-2 my-4 btn-sm"
           style="width:120px; height:40px"
         />
+         </router-link>
       </div>
     </div>
 
@@ -139,9 +141,10 @@ export default {
         con_deposit: this.con_deposit,
         joCoin: this.joCoin,
         a_price: this.a_price,
-     
       };
       if (this.con_deposit > 0) {
+          this.$bus.$emit("changeJoCoin", {
+      });
         this.reciprocal();
         axios.put("payPage", { deposit: deposit }).then((e) => {
           console.log(e);

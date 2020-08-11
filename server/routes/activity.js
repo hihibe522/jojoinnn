@@ -63,6 +63,21 @@ router.get("/:actID", function (req, res, next) {
   );
 });
 
+router.get("/:actID", function (req, res, next) {
+  conn.query(
+    `SELECT m_ID FROM transaction where a_ID=${activityID}`,
+    function (err, rows) {
+      if (err) {
+        console.log(JSON.stringify(err));
+        return;
+      }
+      dataTransfer.signUp = rows;
+      // res.send(dataTransfer);
+      next();
+    }
+  );
+});
+
 
 // 留言區
 router.get("/:actID", function (req, res, next) {
@@ -132,58 +147,10 @@ router.post("/cancel", function (req, res, next) {
       } else {
     
       }
-      next()
     }
   );
 });
 
-
-router.post("/cancel", function (req, res, next) {
-  console.log("cancel 2")
-
-
-  conn.query(
-   "insert into consumption set m_ID = ? , con_price=?,con_deposit = ? , con_event = ? ",
-    [
-      req.body.cancelAct.m_ID,
-      req.body.cancelAct.joCoin,
-      req.body.cancelAct.a_price,
-      "活動退費"
-    ],
-    function (err, rows) {
-      if (err) {
-        console.log("error");
-      } else {
-   
-      }
-      next()
-    }
-  );
-
-});
-
-router.post("/cancel", function (req, res, next) {
-  console.log("cancel 3")
-
-
-  conn.query(
-    "UPDATE member SET joCoin=? where m_ID=?",
-    [
-      req.body.cancelAct.joCoin+req.body.cancelAct.a_price,
-      req.body.cancelAct.m_ID,
-    ],
-
-    function (err, rows) {
-      if (err) {
-        console.log("error");
-      } else {
-
-      }
-   
-    }
-  );
-
-});
 
 
 
@@ -209,6 +176,7 @@ router.put("/", function (req, res, next) {
 
 });
 
+//取消原因
 router.post("/reason", function (req, res, next) {
   console.log("POSTsdfs")
   console.log(req.body.reason)
@@ -232,3 +200,53 @@ router.post("/reason", function (req, res, next) {
 
 
 module.exports = router;
+
+
+
+
+// router.post("/cancel", function (req, res, next) {
+//   console.log("cancel 2")
+
+
+//   conn.query(
+//    "insert into consumption set m_ID = ? , con_price=?,con_deposit = ? , con_event = ? ",
+//     [
+//       req.body.cancelAct.m_ID,
+//       req.body.cancelAct.joCoin,
+//       req.body.cancelAct.a_price,
+//       "活動退費"
+//     ],
+//     function (err, rows) {
+//       if (err) {
+//         console.log("error");
+//       } else {
+   
+//       }
+//       next()
+//     }
+//   );
+
+// });
+
+// router.post("/cancel", function (req, res, next) {
+//   console.log("cancel 3")
+
+
+//   conn.query(
+//     "UPDATE member SET joCoin=? where m_ID=?",
+//     [
+//       req.body.cancelAct.joCoin+req.body.cancelAct.a_price,
+//       req.body.cancelAct.m_ID,
+//     ],
+
+//     function (err, rows) {
+//       if (err) {
+//         console.log("error");
+//       } else {
+
+//       }
+   
+//     }
+//   );
+
+// });

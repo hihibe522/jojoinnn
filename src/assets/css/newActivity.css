@@ -6,7 +6,10 @@
 body {
     overflow-x: hidden;
 }
+.jo_col_pc{
+    margin-top: 8rem;
 
+}
 img {
     object-fit: cover;
 }

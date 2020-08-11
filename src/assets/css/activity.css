@@ -10,6 +10,7 @@ body {
 
 img {
   object-fit: cover;
+  cursor: url("../img/jo_images/cursorPoint.png"), auto;
 }
 .headIcon{
   height: 70px;
@@ -41,6 +42,7 @@ img {
   width: 100%;
   height: 100%;
   border-radius: 15px;
+  overflow: hidden;
 }
 
 .activityExIcon {

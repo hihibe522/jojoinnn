@@ -3,7 +3,7 @@ var router = express.Router();
 var conn = require("../db");
 const { request } = require("express");
 
-/* GET home page. */
+
 var categoryList = {
   outdoor: "戶外休閒",
   sport: "運動類",
@@ -23,7 +23,9 @@ var categoryList = {
 
 router.post("/", function(req, res, next) {
   console.log(req.body.data);
+  console.log(categoryList[req.body.data.category]);
   conn.query(
+   
     "insert into current_activity set a_host=?,c_ID = ?,c_category=? , a_name = ? , c_in_out = ? , a_address = ? , a_city = ? , a_explain = ? , a_start = ? , a_end = ? , a_confirm = ? , a_limit = ? , a_deadline = ? ",
     [
       req.body.data.m_ID,
