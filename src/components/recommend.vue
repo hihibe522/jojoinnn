@@ -313,7 +313,7 @@ export default {
     getNearbyItem() {
       var vm = this;
       axios.get("home/recommend").then((e) => {
-        console.log(e.data);
+        // console.log(e.data);
         vm.nearbyActList = e.data;
       });
     },
@@ -321,16 +321,15 @@ export default {
     getRecommendItem() {
       var vm = this;
       axios.get("home/recommend").then((e) => {
-        console.log(e.data);
+        // console.log(e.data);
         vm.reActList = e.data;
       });
     },
 
     memberGetNearbyItem() {
-      //   console.log("fffffff");
       var vm = this;
       axios.get(`home/memberNearby/${vm.memberData.m_ID}`).then((e) => {
-        console.log(e.data);
+        // console.log(e.data);
         vm.nearbyActList = e.data;
       });
     },
@@ -338,7 +337,7 @@ export default {
     memberGetRecommendItem() {
       var vm = this;
       axios.get(`home/memberRecommend/${vm.memberData.m_ID}`).then((e) => {
-        console.log(e.data);
+        // console.log(e.data);
         vm.reActList = e.data;
       });
     },
@@ -346,8 +345,12 @@ export default {
     getCarouselItem() {
       var vm = this;
       axios.get("home/carouse").then((e) => {
-        console.log(e.data);
+        // console.log(e.data);
         vm.carouselItem = e.data;
+        vm.carouselItem.forEach((item,index) => {
+            vm.carouselItem[index].a_start = item.a_start.substr(0,16);
+            vm.carouselItem[index].a_end = item.a_end.substr(0,16);
+        });
         vm.totalCarouselItem = vm.carouselItem.length;
       });
     },
