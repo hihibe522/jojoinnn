@@ -46,7 +46,7 @@
       <div class="hrDIv"></div>
       <div class="sumExp">總經驗值 {{ sumExp }} &nbsp;exp</div>
       <div id="memberChart">   
-        <chart :width=300 :height=300 :chart-data="chartdataloaded"/>
+        <chart :width=350 :height=350 :max_data="maxRadarData" :chart-data="chartdataloaded"/>
       </div>
     </div>
 
@@ -63,10 +63,10 @@
             </li>
           </router-link>
 
-          <router-link
+          <router-link exact
             active-class="bookMarkClick"
             class="jo_hover bookMarkOriginal"
-            to="/userhouse/userhistory">
+            :to="{ name:'userhistory',query:{m_ID:userInfo.m_ID }}">
             <li>
               <h5>歷史紀錄</h5>
             </li>
@@ -132,7 +132,7 @@ export default {
       if(vm.isfollow){       
         axios.put('/modules/cancelFollow',{info:send})
         .then(e=>{
-          console.log(e.data);
+          // console.log(e.data);
           vm.$toasted.show('已取消關注😉');
           vm.isfollow = false;
         })
@@ -162,6 +162,12 @@ export default {
         }],
 
       }
+    },
+    maxRadarData:function(){
+      var max = Math.max(...this.radarData)
+      // console.log(max);
+          return max;
+
     }
   },
   created() {
@@ -170,7 +176,7 @@ export default {
     let userID = vm.$route.query.m_ID;
     axios.get(`user/${userID}`)
     .then(e=>{
-      console.log(e.data);
+      // console.log(e.data);
       vm.userInfo = e.data[0];
     })
     .then(e=>{
@@ -184,20 +190,21 @@ export default {
           return Object.values(item)[2]
          })
          vm.sumExp = e.data[1][0].expSum;
+         
       })
     })
 
     if(vm.islog){
       axios.get(`user/follower/${vm.islog.m_ID}/${userID}`)
       .then(e=>{
-        console.log(e.data)
+        // console.log(e.data)
         if(e.data != ""){
           vm.isfollow = true;
         }
       })
 
     }
-    
+   
 
   }
 
