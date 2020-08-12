@@ -73,7 +73,7 @@
               <div class="m-auto">
                 <div id="confirmBtn" class="m-5 text-center">
                   <div class="m-auto">
-                      <input @click="login" id="btnOK" value="登入" class="jo_btn jo_btnWater" />
+                      <input type="button" @click="login" id="btnOK" value="登入" class="jo_btn jo_btnWater" />
                   </div>
                 </div>
               </div>
