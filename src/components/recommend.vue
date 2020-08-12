@@ -155,13 +155,14 @@
               <!-- 幾人收藏 + 愛心開始 -->
               <div class="row mx-0 collectAndLike">
                 <div>
-                  <h6>37人收藏</h6>
+                  <h6>{{item.collect}}人收藏</h6>
                 </div>
-                <!-- <favicon class="jo_heartDiv" @refreachLike="collectActivity" :liked="item.like" :aid="item.a_ID"></favicon> -->
-                <div class="jo_heartDiv" style="zoom: .3">
-                  <img class="jo_heart" src="../assets/img/jo_images/jo_heart.svg" alt />
-                  <img class="jo_heart jo_hover" src="../assets/img/jo_images/jo_heart.svg" alt />
-                </div>
+                <favicon
+                  class="jo_heartDiv"
+                  @refreachLike="collectActivity"
+                  :liked="item.like"
+                  :aid="item.a_ID"
+                ></favicon>
               </div>
               <!-- 幾人收藏+愛心結束 -->
             </li>
@@ -225,15 +226,15 @@
               <!-- 幾人收藏 + 愛心開始 -->
               <div class="row mx-0 collectAndLike">
                 <div>
-                  <h6>25人收藏</h6>
+                  <h6>{{item.collect}}人收藏</h6>
                 </div>
-
-                <!-- <favicon class="jo_heartDiv" @refreachLike="collectActivity" :liked="item.like" :aid="item.a_ID"></favicon> -->
-
-                <div class="jo_heartDiv" style="zoom: .3">
-                  <img class="jo_heart" src="../assets/img/jo_images/jo_heart.svg" alt />
-                  <img class="jo_heart jo_hover" src="../assets/img/jo_images/jo_heart.svg" alt />
-                </div>
+                 <favicon
+                  class="jo_heartDiv"
+                  @refreachLike="collectActivityNear"
+                  :liked="item.like"
+                  :aid="item.a_ID"
+                ></favicon>
+                
               </div>
               <!-- 幾人收藏+愛心結束 -->
             </li>
@@ -331,6 +332,7 @@ export default {
       axios.get(`home/memberNearby/${vm.memberData.m_ID}`).then((e) => {
         // console.log(e.data);
         vm.nearbyActList = e.data;
+        vm.bindFavList(vm.nearbyActList);
       });
     },
 
@@ -339,7 +341,15 @@ export default {
       axios.get(`home/memberRecommend/${vm.memberData.m_ID}`).then((e) => {
         // console.log(e.data);
         vm.reActList = e.data;
+        vm.bindFavList(vm.reActList);
       });
+    },
+     // 取出的data時間格式整理
+    timeSubstr(data){
+        data.forEach((item,index) => {
+              data[index].a_start = item.a_start.substr(0,16);
+              data[index].a_end = item.a_end.substr(0,16);
+        });
     },
 
     getCarouselItem() {
@@ -347,10 +357,7 @@ export default {
       axios.get("home/carouse").then((e) => {
         // console.log(e.data);
         vm.carouselItem = e.data;
-        vm.carouselItem.forEach((item,index) => {
-            vm.carouselItem[index].a_start = item.a_start.substr(0,16);
-            vm.carouselItem[index].a_end = item.a_end.substr(0,16);
-        });
+        vm.timeSubstr(vm.carouselItem);
         vm.totalCarouselItem = vm.carouselItem.length;
       });
     },
@@ -378,6 +385,53 @@ export default {
       $(".carousel-item").eq(prev).removeClass("active");
       $(".carousel-item").eq(slide).addClass("active");
     },
+    // 推薦活動的愛心加一減一(純畫面show出，尚未記入資料庫)
+    collectActivity(aid, like) {
+      this.reActList.forEach((item, index) => {
+        if (item.a_ID == aid && like) {
+          this.reActList[index].collect++;
+        }
+        if (item.a_ID == aid && like == false) {
+          this.reActList[index].collect--;
+        }
+      });
+    },
+
+    // 附近活動的愛心加一減一(純畫面show出，尚未記入資料庫)
+    collectActivityNear(aid, like) {
+      this.nearbyActList.forEach((item, index) => {
+        if (item.a_ID == aid && like) {
+          this.nearbyActList[index].collect++;
+        }
+        if (item.a_ID == aid && like == false) {
+          this.nearbyActList[index].collect--;
+        }
+      });
+    },
+
+    //檢查
+    bindFavList(search) {
+      search.forEach((item, index) => {
+        // console.log( this.myFavList);
+        if (this.myFavList.indexOf(item.a_ID) > -1) {
+          search[index].like = 1;
+        } else {
+          search[index].like = 0;
+        }
+      });
+    },
+
+    //取得該會員的喜愛類別清單
+    getMyFavList() {
+      // var vm = this;
+      // console.log(this.memberData);
+      // console.log(this.memberData.m_ID);
+      axios.get(`/home/myfavList/${this.memberData.m_ID}`).then((e) => {
+        // console.log(e.data);
+        const List = e.data.map((item) => Object.values(item)[0]);
+        this.myFavList = List;
+      });
+    },
   },
   mounted() {
     var vm = this;
@@ -394,6 +448,7 @@ export default {
     if (islog) {
       // console.log(islog);
       this.memberData = JSON.parse(localStorage.getItem("myinfo"));
+      this.getMyFavList();
       // console.log(this.memberData);
       // console.log(this.memberData.m_ID);
       this.memberGetNearbyItem();
@@ -426,7 +481,9 @@ export default {
   margin-top: 0.3rem;
   align-items: flex-start;
 }
-
+li .jo_heartDiv {
+  width: 30px;
+}
 .collectAndLike div h6 {
   color: white;
   margin-bottom: 0;
