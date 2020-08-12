@@ -135,10 +135,12 @@ export default {
 
             this.searchDataList.forEach((item,index)=>{
                 if(item.a_ID == aid && like){
-                    this.searchDataList[index].collect ++ ; 
+                    this.searchDataList[index].collect ++ ;
+                    this.searchDataList[index].like = 1 
                 }
                 if(item.a_ID == aid && like == false){
                     this.searchDataList[index].collect -- ;
+                    this.searchDataList[index].like = 0 ;
                 }              
             })
 
