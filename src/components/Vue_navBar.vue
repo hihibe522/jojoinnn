@@ -414,12 +414,20 @@ export default {
     this.$bus.$on("changeJoCoin", (event) => {
       this.navCheck();
     });
+    this.$bus.$on("cancelAttend", (event) => {
+      this.navCheck();
+    });
+    this.$bus.$on("joinAttend", (event) => {
+      this.navCheck();
+    });
   },
 
   beforeDestroy: function () {
     this.$bus.$off("islogin");
     this.$bus.$off("cancelOK");
     this.$bus.$off("changeJoCoin");
+    this.$bus.$off("cancelAttend");
+    this.$bus.$off("joinAttend");
     // this.$bus.$off("NewMsg");
   },
 };
