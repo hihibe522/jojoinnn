@@ -28,7 +28,7 @@ router.get('/memberNearby/:m_ID',function(req,res,next){
     let sql = `SELECT ifnull(b.collect,0) collect,a.* FROM current_activity AS a 
     LEFT JOIN (SELECT COUNT(a_ID) AS collect ,a_ID 
     FROM member_collect GROUP BY a_ID) as b 
-    ON a.a_ID = b.a_ID WHERE a_city in (SELECT m_address FROM member where m_ID= ? ) AND a_avalible <= 1 LIMIT 8`;
+    ON a.a_ID = b.a_ID WHERE a_city in (SELECT m_address FROM member where m_ID= ?) AND a_avalible <= 1 LIMIT 8`;
     conn.query(sql,[req.params.m_ID],function(err,rows){
         if(err){
             console.log(err);
@@ -44,7 +44,7 @@ router.get('/memberRecommend/:m_ID',function(req,res,next){
     let sql = `SELECT ifnull(b.collect,0) collect,a.* FROM current_activity AS a 
     LEFT JOIN (SELECT COUNT(a_ID) AS collect ,a_ID 
     FROM member_collect GROUP BY a_ID) as b 
-    ON a.a_ID = b.a_ID WHERE c_ID in (SELECT fav_category FROM member_fav where m_ID= ?) AND a_avalible <= 1 LIMIT 8`;
+    ON a.a_ID = b.a_ID WHERE c_ID in (SELECT fav_category FROM member_fav where m_ID= ?) AND a_avalible <=1 LIMIT 8`;
     conn.query(sql,[req.params.m_ID],function(err,rows){
         if(err){
             console.log(err);

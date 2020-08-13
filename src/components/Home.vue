@@ -277,6 +277,9 @@ methods: {
 a{
     color: #333;
 }
+img{
+    object-fit: contain;
+}
 
 
 </style>

@@ -38,7 +38,7 @@
               <p class="carousel-item__description">{{item.c_category}}</p>
               <div class="caButton">
                 <router-link :to="{ name:'activity',query:{a_ID:item.a_ID }}">
-                  <input type=" button" class="jo_btn jo_btnOrange jo_btn_s" value="活動詳情" />
+                  <input type=" button" class="jo_btn jo_btnOrange jo_btn_s deButton" value="活動詳情" />
                 </router-link>
               </div>
             </div>
@@ -68,30 +68,30 @@
           <div class="areaTime">
             <div class="areaItem1">
               <div class="detal timeSelect">
-                <select name id>
+                <select class="jo_hover" v-model="byTime" @change="sortByTime">
                   <option value disabled selected>依時間前後排序</option>
-                  <option value>時間:由新到舊</option>
-                  <option value>時間:由舊到新</option>
+                  <option value="recent">時間:由新到舊</option>
+                  <option value="old">時間:由舊到新</option>
                 </select>
               </div>
             </div>
 
             <div class="areaItem2">
               <div class="detal timeSelect">
-                <select name id>
+                <select class="jo_hover" v-model="byCost" @change="sortByCost">
                   <option value disabled selected>依價位高低排序</option>
-                  <option value>價位:由新到舊</option>
-                  <option value>價位:由舊到新</option>
+                  <option value="high">價位:由高到低</option>
+                  <option value="low">價位:由低到高</option>
                 </select>
               </div>
             </div>
 
             <div class="areaItem3">
               <div class="detal timeSelect">
-                <select name id>
-                  <option value disabled selected>依收藏人數排序</option>
-                  <option value>收藏人數:多到少</option>
-                  <option value>收藏人數:少到多</option>
+                <select class="jo_hover" v-model="byCollect" @change="sortByCollect">
+                  <option selected disabled>依收藏人數排序</option>
+                  <option value="more">收藏:由多到少</option>
+                  <option value="less">收藏:由少到多</option>
                 </select>
               </div>
             </div>
@@ -104,14 +104,6 @@
                 </button>
               </div>
             </div>
-
-            <!-- <div class="areaItem4">
-                                <div class="searchBox">
-                                    <input type="search" name="" id="" placeholder="搜尋" style="width:200px; height:35px;">
-                                    <i type="button" class="fa fa-search jo_hover" style="
-                                    filter: invert(0%);" ></i>
-                                </div>
-            </div>-->
           </div>
         </div>
 
@@ -225,16 +217,16 @@
 
               <!-- 幾人收藏 + 愛心開始 -->
               <div class="row mx-0 collectAndLike">
-                <div>
+                <div class>
                   <h6>{{item.collect}}人收藏</h6>
                 </div>
-                 <favicon
+
+                <favicon
                   class="jo_heartDiv"
                   @refreachLike="collectActivityNear"
                   :liked="item.like"
                   :aid="item.a_ID"
                 ></favicon>
-                
               </div>
               <!-- 幾人收藏+愛心結束 -->
             </li>
@@ -246,7 +238,7 @@
       <!-- Banner開始 -->
       <div class="myBanner">
         <div class="bannerFirst">
-          <div class="bannerPic hvr-pop">
+          <div class="bannerPic hvr-pop ld ld-swim">
             <img src="../assets/img/jo_images/jo_birdA.svg" alt />
           </div>
           <div class="bannerWord">
@@ -255,7 +247,7 @@
         </div>
 
         <div class="bannerFirst">
-          <div class="bannerPic hvr-pop">
+          <div class="bannerPic hvr-pop ld ld-swim">
             <img src="../assets/img/jo_images/jo_birdB.svg" alt />
           </div>
           <div class="bannerWord">
@@ -264,7 +256,7 @@
         </div>
 
         <div class="bannerFirst">
-          <div class="bannerPic hvr-pop">
+          <div class="bannerPic hvr-pop ld ld-swim">
             <img src="../assets/img/jo_images/jo_birdC.svg" alt />
           </div>
           <div class="bannerWord">
@@ -273,15 +265,6 @@
         </div>
       </div>
       <!-- Banner結束 -->
-
-      <!-- 回到最上層開始 -->
-      <!-- <div class="back-to-top-wrapper">
-                        <a href="#top" class="back-to-top-link ld ld-bounce" aria-label="Scroll to Top"
-                            style="position:absolute; right: 20px; width:30px; height:30px">
-                            <img class="jo_hover" src="../assets/img/jo_images/jo_birdA.svg" alt="">
-                        </a>
-      </div>-->
-      <!-- 回到最上層結束 -->
     </div>
   </div>
 </template>
@@ -294,7 +277,6 @@ import favicon from "./Favicon";
 
 export default {
   name: "recommend",
-
   components: {
     favicon,
   },
@@ -307,9 +289,108 @@ export default {
       reActList: [],
       nearbyActList: [],
       memberData: {},
+      myFavList: [],
+      byTime: "recent",
+      byCost: "low",
+      byCollect: "more",
     };
   },
   methods: {
+    //收藏排序(推薦活動)
+    sortByCollect() {
+      console.log(this.byCollect);
+      let type = this.byCollect;
+      switch (type) {
+        case "more": //大至小
+          this.reActList.sort(function (a, b) {
+            return a.collect < b.collect ? 1 : -1;
+          });
+          break;
+
+        case "less": //小至大
+          this.reActList.sort(function (a, b) {
+            return a.collect > b.collect ? 1 : -1;
+          });
+          break;
+      }
+      switch (type) {
+        case "more": //大至小
+          this.nearbyActList.sort(function (a, b) {
+            return a.collect < b.collect ? 1 : -1;
+          });
+          break;
+
+        case "less": //小至大
+          this.nearbyActList.sort(function (a, b) {
+            return a.collect > b.collect ? 1 : -1;
+          });
+          break;
+      }
+    },
+    // 金額排序(推薦活動)
+    sortByCost() {
+      console.log(this.byCost);
+      let type = this.byCost;
+      switch (type) {
+        case "high": //高至低
+          this.reActList.sort(function (a, b) {
+            return a.a_price < b.a_price ? 1 : -1;
+          });
+          break;
+
+        case "low": //低至高
+          this.reActList.sort(function (a, b) {
+            return a.a_price > b.a_price ? 1 : -1;
+          });
+          break;
+      }
+
+      switch (type) {
+        case "high": //高至低
+          this.nearbyActList.sort(function (a, b) {
+            return a.a_price < b.a_price ? 1 : -1;
+          });
+          break;
+
+        case "low": //低至高
+          this.nearbyActList.sort(function (a, b) {
+            return a.a_price > b.a_price ? 1 : -1;
+          });
+          break;
+      }
+    },
+    // 時間排序(推薦活動)
+    sortByTime() {
+      // console.log(this.byTime);
+      let type = this.byTime;
+      switch (type) {
+        case "recent":
+          this.reActList.sort(function (a, b) {
+            return a.a_start < b.a_start ? 1 : -1;
+          });
+          break;
+
+        case "old":
+          this.reActList.sort(function (a, b) {
+            return a.a_start > b.a_start ? 1 : -1;
+          });
+          break;
+      }
+
+      switch (type) {
+        case "recent":
+          this.nearbyActList.sort(function (a, b) {
+            return a.a_start < b.a_start ? 1 : -1;
+          });
+          break;
+
+        case "old":
+          this.nearbyActList.sort(function (a, b) {
+            return a.a_start > b.a_start ? 1 : -1;
+          });
+          break;
+      }
+    },
 
     getNearbyItem() {
       var vm = this;
@@ -339,23 +420,14 @@ export default {
     memberGetRecommendItem() {
       var vm = this;
       axios.get(`home/memberRecommend/${vm.memberData.m_ID}`).then((e) => {
-        // console.log(e.data);
         vm.reActList = e.data;
         vm.bindFavList(vm.reActList);
       });
-    },
-     // 取出的data時間格式整理
-    timeSubstr(data){
-        data.forEach((item,index) => {
-              data[index].a_start = item.a_start.substr(0,16);
-              data[index].a_end = item.a_end.substr(0,16);
-        });
     },
 
     getCarouselItem() {
       var vm = this;
       axios.get("home/carouse").then((e) => {
-        // console.log(e.data);
         vm.carouselItem = e.data;
         vm.timeSubstr(vm.carouselItem);
         vm.totalCarouselItem = vm.carouselItem.length;
@@ -385,14 +457,17 @@ export default {
       $(".carousel-item").eq(prev).removeClass("active");
       $(".carousel-item").eq(slide).addClass("active");
     },
+
     // 推薦活動的愛心加一減一(純畫面show出，尚未記入資料庫)
     collectActivity(aid, like) {
       this.reActList.forEach((item, index) => {
         if (item.a_ID == aid && like) {
           this.reActList[index].collect++;
+          this.reActList[index].like = 1;
         }
         if (item.a_ID == aid && like == false) {
           this.reActList[index].collect--;
+          this.reActList[index].like = 0;
         }
       });
     },
@@ -402,9 +477,11 @@ export default {
       this.nearbyActList.forEach((item, index) => {
         if (item.a_ID == aid && like) {
           this.nearbyActList[index].collect++;
+          this.nearbyActList[index].like = 1;
         }
         if (item.a_ID == aid && like == false) {
           this.nearbyActList[index].collect--;
+          this.nearbyActList[index].like = 0;
         }
       });
     },
@@ -423,14 +500,18 @@ export default {
 
     //取得該會員的喜愛類別清單
     getMyFavList() {
-      // var vm = this;
-      // console.log(this.memberData);
-      // console.log(this.memberData.m_ID);
       axios.get(`/home/myfavList/${this.memberData.m_ID}`).then((e) => {
-        // console.log(e.data);
+        console.log(e.data);
         const List = e.data.map((item) => Object.values(item)[0]);
         this.myFavList = List;
       });
+    },
+    // 取出的data時間格式整理	
+    timeSubstr(data){	
+        data.forEach((item,index) => {	
+              data[index].a_start = item.a_start.substr(0,16);	
+              data[index].a_end = item.a_end.substr(0,16);	
+        });	
     },
   },
   mounted() {
@@ -441,21 +522,21 @@ export default {
   },
 
   created() {
-    this.getCarouselItem();
+    var vm = this;
+    vm.getCarouselItem();
 
     let islog = localStorage.getItem("myinfo");
     // console.log(islog);
     if (islog) {
       // console.log(islog);
-      this.memberData = JSON.parse(localStorage.getItem("myinfo"));
-      this.getMyFavList();
-      // console.log(this.memberData);
-      // console.log(this.memberData.m_ID);
-      this.memberGetNearbyItem();
-      this.memberGetRecommendItem();
+      vm.memberData = JSON.parse(localStorage.getItem("myinfo"));
+      vm.getMyFavList();
+      // console.log(vm.memberData.m_ID);
+      vm.memberGetNearbyItem();
+      vm.memberGetRecommendItem();
     } else {
-      this.getRecommendItem();
-      this.getNearbyItem();
+      vm.getRecommendItem();
+      vm.getNearbyItem();
     }
   },
 };
@@ -473,17 +554,19 @@ export default {
 @import "../assets/css/da_grid_default.css";
 @import "../assets/css/da_grid_component.css";
 
-.filterArea{
+.filterArea {
   padding: 0px 1.8rem;
 }
-.collectAndLike {
-  justify-content: space-between;
-  margin-top: 0.3rem;
-  align-items: flex-start;
-}
+
 li .jo_heartDiv {
   width: 30px;
 }
+
+.collectAndLike {
+  justify-content: space-between;
+  margin-top: 0.3rem;
+}
+
 .collectAndLike div h6 {
   color: white;
   margin-bottom: 0;
@@ -496,6 +579,44 @@ li .jo_heartDiv {
 
 .ac {
   font-size: 1.2rem;
+}
+
+.carousel-item__description {
+  font-size: 1.5rem;
+}
+
+.carousel-item__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.caButton {
+  padding: 0;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+/* banner */
+.bannerFirst {
+  border-radius: 0;
+  box-shadow: 0 0 0 black;
+}
+
+.myBanner {
+  background-image: url(../assets/img/jo_images/BannerFinal.png);
+  background-position: bottom;
+  background-attachment: fixed;
+  background-size: cover;
+  opacity: 1;
+  box-shadow: 0px 30px 30px -30px rgba(0, 0, 0, 0.8) inset,
+              0px -30px 30px -30px rgba(0, 0, 0, 0.8) inset;
+  height: 300px;
+  margin-top: 7rem;
+}
+
+.myBanner h3 {
+  color: var(--jo_white);
+  font-weight: normal;
 }
 
 </style>

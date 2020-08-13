@@ -166,7 +166,7 @@ export default {
           var marker = new google.maps.Marker({
             position: { lat: markerLat, lng: markerLng },
             icon: {
-              url: "../../static/img/gpsPage/jo_birdA.svg",
+              url: "../../static/img/gpsPage/jo_mapBird.svg",
               scaledSize: { height: 40, width: 40 },
             },
             map: vm.map,

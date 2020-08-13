@@ -26,8 +26,14 @@
                 style="position: absolute; width:200px;opacity:0; height:200px; top:10px"
               >一鍵生成</button>
             </div>
+            <div class="form-group row col-12 d-none">
+              <label for="activityName" class="col-3 my-auto"></label>
+              <div class="col-8">
+                <input id="activityName" name="activityName" type="text" class="form-control" />
+              </div>
+            </div>
             <div class="form-group row col-12">
-              <label for="activityName" class="col-3 col-form-label my-auto">活動名稱</label>
+              <label for="activityName" class="col-3 my-auto">活動名稱</label>
               <div class="col-8">
                 <input
                   id="activityName"
@@ -40,7 +46,7 @@
               </div>
             </div>
             <div class="form-group row col-12">
-              <label for="activityName" class="col-3 col-form-label my-auto">活動圖片</label>
+              <label for="activityName" class="col-3 my-auto">活動圖片</label>
               <div class="col-3 position-relative">
                 <input
                   type="button"
@@ -89,7 +95,7 @@
             <div class="form-group row col-12">
               <label for="c_category" class="col-3 col-form-label">活動類別</label>
               <div class="col-8">
-                <select id="c_category" name="c_category" class="custom-select" v-model="category">
+                <select id="c_category" name="c_category" class="custom-select" required v-model="category">
                   <option value="outdoor">戶外休閒</option>
                   <option value="sport">運動類</option>
                   <option value="music">音樂類</option>
@@ -245,8 +251,9 @@
                   name
                   id
                   value="Jo團確認"
-                  data-toggle="modal"
+                  :data-toggle="(allCorrect)?'modal':''"
                   data-target="#my_jomodal"
+                  @click="dataVerifyFinal"
                 />
               </div>
             </div>
@@ -255,7 +262,7 @@
       </div>
     </div>
 
-    <!-- ******************** /modal ******************** -->
+    <!-- ******************** modal ******************** -->
     <div
       class="modal fade"
       id="my_jomodal"
@@ -316,6 +323,7 @@ export default {
   name: "newActivity",
   data() {
     return {
+      allCorrect:"",
       memberData: {},
       activityName: "",
       inOrOut: "",
@@ -336,6 +344,7 @@ export default {
   },
   mounted() {
     this.statusSetting();
+    this.dataVerifyIntime();
   },
   methods: {
     checkSession() {
@@ -365,11 +374,20 @@ export default {
         "我們邀請國內各大績優廠商，參加本中心養成班成果發表會，進行人才招募活動，您可藉此展示貴公司簡介或產品，讓結訓班同學能在展覽時間內，投遞履歷或相關問題的諮詢，藉以促進求職、求才的媒合機會。歡迎有人才需求的廠商蒞臨指導，並可直接媒合面試！";
     },
     statusSetting: function () {
+      // // require mark star
+      // $(document).ready(function() {
+      //   $("input[required]").each(function(index) {
+      //   var id = $(this).attr('id');
+      //   $('label[for="'+id+'"]').append('*');
+      //   });
+      // });
+
       // modify CSS
       $("#applicationForm div").css("margin", "0");
       $("input,select,textArea").addClass("jo_hover");
 
       $("#birdB").hide();
+
       setInterval(() => {
         $("#birdB").hide();
         $("#birdTalk").text("好想出去玩喔~");
@@ -385,6 +403,49 @@ export default {
     hideModal: function () {
       console.log("OK");
       $("#my_jomodal").modal("hide");
+    },
+    //check format in time
+    dataVerifyIntime: function () {
+      var vm = this;
+      var inputs = document.querySelectorAll("form input");
+
+      inputs.forEach((input) => {
+        input.addEventListener("change", function () {
+          if (input.checkValidity()) {
+            input.setAttribute("style", 'border: ""');
+          } else {
+            input.setAttribute("style", "border: 2px solid red;");
+
+            if (input.validity.valueMissing) {
+              vm.$toasted.show(`這要填唷，不然不幫你Jo囉。By Jojo鳥`);
+              return;
+            }
+            if (input.validity.patternMismatch) {
+              vm.$toasted.show(`格式錯囉。啾啾~~`);
+              return;
+            }
+          }
+        });
+      });
+      $("#activityName").css("border", "2px solid red");
+    },
+    //check format final
+    dataVerifyFinal: function () {
+      var vm=this
+      var inputs = document.querySelectorAll("form input");
+      console.log(inputs)
+      var test=true;
+      inputs.forEach((input) => {
+        if (!input.checkValidity()) {
+          test = false;
+        }
+      });
+        if(!test){
+           vm.$toasted.show("請檢查格式是否錯誤");
+        }else{
+          vm.allCorrect=true
+        }
+
     },
     postData: function () {
       var newAcData = {

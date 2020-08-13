@@ -1,12 +1,12 @@
 <template>
   <!-- ******************** content ******************** -->
   <div style="height: 100vh;" class="d-flex text-center">
-    <div id="content" class="m-auto" style="z-index: 1000">
-      <img style="width: 75px;" src="../assets/img/jo_images/jo_birdC.svg" alt />
+    <!-- <div id="content" class="m-auto" style="z-index: 1000"> -->
+      <!-- <img style="width: 75px;" src="../assets/img/jo_images/jo_birdC.svg" alt />
       <h2>恭喜你！已成功開團</h2>
       <h3>可到JoJo小屋查看你目前開的團</h3>
-      <h4>倒數{{secCount}}秒後回個人頁</h4>
-    </div>
+      <h4>倒數{{secCount}}秒後回個人頁</h4> -->
+    <!-- </div> -->
 
 
   </div>
@@ -40,7 +40,7 @@ export default {
     },
   },
   mounted() {
-    this.reciprocal();
+    // this.reciprocal();
   },
 };
 </script>
