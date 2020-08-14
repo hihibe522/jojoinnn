@@ -8,16 +8,28 @@
 
     <!-- 我的最愛區塊 -->
     <div id="collectSection" class="memberEvent row">
+      <div v-if="collectData.length==0" class="member_notFind">
+        <h4>目前沒有正在收藏的活動</h4>
+        <img src="@/assets/img/jo_images/jo_notFind.svg" alt />
+      </div>
       <!-- 我的最愛卡片 -->
       <div class="collectCard col-4" :key="index" v-for="(collectItem,index) in collectData">
         <div class="collectPic">
-          <router-link active-class="nav_active" class="jo_hover" to="/deposit">
+          <router-link
+            active-class="nav_active"
+            class="jo_hover"
+            :to="`/activity/?a_ID=${collectItem.a_ID}`"
+          >
             <img class="jo_hover pic_hover" :src="collectItem.a_pic" alt />
           </router-link>
         </div>
         <div class="collectTitle">
           <div>
-            <router-link active-class="nav_active" class="jo_hover" to="/deposit">
+            <router-link
+              active-class="nav_active"
+              class="jo_hover"
+              :to="`/activity/?a_ID=${collectItem.a_ID}`"
+            >
               <h5 class="jo_hover title_hover">{{collectItem.a_name}}</h5>
             </router-link>
 
@@ -43,8 +55,8 @@ export default {
   name: "memberCollect",
   data() {
     return {
-      memberData: [{}],
-      collectData: [{}],
+      memberData: [],
+      collectData: [],
     };
   },
   components: {
@@ -52,7 +64,7 @@ export default {
   },
   methods: {
     checkSession() {
-      console.log(this.memberData)
+      console.log(this.memberData);
       var meLog = JSON.parse(localStorage.getItem("myinfo"));
       if (meLog) {
         this.memberData = meLog;
@@ -65,6 +77,7 @@ export default {
       // console.log(id)
       axios.get(`member/memberCollect/${id}`).then((e) => {
         vm.collectData = e.data;
+        // console.log("A",vm.collectData)
 
         // 日期裁剪
         vm.collectData.forEach(function (e) {

@@ -32,7 +32,7 @@
           <h5>{{consumptionItem.con_event}}</h5>
         </td>
         <td>
-          <h5>+{{consumptionItem.con_deposit}}&nbsp;Jo幣</h5>
+          <h5>{{consumptionItem.con_deposit}}&nbsp;Jo幣</h5>
         </td>
         <td>
           <h5>{{consumptionItem.con_price}}&nbsp;Jo幣</h5>

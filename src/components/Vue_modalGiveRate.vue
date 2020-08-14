@@ -153,6 +153,7 @@ export default {
           commandInfo: vm.commandText,
         })
         .then(() => {
+          vm.$bus.$emit("giveStarOK");
           this.$toasted.show(
             `已成功給予Jo主「${this.hostMemberData.m_name}」評價`
           );

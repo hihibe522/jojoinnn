@@ -15,8 +15,14 @@
       </div>
     </div>
 
-    <!-- 正在主Jo區塊 -->
+    <!-- 正在參Jo區塊 -->
     <div id="hostingSection" class="memberEvent">
+      <div class="w-100 d-flex" >
+        <div v-if="joingData.length==0" class="member_notFind">
+          <h4>目前沒有正在參加的活動</h4>
+          <img src="@/assets/img/jo_images/jo_notFind.svg" alt />
+        </div>
+      </div>
       <div class="joiningCard" v-for="(joingItem,index) in joingData" :key="index">
         <router-link
           active-class="nav_active"
