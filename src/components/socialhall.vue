@@ -111,7 +111,7 @@
                           </select>
                           <div class="numbercard" v-for="(item,index) in masterHostTo4" :key="index">
                               <div class="num"><img :src="require(`../../static/img/socialhall/rank${index+2}.png`)" ></div>
-                              <div><img :src="require(`../../static/img/head/${item.m_profile}`)" alt=""></div>
+                              <div><img class="numberelseHead" :src="require(`../../static/img/head/${item.m_profile}`)" alt=""></div>
                               <div class="num_content">
                                   <div>
                                       <h4 v-if="item.m_name">{{item.m_name}}</h4>
@@ -159,10 +159,10 @@
                                   <select @change="searchMasterPlayer(selPlayerCategory)" v-model="selPlayerCategory" id="">
                                     <option selected value="all">全部</option>
                                     <option v-for="item in category" :key="item.c_ID" :value="item.c_ID">{{item.c_category}}</option>
-                                </select>
+                                  </select>
                                   <div v-for="(item,index) in playerTo4" :key="index" class="numbercard">
                                       <div class="num"><img :src="require(`../../static/img/socialhall/rank${index+2}.png`)" alt=""></div>
-                                      <div v-if="item.m_profile"><img :src="require(`../../static/img/head/${item.m_profile}`)" alt=""></div>
+                                      <div v-if="item.m_profile"><img class="numberelseHead" :src="require(`../../static/img/head/${item.m_profile}`)" alt=""></div>
                                       <div class="num_content">
                                           <div>
                                               <h4 v-if="item.m_ID">{{item.m_name}}</h4>

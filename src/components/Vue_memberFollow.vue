@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 標題區塊 -->
-      <div class="title">
+    <div class="title">
       <h2>我關注的會員</h2>
 
       <!-- 篩選區塊 -->
@@ -17,16 +17,31 @@
     <!-- 標題區塊結束 -->
     <!-- 關注 -->
     <!-- 關注列表 -->
-    <div id class="memberEvent row followSection" v-if="memberMark">
+    <div class="memberEvent row followSection" v-if="memberMark">
+      <div v-if="followData.length==0" class="member_notFind">
+        <h4>目前沒有正在關注的會員</h4>
+        <img src="@/assets/img/jo_images/jo_notFind.svg" alt />
+      </div>
       <!-- 我的關注卡片 -->
       <div class="followCard col-3" v-for="(followItem,index) in followData" :key="index">
-        <div class="followPic">
-          <img class="jo_hover pic_hover" :src="followItem.m_profile" alt />
-        </div>
+        <router-link
+              class="jo_hover"
+              :to="`/userhouse/userhosting/?m_ID=${followItem.m_ID}`"
+        >
+          <div class="followPic">
+            <img class="jo_hover pic_hover" :src="followItem.m_profile" alt />
+          </div>
+        </router-link>
         <div class="followTitle">
           <div>
-            <h4 class="jo_hover title_hover">{{followItem.m_name}}</h4>
+            <router-link
+              class="jo_hover"
+              :to="`/userhouse/userhosting/?m_ID=${followItem.m_ID}`"
+            >
+            <h4 class="title_hover">{{followItem.m_name}}</h4>
+             </router-link>
           </div>
+        
 
           <div>
             <input

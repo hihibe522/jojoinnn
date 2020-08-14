@@ -27,7 +27,6 @@
             <br />我們會將取消的原因發布給參加者：
           </h5>
           <textarea
-
             rows="6"
             placeholder="請填寫原因"
             class="jo_scrollbar"
@@ -63,9 +62,7 @@ export default {
   methods: {
     cancelOK() {
       var vm = this;
-
       $("#cancelHoding_modal").modal("hide");
-      vm.$bus.$emit("cancelOK");
 
       axios
         .post("cancelHost", {
@@ -77,6 +74,8 @@ export default {
           var meLog = JSON.parse(localStorage.getItem("myinfo"));
           vm.$bus.$emit("NewMsg");
           vm.$toasted.show(`活動「${vm.a_name}」已被取消`);
+          vm.$bus.$emit("cancelOK");
+          vm.$bus.$emit("cancelOK_member");
         });
     },
   },

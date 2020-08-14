@@ -17,6 +17,12 @@
 
     <!-- 正在主Jo區塊 -->
     <div id="hostingSection" class="memberEvent">
+      <div class="w-100 d-flex" v-if="hostData.length==0">
+        <div class="member_notFind">
+          <h4>目前沒有正在主Jo的活動</h4>
+          <img src="@/assets/img/jo_images/jo_notFind.svg" alt />
+        </div>
+      </div>
       <div class="joiningCard" v-for="(hostItem,index) in hostData" :key="index">
         <router-link
           active-class="nav_active"
@@ -121,12 +127,12 @@ export default {
   },
   created() {
     this.checkSession();
-    this.$bus.$on("cancelOK", (event) => {
+    this.$bus.$on("cancelOK_member", (event) => {
       this.getMemberHosting();
     });
   },
   beforeDestroy: function () {
-    this.$bus.$off("cancelOK");
+    this.$bus.$off("cancelOK_member");
   },
 };
 </script>

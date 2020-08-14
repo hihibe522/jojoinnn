@@ -265,9 +265,10 @@ export default {
           // 訊息
           vm.msgData = e.data.msgData;
           let today = new Date();
+
           vm.msgData.forEach(function (e) {
-            console.log("現在時間", Date.parse(e.r_time));
-            console.log("現在時間", Date.parse(today));
+            // console.log("現在時間", Date.parse(e.r_time));
+            // console.log("現在時間", Date.parse(today));
             if (
               Date.parse(e.r_time) + 10000 >= Date.parse(today) &&
               e.read_or_not == 0
@@ -313,13 +314,14 @@ export default {
     },
 
     msgAllRead() {
+      console.log("全部已讀")
       var rm = this;
       axios
-        .put("navCheck", { memberid: this.memberData[0].m_ID, single: false })
+        .put("navCheck", { memberid: rm.memberData.m_ID, single: false })
         .then((e) => {
           rm.msgData = e.data;
           // 重整
-          this.navCheck();
+          rm.navCheck();
         });
     },
 
@@ -420,6 +422,10 @@ export default {
     this.$bus.$on("joinAttend", (event) => {
       this.navCheck();
     });
+    this.$bus.$on("newActivity", (event) => {
+      this.navCheck();
+    });
+
   },
 
   beforeDestroy: function () {
@@ -428,7 +434,7 @@ export default {
     this.$bus.$off("changeJoCoin");
     this.$bus.$off("cancelAttend");
     this.$bus.$off("joinAttend");
-    // this.$bus.$off("NewMsg");
+    this.$bus.$off("newActivity");
   },
 };
 </script>
@@ -449,4 +455,6 @@ a {
 a:hover {
   color: var(--jo_dGrey1);
 }
+
+
 </style>

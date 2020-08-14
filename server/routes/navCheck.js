@@ -21,7 +21,7 @@ router.get('/:id', function (req, res, next) {
 // 目前主JO的活動
 router.get('/:id', function (req, res, next) {
 
-    conn.query('select * from current_activity where a_host=? and a_avalible=? order by a_ID desc', [req.params.id, 0], function (err, rows) {
+    conn.query('select * from current_activity where (a_avalible<=1 or a_avalible=4) and a_host=? order by a_ID desc', [req.params.id], function (err, rows) {
 
         navInfo.hostingData = rows;
         next();
@@ -34,7 +34,7 @@ router.get('/:id', function (req, res, next) {
 // 目前參加的活動
 router.get('/:id', function (req, res, next) {
 
-    conn.query('select * from (transaction join member ON transaction.a_host=member.m_ID )INNER JOIN current_activity on transaction.a_ID = current_activity.a_ID WHERE transaction.m_ID=? and current_activity.a_avalible<=? order by t_D desc', [req.params.id, 2], function (err, rows) {
+    conn.query('select * from (transaction join member ON transaction.a_host=member.m_ID )INNER JOIN current_activity on transaction.a_ID = current_activity.a_ID WHERE transaction.m_ID=? and (current_activity.a_avalible<=1 or current_activity.a_avalible=4) order by t_D desc', [req.params.id], function (err, rows) {
 
         navInfo.joingData = rows;
         // console.log(navInfo.joingData)

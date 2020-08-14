@@ -32,6 +32,12 @@
 
     <!-- 主糾歷史 -->
     <div class="memberEvent hisHostSection" v-if="!memberMark">
+      <div class="w-100 d-flex">
+        <div v-if="hostHistory.length==0" class="member_notFind">
+          <h4>您沒有舉辦過任何活動喔</h4>
+          <img src="@/assets/img/jo_images/jo_notFind.svg" alt />
+        </div>
+      </div>
       <div class="joiningCard" v-for="(hostingHisItem,index) in hostHistory" :key="index">
         <div class="joiningPic hisHostPic">
           <img class="jo_hover pic_hover" :src="hostingHisItem.a_pic" alt />
@@ -66,6 +72,12 @@
 
     <!-- 參加歷史 -->
     <div class="memberEvent hisHostSection" v-if="memberMark">
+      <div class="w-100 d-flex">
+        <div v-if="joinHistory.length==0" class="member_notFind">
+          <h4>您沒有參加過任何活動喔</h4>
+          <img src="@/assets/img/jo_images/jo_notFind.svg" alt />
+        </div>
+      </div>
       <!-- 卡片 -->
       <div class="joiningCard" v-for="(joinHisItem,index) in joinHistory" :key="index">
         <div class="joiningPic hisJoinPic">
@@ -89,12 +101,7 @@
         </div>
         <div class="joiningBtn">
           <div>
-            <input
-              v-if="joinHisItem.rate"
-              type="button"
-              class="jo_btnGrey jo_btn_s"
-              value="已評價"
-            />
+            <input v-if="joinHisItem.rate" type="button" class="jo_btnGrey jo_btn_s" value="已評價" />
             <input
               v-if="!joinHisItem.rate"
               type="button"
@@ -193,7 +200,7 @@ export default {
     // 給評價
     doCommandNumber(e, f) {
       this.$bus.$emit("giveRate", {
-        m_ID:this.memberData.m_ID,
+        m_ID: this.memberData.m_ID,
         a_ID: e,
         a_name: f,
       });
@@ -201,6 +208,12 @@ export default {
   },
   created() {
     this.checkSession();
+    this.$bus.$on("giveStarOK", (event) => {
+      this.getMemberJoinHis();
+    });
+  },
+  beforeDestroy: function () {
+    this.$bus.$off("giveStarOK");
   },
 };
 </script>

@@ -41,6 +41,8 @@
                 <label for="accountName" class="align-items-center col-4 col-form-label">設定帳號</label>
                 <div class="col-4">
                   <input
+                    @change="checkAccount"
+                    ref="accountName"
                     v-model="accountName"
                     placeholder="請輸入6-12位小寫英文+數字"
                     id="accountName"
@@ -48,7 +50,7 @@
                     type="text"
                     class="form-control myForm-control"
                     required
-                  />
+                  /><span class="text-danger" v-if="checkNG">此帳號已有人使用，請重新輸入</span>
                 </div>
               </div>
               <!-- 設定帳號結束 -->
@@ -101,27 +103,22 @@
 
                 <!-- 上傳頭像開始 -->
                 <label
-                  for="accountProfile"
+                  for="uploadBtnR"
                   class="align-items-center col-4 col-form-label my-auto"
                 >上傳圖像</label>
                 <div class="col-4" style="position: relative">
-                  <label for="file-upload" class="custom-file-upload jo_hover file-upload">
+                  <label class="jo_btn jo_btnOrange jo_hover">
                     <input
-                      type="button"
-                      name="uploadBtnR"
-                      id="uploadBtnR"
-                      class="jo_hover jo_btn jo_btnOrange"
-                      value="請上傳個人圖像"
-                    />
-                    <input
+                      @change="changeImage($event)"
+                      ref="upLoadimg"
                       type="file"
-                      name="avatar"
-                      id="uploadBtnRFile"
-                      class="jo_hover jo_btn jo_btnOrange"
-                      value="請上傳個人圖像"
-                      accept="image/jpg"
-                    />
+                      style="display:none;"
+                      id="uploadBtnR"
+                      accept="image/gif,image/jpeg,image/jpg,image/png">
+                      <div v-if="headName" class="loadImg">{{headName}}</div> 
+                      <div class="loadImg">請上傳個人圖像</div>
                   </label>
+                  <img :src="nowHead" class="headImg">
                 </div>
                 <!-- 上傳頭像結束 -->
               </div>
@@ -481,7 +478,15 @@
 
               <div id="confirmBtn" class="m-5 text-center">
                 <div class="m-auto">
-                  <input @click="register" type="text" value="確定註冊" class="jo_btn jo_btnRed" />
+                  <input
+                    type="button"
+                    value="下一步"
+                    class="jo_btn jo_btnRed"
+                    @click="valadityCheck()"
+                    data-target="#myClauseForm"
+                    :data-toggle="(allCorrect)?'modal':''"
+                  />
+                
                 </div>
               </div>
             </div>
@@ -583,6 +588,9 @@
     本網站隱私權保護政策將因應需求隨時進行修正，修正後的條款將刊登於網站上。
                             </textarea>
             </div>
+            <div class="m-auto">
+              <input  @click="register" type="text" value="同意並確定註冊" class="jo_btn jo_btnRed registerBtn" />
+            </div>
           </form>
         </div>
       </div>
@@ -601,6 +609,11 @@ export default {
   name: "register",
   data() {
     return {
+      nowHead:require('@/assets/img/jo_images/jo_footerBirdDark.svg'),
+      headName:"",
+      headfile:{},
+      checkNG:false,
+      allCorrect:"",
       //城市迴圈開始
       options: [
         { text: "臺北市", value: "臺北市" },
@@ -665,6 +678,47 @@ export default {
   },
 
   methods: {
+    checkAccount(){
+      axios.get(`register/check/${this.accountName}`)
+      .then(e=>{
+        console.log(e.data);
+        if(e.data =="ng"){
+          this.$refs.accountName.focus();
+          this.checkNG = true;
+        }
+        if(e.data =="ok"){
+          this.checkNG = false;
+        }
+      })
+    },
+    changeImage(e) {
+      // console.log(e.target.files[0]);
+        this.headfile = e.target.files[0];
+        this.headName = e.target.files[0].name;
+        var reader = new FileReader();
+        var vm = this ;
+        reader.readAsDataURL(vm.headfile);
+        reader.onload = function(e) {
+          vm.nowHead = this.result;
+        }
+      },
+       //check format
+    valadityCheck: function () {
+      var vm = this;
+      var inputs = document.querySelectorAll("form input");
+      console.log(inputs);
+      var test = true;
+      inputs.forEach((input) => {
+        if (!input.checkValidity()) {
+          test = false;
+        }
+      });
+      if (!test) {
+        vm.$toasted.show("請填入完整註冊資訊");
+      } else {
+        vm.allCorrect = true;
+      }
+    },
 
     //全選鈕可以全選，也可以全取消，開始
     selectAllCheck: function () {
@@ -698,35 +752,51 @@ export default {
 
 
     register: function () {
-      // console.log("yes");
-      // console.log(this.accountName);
-      
-      // disable register button 
-
+      var vm = this;
       let memberData = {
-        m_name: this.memberName,
-        m_account: this.accountName,
-        m_password: this.passwordName,
-        m_email: this.memberMail,
-        m_phone: this.memberPhone,
-        m_birthday: this.memberBirthday,
-        m_address: this.m_city,
-        m_introduce: this.m_intro,
-        m_sex: this.sex,
-        m_checkName: this.checkName
+          m_name: vm.memberName,
+          m_account: vm.accountName,
+          m_password: vm.passwordName,
+          m_email: vm.memberMail,
+          m_phone: vm.memberPhone,
+          m_birthday: vm.memberBirthday,
+          m_address: vm.m_city,
+          m_introduce: vm.m_intro,
+          m_sex: vm.sex,
+          m_checkName: vm.checkName
+        };
+        // sendData.memberData = memberData;
+        // memberData.headfile =  vm.headfile;
+      let sendData = new FormData();
+      // sendData.append('m_name',vm.memberName);
+      sendData.append('m_name',vm.memberName);
+      sendData.append('m_account',vm.accountName);
+      sendData.append('m_password',vm.passwordName);
+      sendData.append('m_email',vm.memberMail);
+      sendData.append('m_phone',vm.memberPhone);
+      sendData.append('m_birthday',vm.memberBirthday);
+      sendData.append('m_address',vm.m_city);
+      sendData.append('m_introduce',vm.m_intro);
+      sendData.append('m_sex', vm.sex);
+      sendData.append('m_checkName', vm.checkName);
+      sendData.append('file', vm.headfile);
+      let config = {
+        header : {
+            'Content-Type' : 'multipart/form-data'
+        }
       };
-
-
-      // console.log(memberData);
-      // console.log("OKRE");
-      console.log(this.sex);
-      axios.post("register", { data: memberData }).then((response) => {
+      axios.post("register",sendData,config).then((response) => {
         console.log(response.data);
+        $('#myClauseForm').modal("hide");
         this.$router.push('/registerWelcome');
         //todo 檢查 reponse 是否異常
         //todo alert 註冊成功請重新登入
         //todo 頁面導到登入畫面
+
       });
+      // axios.post("register",sendData,config).then((response) => {
+      //   console.log(response.data);    
+      // });
     },
   },
 };
@@ -739,6 +809,21 @@ export default {
 
 #myRegisterForm{
   margin-top: 6rem;
+}
+.registerBtn{
+  margin-top: 1rem;
+}
+.headImg{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    right: 0;
+    top: -45px;
+    border-radius: 100px;
+}
+.loadImg{
+  text-align: center;
+  margin-top: 10px;
 }
 </style>
  

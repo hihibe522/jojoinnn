@@ -244,6 +244,7 @@ export default {
   },
   created() {
     this.checkSession();
+    $("html, body").scrollTop(0);
   },
 };
 </script>
@@ -253,4 +254,21 @@ export default {
 
 <style>
 @import "../assets/css/member.css";
+
+.member_notFind img{
+  width: 200px;
+  margin: auto;
+}
+
+.member_notFind{
+  margin: auto;
+  margin-top: 2rem;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.member_notFind h4{
+  color: var(--jo_water);
+  font-weight: bold;
+}
 </style>
