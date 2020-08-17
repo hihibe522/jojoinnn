@@ -38,7 +38,7 @@
 
             <!-- ********** -->
             <div class="d-flex" id="collectBtnArea">
-              <favicon :liked="like.likeit" :aid="like.aid"></favicon>
+              <favicon @refreachLike="collectActivity" :liked="like.likeit" :aid="like.aid"></favicon>
               <!-- <span id="colectText" style="z-index: 10;font-size: 50px;" class="m-auto">{{collectID}}</span> -->
             </div>
           </div>
@@ -193,7 +193,7 @@
                   v-model="msg_Content"
                 ></textarea>
               </div>
-              <input type="button" value="送出" class="ml-auto jo_btn jo_btnOrange jo_btn_m m-auto" />
+              <input type="button" value="送出" class="ml-auto jo_btn jo_btnOrange jo_btn_m m-auto" @click="sendMsg"/>
             </form>
           </div>
 
@@ -369,6 +369,20 @@ export default {
   },
 
   methods: {
+
+    collectActivity(aid,like){
+        if(like){
+          this.like.aid=this.activity_ID
+          this.like.likeit = 1 
+            // console.log("like")
+        }
+        if(like == false){
+          this.like.aid=this.activity_ID
+          this.like.likeit = 0 ;
+           // console.log("dislike")
+        }              
+    },
+
     checkSession() {
       var meLog = JSON.parse(localStorage.getItem("myinfo"));
       if (meLog) {
@@ -494,8 +508,14 @@ export default {
         a_ID: this.memberData.m_ID,
         a_name: this.activity_ID,
       });
-      this.refreshPage();
+     if(this.a_price==0) {
+       this.refreshPage();
       $("#my_jomodal").modal("hide");
+     }else{
+        $("#my_jomodal").modal("show");
+           this.refreshPage();
+     }
+   
     },
 
     // 取消參Jo
@@ -525,19 +545,24 @@ export default {
       var reasonContent = {
         a_ID: this.activity_ID,
         cancellReason: this.cancelReason,
+        memberData:this.memberData
       };
       if (this.a_hostID == this.memberData.m_ID) {
         axios.post("activity/reason", { reason: reasonContent }).then((e) => {
           // console.log(e);
         });
-        axios
-          .put("activity", { activity_ID: this.activity_ID })
-          .then((e) => {});
-        this.refreshPage();
+        axios.put("activity", { activity_ID: this.activity_ID }).then((e) => {});
+      
         $("#my_jomodal").modal("hide");
       }
+     this.refreshPage();
     },
-
+sendMsg:function(){
+ axios.post("activity/msg", { msg: this.msg_Content,m_ID:this.memberData.m_ID }).then((e) => {
+          // console.log(e);
+        });
+         this.refreshPage();
+},
     statusSetting: function () {
       $("#collectHeart").click(function () {
         if ($("#colectText").text() === "收藏") {
