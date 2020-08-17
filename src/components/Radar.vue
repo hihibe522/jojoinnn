@@ -5,9 +5,11 @@ const { reactiveProp } = mixins
 export default {
     mixins: [reactiveProp],
     extends: Radar,
+    // props:["max_data"],
     data() {
         return {
             options : {
+                // max:this.max_data,
                 scale: {
                     angleLines: {
                         display: true,
@@ -15,7 +17,7 @@ export default {
                     },
                     ticks: {
                         suggestedMin: 0,
-                        suggestedMax: 30,
+                        suggestedMax:70,
                         display: false,
                     },
                     gridLines: {
@@ -36,7 +38,7 @@ export default {
         }
     },
     mounted() {
-        this.renderRadarChart()
+        this.renderRadarChart();
     },
     methods: {
         renderRadarChart() {

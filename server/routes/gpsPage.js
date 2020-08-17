@@ -5,10 +5,7 @@ const { request } = require("express");
 
 // var m_ID = "req.session.m_ID";
 // var activityID = "req.session.a_ID";
-var activityID = 50;
-var m_ID = 5;
-var m_name = "fk";
-var dataTransfer = {};
+
 router.get("/", function(req, res, next) {
   // console.log("get");
   // res.send("getdsada");
@@ -29,29 +26,6 @@ router.get("/", function(req, res, next) {
 });
 
 
-/* GET home page. */
-router.post("/", function(req, res, next) {
 
-  conn.query(
-    "insert into transaction set a_ID = ? , c_ID = ? , a_host = ? , a_price = ? , m_ID = ? , m_name = ? ,m_free = ? ",
-    [
-      activityID,
-      req.body.data.c_ID,
-      req.body.data.a_host,
-      req.body.data.a_price,
-      m_ID,
-      m_name,
-      req.body.data.m_free,
-    ],
-
-    function(err, rows) {
-      if (err) {
-        console.log("error");
-      } else {
-        res.send("OKDONE");
-      }
-    }
-  );
-});
 
 module.exports = router;

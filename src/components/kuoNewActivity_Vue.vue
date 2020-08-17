@@ -369,7 +369,7 @@ export default {
       this.pLSL = 2;
       this.pUSL = 200;
       this.a_price = "";
-      this.a_deadlineTime = "2020-08-14T23:59";
+      this.a_deadlineTime = "2020-08-20T00:00";
       this.a_explain =
         "我們邀請國內各大績優廠商，參加本中心養成班成果發表會，進行人才招募活動，您可藉此展示貴公司簡介或產品，讓結訓班同學能在展覽時間內，投遞履歷或相關問題的諮詢，藉以促進求職、求才的媒合機會。歡迎有人才需求的廠商蒞臨指導，並可直接媒合面試！";
     },
@@ -466,7 +466,8 @@ export default {
       // console.log(newAcData);
 
       axios.post("newActivity", { data: newAcData }).then((e) => {
-        console.log(e);
+        // console.log(e);
+        this.$bus.$emit("newActivity");
         //console.log(e.data);
       });
     },

@@ -19,7 +19,7 @@
             <h5>持有Jo幣 {{joCoin}}</h5>
             <h5>Jo幣扣款 {{a_price}}</h5>
             <hr />
-            <h5>剩餘Jo幣: {{(con_deposit>0)?con_deposit:"餘額不足"}}</h5>
+            <h5>剩餘Jo幣: {{(con_deposit>=0)?con_deposit:"餘額不足"}}</h5>
           </div>
         </div>
       </div>
