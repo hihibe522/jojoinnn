@@ -38,7 +38,7 @@
 
             <!-- ********** -->
             <div class="d-flex" id="collectBtnArea">
-              <favicon @refreachLike="collectActivity" :liked="like.likeit" :aid="like.aid"></favicon>
+              <favicon :liked="like.likeit" :aid="activity_ID"></favicon>
               <!-- <span id="colectText" style="z-index: 10;font-size: 50px;" class="m-auto">{{collectID}}</span> -->
             </div>
           </div>
@@ -370,18 +370,18 @@ export default {
 
   methods: {
 
-    collectActivity(aid,like){
-        if(like){
-          this.like.aid=this.activity_ID
-          this.like.likeit = 1 
-            // console.log("like")
-        }
-        if(like == false){
-          this.like.aid=this.activity_ID
-          this.like.likeit = 0 ;
-           // console.log("dislike")
-        }              
-    },
+    // collectActivity(aid,like){
+    //     if(like){
+    //       this.like.aid=this.activity_ID
+    //       this.like.likeit = 1 
+    //         // console.log("like")
+    //     }
+    //     if(like == false){
+    //       this.like.aid=this.activity_ID
+    //       this.like.likeit = 0 ;
+    //        // console.log("dislike")
+    //     }              
+    // },
 
     checkSession() {
       var meLog = JSON.parse(localStorage.getItem("myinfo"));
