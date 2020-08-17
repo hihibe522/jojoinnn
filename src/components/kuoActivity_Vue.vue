@@ -38,7 +38,7 @@
 
             <!-- ********** -->
             <div class="d-flex" id="collectBtnArea">
-              <favicon :liked="like.likeit" :aid="activity_ID"></favicon>
+              <favicon @refreachLike="collectActivity" :liked="like.likeit" :aid="like.aid"></favicon>
               <!-- <span id="colectText" style="z-index: 10;font-size: 50px;" class="m-auto">{{collectID}}</span> -->
             </div>
           </div>
@@ -259,18 +259,22 @@
                 value="確定取消"
                 @click="function(){postReason();hideModal()}"
               />
+<div class="d-flex" style="padding-left:20px">
 
-              <router-link class="mx-3" to="/">
+
+
+
+              <router-link to="/" style="padding:0;">
                 <input
                   type="button"
                   data-dismiss="modal"
-                  :class="(a_hostID==memberData.m_ID)?'jo_btn jo_btnBlue jo_btn_m m-auto ':'d-none'"
+                  :class="(a_hostID==memberData.m_ID)?'jo_btn jo_btnBlue jo_btn_m m-0':'d-none'"
                   value="再考慮一下"
                   @click="hideModal"
                 />
               </router-link>
 
-              <router-link class="mx-3" :to="`/payPage?a_ID=${activity_ID}`">
+              <router-link class="" :to="`/payPage?a_ID=${activity_ID}`">
                 <input
                   type="button"
                   data-dismiss="modal"
@@ -281,7 +285,7 @@
                 />
               </router-link>
 
-              <router-link to="/">
+              <router-link to="/" >
                 <input
                   type="button"
                   data-dismiss="modal"
@@ -291,6 +295,8 @@
                   @click="hideModal"
                 />
               </router-link>
+            
+              </div>
             </div>
           </div>
         </div>
@@ -370,18 +376,18 @@ export default {
 
   methods: {
 
-    // collectActivity(aid,like){
-    //     if(like){
-    //       this.like.aid=this.activity_ID
-    //       this.like.likeit = 1 
-    //         // console.log("like")
-    //     }
-    //     if(like == false){
-    //       this.like.aid=this.activity_ID
-    //       this.like.likeit = 0 ;
-    //        // console.log("dislike")
-    //     }              
-    // },
+    collectActivity(aid,like){
+        if(like){
+          this.like.aid=this.activity_ID
+          this.like.likeit = 1 
+            // console.log("like")
+        }
+        if(like == false){
+          this.like.aid=this.activity_ID
+          this.like.likeit = 0 ;
+           // console.log("dislike")
+        }              
+    },
 
     checkSession() {
       var meLog = JSON.parse(localStorage.getItem("myinfo"));
