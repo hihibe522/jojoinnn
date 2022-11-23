@@ -23,7 +23,7 @@
     "mysql": "^2.18.1",
     "nedb-session-store": "^1.1.2",
     "popper.js": "^1.16.1",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.5.0",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.5",
     "vue-chart.js": "^0.2.0",
